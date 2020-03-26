@@ -1,0 +1,16 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default" />
+<f:section name="content">
+	<f:variable name="revealEffect" value="fadeIn" />
+	<f:if condition="{faqs}">
+		<f:then>
+			<f:render partial="FaqToggle" arguments="{faqs:faqs,data:data,revealEffect:revealEffect}" />
+		</f:then>
+		<f:else>
+			<div class="alert">
+				<p><f:translate key="no-faq" /></p>
+			</div>
+		</f:else>
+	</f:if>
+</f:section>
+</html>

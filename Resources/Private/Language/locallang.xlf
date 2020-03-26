@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-12-10T10:01:07Z" product-name="ns_faq">
+		<header/>
+		<body>
+			<trans-unit id="tx_nsfaq_domain_model_faq">
+				<source>Faq</source>
+			</trans-unit>
+			<trans-unit id="tx_nsfaq_domain_model_faq.faq_title">
+				<source>Faq Title</source>
+			</trans-unit>
+			<trans-unit id="tx_nsfaq_domain_model_faq.faq_media">
+				<source>Faq Media</source>
+			</trans-unit>
+			<trans-unit id="tx_nsfaq_domain_model_faq.faq_content">
+				<source>Faq Content</source>
+			</trans-unit>
+			<trans-unit id="layout3">
+                <source>FAQs Submission Form</source>
+            </trans-unit>
+			<trans-unit id="tx_nsfaq_domain_model_faqgroup.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="no-faq">
+				<source>No FAQs Available.</source>
+			</trans-unit>
+			<trans-unit id="backtoindex">
+				<source>Back to Index</source>
+			</trans-unit>
+			<trans-unit id="taball">
+				<source>All</source>
+			</trans-unit>
+			<trans-unit id="layout">
+				<source>FAQs Style</source>
+			</trans-unit>
+			<trans-unit id="layout2">
+				<source>FAQs List</source>
+			</trans-unit>
+			<trans-unit id="listview">
+				<source>List View</source>
+			</trans-unit>
+			<trans-unit id="customcss">
+				<source>Custom CSS file</source>
+			</trans-unit>
+			<trans-unit id="default">
+				<source>Default</source>
+			</trans-unit>
+			<trans-unit id="close">
+				<source>Close</source>
+			</trans-unit>
+
+
+			<!-- Backend Module LLL Start -->
+			<trans-unit id="extensionName">
+				<source>NS FAQ</source>
+			</trans-unit>
+			<trans-unit id="globalsettings">
+				<source>Global Setting</source>
+			</trans-unit>
+			<trans-unit id="documentaiton">
+				<source>Documentaiton</source>
+			</trans-unit>
+			<trans-unit id="helpsupport">
+				<source>Help &amp; Support</source>
+			</trans-unit>
+			<trans-unit id="donate">
+				<source>Donate</source>
+			</trans-unit>
+			<trans-unit id="Dashboard">
+				<source>Dashboard</source>
+			</trans-unit>
+			<trans-unit id="premiumExtension">
+				<source>Premium Extension</source>
+			</trans-unit>
+			<trans-unit id="basicSettings">
+				<source>Basic Settings</source>
+			</trans-unit>
+			<trans-unit id="deleteFaq">
+				<source>Delete FAQs</source>
+			</trans-unit>
+			<trans-unit id="deleteFaqConfirmation">
+				<source>Are you want to sure Delete FAQs?</source>
+			</trans-unit>
+			<trans-unit id="cancel">
+				<source>Cancel</source>
+			</trans-unit>
+			<trans-unit id="delete">
+				<source>Delete</source>
+			</trans-unit>
+
+			<trans-unit id="faq.heading">
+				<source>FAQs</source>
+			</trans-unit>
+			<trans-unit id="faq.add_new">
+				<source>Add New</source>
+			</trans-unit>
+			<trans-unit id="faq.title">
+				<source>Title</source>
+			</trans-unit>
+			<trans-unit id="faq.actions">
+				<source>Actions</source>
+			</trans-unit>
+			<trans-unit id="action.view">
+				<source>View</source>
+			</trans-unit>
+			<trans-unit id="action.edit">
+				<source>Edit</source>
+			</trans-unit>
+			<trans-unit id="action.delete">
+				<source>Delete</source>
+			</trans-unit>
+			<trans-unit id="faq.delete_selected">
+				<source>Delete Selected FAQs</source>
+			</trans-unit>
+
+			<trans-unit id="faq.support">
+				<source>Support</source>
+			</trans-unit>
+			<trans-unit id="sorry">
+				<source>Sorry!</source>
+			</trans-unit>
+			<trans-unit id="faq.noconstantline1">
+				<source>No Extension Template available for this Page.</source>
+			</trans-unit>
+			<trans-unit id="faq.noconstantline2">
+				<source>Please go the Template Module and create new extension Template for this page.</source>
+			</trans-unit>
+			<trans-unit id="faq.noconstantline3">
+				<source>Please click here</source>
+			</trans-unit>
+			<trans-unit id="faq.templatelinkText">
+				<source>Template</source>
+			</trans-unit>
+			<trans-unit id="deleteTitle">
+				<source>Success Delete</source>
+			</trans-unit>
+			<trans-unit id="deleteFaqmsg">
+				<source>FAQs is deleted successfully!</source>
+			</trans-unit>
+
+			<trans-unit id="save">
+				<source>Save Changes</source>
+			</trans-unit>
+			<trans-unit id="faqsummary">
+				<source>FAQ summary</source>
+			</trans-unit>
+			<!-- Backend Module LLL End -->
+
+			<!--Constant Labels & Backend Module LLL Start-->
+			<trans-unit id="configure_template">
+				<source>Template</source>
+			</trans-unit>
+			<trans-unit id="configure_jquery">
+				<source>JQuery Library</source>
+			</trans-unit>
+			<trans-unit id="tx_ns_faq.includejs">
+				<source>Include JQuery</source>
+			</trans-unit>
+			<trans-unit id="configure_basic_settings">
+				<source>Basic Settings</source>
+			</trans-unit>
+			<trans-unit id="customCSS">
+				<source>Custom CSS:Put your Custom CSS here</source>
+			</trans-unit>
+			<trans-unit id="scrollToTop">
+				<source>Scroll To Top:Should the browser scroll to the top of the FAQ when it's opened?</source>
+			</trans-unit>
+			<trans-unit id="general">
+				<source>General</source>
+			</trans-unit>
+			<trans-unit id="functionality">
+				<source>Functionality</source>
+			</trans-unit>
+			<!--Constant Labels & Backend Module LLL End-->
+		</body>
+	</file>
+</xliff>

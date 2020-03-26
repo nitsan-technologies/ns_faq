@@ -1,0 +1,3 @@
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:ns_faq/Configuration/TypoScript/basicSettings_constants.typoscript">
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:ns_faq/Configuration/TypoScript/styleSettings_constants.typoscript">
+<INCLUDE_TYPOSCRIPT: source="FILE:EXT:ns_faq/Configuration/TypoScript/premiumSettings_constants.typoscript">

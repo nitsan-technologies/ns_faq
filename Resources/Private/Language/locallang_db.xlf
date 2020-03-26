@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-12-10T10:01:07Z" product-name="ns_faq">
+		<header/>
+		<body>
+			<trans-unit id="tx_nsfaq_domain_model_faq">
+				<source>FAQs</source>
+			</trans-unit>
+			<trans-unit id="tx_nsfaq_domain_model_faq.faq_title">
+				<source>FAQs Title</source>
+			</trans-unit>
+			<trans-unit id="tx_nsfaq_domain_model_faq.faq_content">
+				<source>FAQs Content</source>
+			</trans-unit>
+			<trans-unit id="tx_ns_faq_faq.name">
+				<source>FAQs</source>
+			</trans-unit>
+			<trans-unit id="tx_ns_faq_faq.description">
+				<source>This plugin provides a quick and easy way manage FAQs from backend and Frontend Plugin.</source>
+			</trans-unit>
+			<trans-unit id="tx_ns_faq.templateRoot">
+				<source>Path to template root (FE)</source>
+			</trans-unit>
+			<trans-unit id="tx_ns_faq.templatePartials">
+				<source>Path to template partials (FE)</source>
+			</trans-unit>
+			<trans-unit id="tx_ns_faq.templateLayouts">
+				<source>Path to template layouts (FE)</source>
+			</trans-unit>
+			<trans-unit id="tx_ns_faq.includejs">
+				<source>Include JQuery</source>
+			</trans-unit>
+			<trans-unit id="tx_ns_faq.globecustomcss">
+				<source>Global Custom CSS file</source>
+			</trans-unit>
+			<trans-unit id="tx_ns_faq.globecustomcssdesc">
+				<source>Add your global CSS file for this plugin</source>
+			</trans-unit>
+			<trans-unit id="tx_nsfaq_domain_model_faqcategories.description">
+				<source>Description</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

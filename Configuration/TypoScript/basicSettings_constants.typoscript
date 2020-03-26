@@ -1,0 +1,29 @@
+############################
+### CUSTOM SUBCATEGORIES ###
+###########################
+# customsubcategory=01_Template=LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:configure_template
+# customsubcategory=02_JS=LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:configure_jquery
+# customsubcategory=03_Gen=LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:general
+# customsubcategory=04_Fun=LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:functionality
+# customsubcategory=05_Disp=LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:display
+# customsubcategory=06_Order=LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:orderingSettings
+
+plugin.tx_nsfaq_faq {
+    view {
+        # cat=NS FAQs/01_Template/01; type=string; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang_db.xlf:tx_ns_faq.templateRoot
+        templateRootPath = EXT:ns_faq/Resources/Private/Templates/
+        # cat=NS FAQs/01_Template/02; type=string; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang_db.xlf:tx_ns_faq.templatePartials
+        partialRootPath = EXT:ns_faq/Resources/Private/Partials/
+        # cat=NS FAQs/01_Template/03; type=string; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang_db.xlf:tx_ns_faq.templateLayouts
+        layoutRootPath = EXT:ns_faq/Resources/Private/Layouts/
+    }
+    basicSettings{
+        general {
+            # cat=Ns_Faq_BasicSettings/03_Gen/05; type=textarea; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:customCSS
+            customCSS =
+
+            # cat=Ns_Faq_BasicSettings/03_Gen/06; type=boolean; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:scrollToTop
+            scrollToTop =
+        }
+    }
+}

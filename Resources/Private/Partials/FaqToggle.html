@@ -1,0 +1,23 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+	<div class="ns-faq-category-content">	
+		<div class="ns-faq-blocks ns-faq-icon-plus-circle ns-faq-toggle">
+			<f:for each="{faqs}" as="faq">
+				<div class="ns-faq-wrap"  data-nsfaq-id="{faq.uid}" id="faq{data.uid}_{faq.uid}">
+					<div class="ns-faq-title">
+						<a href="javascript:;">
+							<div class="ns-faq-icon-wrap ">
+								<em class="fal fa-plus"></em>
+							</div>
+							<div class="ns-faq-title-text">
+								<h4>{faq.faqTitle}</h4>
+							</div>
+						</a>
+					</div>
+					<div class="ns-faq-body ns-faq-hidden {revealEffect}" data-nsfaq-body-id="{faq.uid}">
+						<f:format.raw>{faq.faqContent}</f:format.raw>
+					</div>
+				</div>
+			</f:for>
+		</div>
+	</div>
+</html>

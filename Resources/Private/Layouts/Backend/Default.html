@@ -1,0 +1,122 @@
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:be.container pageTitle="{f:translate(key: 'pagetitle')}" includeCssFiles="{
+			0: '{f:uri.resource(path:\'Vendor/bootstrap4.3.1.min.css\')}',
+			1: '{f:uri.resource(path:\'Css/global.css\')}',
+			2: '{f:uri.resource(path:\'Css/main.css\')}'
+		}" includeRequireJsModules="{0:'TYPO3/CMS/NsFaq/Main'}">
+	<div class="typo3-fullDoc">
+		<div class="loader">
+			<div class="container">
+				<div class="dot dot-1"></div>
+				<div class="dot dot-2"></div>
+				<div class="dot dot-3"></div>
+			</div>
+			
+			<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+				<defs>
+					<filter id="goo">
+						<feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+						<feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 21 -7"/>
+					</filter>
+				</defs>
+			</svg>
+		</div>
+		<div id="typo3-docheader">
+			<div class="typo3-docheader-functions">
+				<f:be.buttons.csh />
+				<div class="ns-ext-button-bar">
+					<a class="btn btn-primary btn-backup-wizard-modal text-white" href="javascript:;" type="button">
+						<em class="fa fa-cogs" aria-hidden="true"></em><f:translate key="globalsettings" />
+					</a>
+					<div class="button-group float-sm-right">
+						<a href="javascript:;" class="btn btn-success text-white btn-sm"><em class="fa fa-file-o"
+								aria-hidden="true"></em><f:translate key="documentaiton" /></a>
+						<a href="javascript:;" class="btn btn-info text-white btn-sm"><em class="fa fa-question"
+								aria-hidden="true"></em><f:translate key="helpsupport" /></a>
+						<a href="javascript:;" class="btn btn-warning text-white btn-sm"><em class="fa fa-dollar"
+								aria-hidden="true"></em><f:translate key="donate" /></a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div id="typo3-docbody">
+			<div id="typo3-inner-docbody">
+				<div class="ns-ext-navigation">
+					<nav class="navbar navbar-expand-lg">
+						<a class="navbar-brand" href="javascript:;"><f:translate key="extensionName" /></a>
+						<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#nsextNavbar"
+							aria-controls="nsextNavbar" aria-expanded="false" aria-label="Toggle navigation">
+							<span class="navbar-toggler-icon"></span>
+						</button>
+						<div class="collapse navbar-collapse" id="nsextNavbar">
+							<ul class="navbar-nav">
+								<li class="nav-item {f:if(condition: '{action}==dashboard', then: 'active')}">
+									<f:link.action action="dashboard" class="nav-link">
+										<em class="fa fa-dashboard" aria-hidden="true"></em><f:translate key="Dashboard" /></f:link.action>
+								</li>
+								<li class="nav-item {f:if(condition: '{action}==faqList', then: 'active')}">
+									<f:link.action action="faqList" class="nav-link">
+										<em class="fa fa-comments" aria-hidden="true"></em><f:translate key="faq.heading" />
+									</f:link.action>
+								</li>
+								<li class="nav-item {f:if(condition: '{action}==faqBasicSettings', then: 'active')}">
+									<f:link.action action="faqBasicSettings" additionalParams="{cat:'Ns_Faq_BasicSettings'}" class="nav-link">
+										<em class="fa fas fa-cog" aria-hidden="true"></em><f:translate key="basicSettings" />
+									</f:link.action>
+								</li>
+								<li class="nav-item {f:if(condition: '{action}==premiumExtension', then: 'active')}">
+									<f:link.action action="premiumExtension" class="nav-link">
+										<em class="fa fa-empire" aria-hidden="true"></em><f:translate key="premiumExtension" />
+									</f:link.action>
+								</li>
+							</ul>
+						</div>
+					</nav>
+				</div>
+				<f:render section="content" />
+			</div>
+		</div>
+		<div class="modal fade" id="{f:if(condition: '{action}==\'faqList\'',then: 'nsDeleteFaq')}" tabindex="-1" role="dialog" aria-labelledby="{f:if(condition: '{action}==\'faqList\'',then: 'nsDeleteFaq')}" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">{f:if(condition: '{action}==\'faqList\'',then: '{f:translate(key: \'deleteFaq\')}')}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>{f:if(condition: '{action}==\'faqList\'',then: '{f:translate(key: \'deleteFaqConfirmation\')}')}</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal"><em class="fa fa-close" aria-hidden="true"></em><f:translate key="cancel" /></button>
+						<button type="button" class="btn btn-danger {f:if(condition: '{action}==\'faqList\'',then: 'confirmFaqDelete')}"><em class="fa fa-trash-o" aria-hidden="true"></em><f:translate key="delete" /></button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="modal fade" id="{f:if(condition: '{action}==\'faqList\'',then: 'nsDeleteSelectedFaq')}" tabindex="-1" role="dialog" aria-labelledby="{f:if(condition: '{action}==\'faqList\'',then: 'nsDeleteSelectedFaq')}" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">{f:if(condition: '{action}==\'faqList\'',then: '{f:translate(key: \'deleteFaq\')}')}')}</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>{f:if(condition: '{action}==\'faqList\'',then: '{f:translate(key: \'deleteFaqConfirmation\')}')}')}</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal"><em class="fa fa-close" aria-hidden="true"></em><f:translate key="cancel" /></button>
+						<button type="button" class="btn btn-danger {f:if(condition: '{action}==\'faqList\'',then: 'confirmFaqDelete',else: 'confirmCatDelete')}"><em class="fa fa-trash-o" aria-hidden="true"></em><f:translate key="delete" /></button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</f:be.container>
+
+</html>

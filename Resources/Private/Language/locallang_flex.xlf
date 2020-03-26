@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2019-12-10T10:01:07Z" product-name="ns_faq">
+        <header/>
+        <body>
+            <trans-unit id="flexforms_tab.general">
+                <source>General</source>
+            </trans-unit>
+            <trans-unit id="layout">
+                <source>Select FAQs Style</source>
+            </trans-unit>
+            <trans-unit id="faq_list">
+                <source>FAQs List</source>
+            </trans-unit>
+            <trans-unit id="customcss">
+                <source>Custom CSS file</source>
+            </trans-unit>
+            <trans-unit id="addcss">
+                <source>Add CSS file</source>
+            </trans-unit>
+            <trans-unit id="display.mode">
+                <source>What would you like to display?</source>
+            </trans-unit>
+            <trans-unit id="list">
+                <source>List</source>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

@@ -1,0 +1,59 @@
+{namespace ns=NITSAN\NsFaq\ViewHelpers}
+<html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+
+<f:layout name="Backend/Default" />
+<f:section name="content">
+	<f:flashMessages />
+	<div class="ns-ext-table-block-wrap">
+		<div class="card">
+			<div class="card-header">
+				<div class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
+					<h5><f:translate key="faq.heading" /></h5>
+					<f:link.typolink parameter="{ns:Misc.BackendNewLink(tableName:'tx_nsfaq_domain_model_faq', identifier:'{pid}')}" class="btn btn-warning text-white" ><em class="fa fa-plus-circle" aria-hidden="true"></em><f:translate key="faq.add_new" /></f:link.typolink>
+				</div>
+			</div>
+			<div class="card-body">
+				<div class="ns-ext-table-wrap">
+					<table class="table ns-ext-datatable">
+						<thead class="thead-light">
+							<tr>
+								<th scope="col">
+									<div class="form-check ns-ext-select-all">
+										<input class="form-check-input" type="checkbox" name="checkedAll" id="checkAll">
+										<label class="form-check-label" for="checkAll"></label>
+									</div>
+								</th>
+								<th scope="col"><f:translate key="faq.title"/></th>
+								<th scope="col"><f:translate key="faq.actions"/></th>
+							</tr>
+						</thead>
+						<tbody>
+							<f:for each="{faqs}" as="faq">
+								<tr>
+									<td>
+										<div class="ns-ext-checkmark-wrap">
+											<div class="form-check ">
+												<input class="form-check-input checkSingle faqcheck" type="checkbox" name="checkAll" value="{faq.uid}" id="faq-{faq.uid}">
+												<label class="form-check-label" for="faq-{faq.uid}"></label>
+											</div>
+										</div>
+									</td>
+									<td>{faq.faqTitle}</td>
+									<td>
+										<div class="button-group ns-ext-actions-wrap">
+											<f:link.typolink parameter="{ns:Misc.BackendEditLink(tableName:'tx_nsfaq_domain_model_faq',identifier:'{faq.uid}')}" class="btn btn-primary"><em class="fa fa-pencil" aria-hidden="true"></em><f:translate key="action.edit" /></f:link.typolink>
+											<a href="javascript:;" class="btn btn-danger deleteFaq" data-btnclass="confirmFaqDelete" data-toggle="modal" data-target="#nsDeleteFaq" data-href="{f:uri.action(action: 'delete',arguments: '{faq:faq}')}"><em class="fa fa-trash-o" aria-hidden="true"></em><f:translate key="action.delete" /></a>
+										</div>
+									</td>
+								</tr>
+							</f:for>
+						</tbody>
+					</table>
+					<a href="javasctipt:void(0);" class="btn btn-danger btn-delete-record deleteSelectedBtn" data-checkbox="faqcheck" data-btnclass="confirmFaqDelete" data-toggle="modal" data-target="#nsDeleteSelectedFaq" data-href="{f:uri.action(action: 'delete')}"><em class="fa fa-trash-o" aria-hidden="true"></em><f:translate key="faq.delete_selected" /></a>
+				</div>
+			</div>
+		</div>
+	</div>
+</f:section>
+
+</html>

@@ -1,0 +1,67 @@
+plugin.tx_nsfaq_faq {
+    view {
+        templateRootPaths.0 = EXT:ns_faq/Resources/Private/Templates/
+        templateRootPaths.1 = {$plugin.tx_nsfaq_faq.view.templateRootPath}
+        partialRootPaths.0 = EXT:ns_faq/Resources/Private/Partials/
+        partialRootPaths.1 = {$plugin.tx_nsfaq_faq.view.partialRootPath}
+        layoutRootPaths.0 = EXT:ns_faq/Resources/Private/Layouts/
+        layoutRootPaths.1 = {$plugin.tx_nsfaq_faq.view.layoutRootPath}
+    }
+    mvc {
+        callDefaultActionIfActionCantBeResolved = 1
+    }
+    settings {
+        basicSettings {
+            general {
+                customCSS = {$plugin.tx_nsfaq_faq.basicSettings.general.customCSS}
+                scrollToTop = {$plugin.tx_nsfaq_faq.basicSettings.general.scrollToTop}
+            }
+        }
+    }
+}
+# Module configuration
+module.tx_nsfaq_faq {
+    view {
+        templateRootPaths.0 = EXT:ns_faq/Resources/Private/Backend/Templates/
+        templateRootPaths.1 = {$module.tx_nsbackup_backup.view.templateRootPath}
+        partialRootPaths.0 = EXT:ns_faq/Resources/Private/Backend/Partials/
+        partialRootPaths.1 = {$module.tx_nsbackup_backup.view.partialRootPath}
+        layoutRootPaths.0 = EXT:ns_faq/Resources/Private/Backend/Layouts/
+        layoutRootPaths.1 = {$module.tx_nsbackup_backup.view.layoutRootPath}
+    }
+}
+page {
+    includeCSS {
+        faqStyle = EXT:ns_faq/Resources/Public/Css/frontend/default.css
+        faqFontawesome = EXT:ns_faq/Resources/Public/Css/frontend/fontAwesome/font-awesome.min.css
+        animate = EXT:ns_faq/Resources/Public/Css/frontend/animate/animate.min.css
+    }
+    includeJS {
+            JQuery = EXT:ns_faq/Resources/Public/JavaScript/frontend/jquery-3.4.1.min.js
+        }
+    includeJSFooter{
+        nsfaqjs = EXT:ns_faq/Resources/Public/JavaScript/frontend/default.js
+    }
+}
+
+
+ajaxData = PAGE
+ajaxData {
+    typeNum = 22184356
+    config {
+        disableAllHeaderCode = 1
+        additionalHeaders = Content-type:application/html
+        xhtml_cleaning = 0
+        debug = 0
+        no_cache = 1
+        admPanel = 0
+    }
+}
+
+[globalVar = LIT:1 = {$plugin.tx_nsfaq_faq.includejs.includeJquery}]
+    page {
+        includeJS {
+            JQuery = EXT:ns_faq/Resources/Public/JavaScript/frontend/jquery-3.4.1.min.js
+        }
+    }
+[global]

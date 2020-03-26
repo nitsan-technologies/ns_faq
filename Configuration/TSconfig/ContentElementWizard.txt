@@ -1,0 +1,17 @@
+mod {
+    wizards.newContentElement.wizardItems.plugins {
+        elements {
+            faq {
+                icon = ../typo3conf/ext/ns_faq/Resources/Public/Icons/plugin_faq.svg
+                iconIdentifier = ns_faq-plugin-faq
+                title = LLL:EXT:ns_faq/Resources/Private/Language/locallang_db.xlf:tx_ns_faq_faq.name
+                description = LLL:EXT:ns_faq/Resources/Private/Language/locallang_db.xlf:tx_ns_faq_faq.description
+                tt_content_defValues {
+                    CType = list
+                    list_type = nsfaq_faq
+                }
+            }
+        }
+        show = *
+    }
+}

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="messages" date="2019-12-10T10:01:07Z" product-name="ns_faq">
+		<header/>
+		<body>
+			<trans-unit id=".description" xml:space="preserve">
+				<source>FAQs Records</source>
+			</trans-unit>
+			<trans-unit id="faq_title.description">
+				<source>Fill your Question here..</source>
+			</trans-unit>
+			<trans-unit id="faq_media.description">
+				<source>Choose Media if you want to add..</source>
+			</trans-unit>
+			<trans-unit id="faq_content.description">
+				<source>Write your descriptive content here...</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

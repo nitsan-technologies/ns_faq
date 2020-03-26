@@ -1,0 +1,18 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+	<div class="ns-faq-list-wrap">
+		<div class="container">
+			<div class="row">
+				<div class="ns-faq-list ns-faq-solid" id="list-{data.uid}">
+					<f:render section="content" />
+					<f:if condition="{settings.basicSettings.general.scrollToTop}">
+						<div class="ns-faq-scroll-top-wrap">
+							<div class="ns-faq-scroll-top">
+								<em class="far fa-long-arrow-up"></em>
+							</div>
+						</div>
+					</f:if>
+				</div>
+			</div>
+		</div>
+	</div>
+</html>
