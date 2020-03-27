@@ -1,9 +1,9 @@
 <?php
 $EM_CONF[$_EXTKEY] = [
-    'title' => '[NITSAN] NS FAQs plugin for TYPO3',
-    'description' => 'This plugin provides a quick and easy way manage FAQs from backend and Frontend Plugin.',
+    'title' => '[NITSAN] Ultimate FAQ',
+    'description' => 'One of the only feature-rich TYPO3 FAQ extension-ever. Live-Demo: https://demo.t3terminal.com/t3t-extensions/faq/ You can download PRO version for more-features & free-support at https://t3terminal.com/ns-faq-typo3-extension',
     'category' => 'plugin',
-    'author' => 'T3:Nilesh Malankiya, T3:Keval Pandya, QA:Siddharth Sheth',
+    'author' => 'T3:Nilesh Malankiya, QA:Siddharth Sheth',
     'author_email' => 'sanjay@nitsan.in',
     'author_company' => 'NITSAN Technologies Pvt Ltd',
     'state' => 'stable',
