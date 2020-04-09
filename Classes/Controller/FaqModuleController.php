@@ -46,18 +46,10 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
     protected $constants;
 
-    protected $actions;
-
     /**
     * @var TypoScriptTemplateModuleController
     */
     protected $pObj;
-
-    /*
-    * ts
-    * @var TypoScriptTemplateConstantEditorModuleFunctionController
-    */
-    protected $ts;
 
     protected $contentObject = null;
 
@@ -72,7 +64,6 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     {
         $this->contentObject = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
         $this->templateService = GeneralUtility::makeInstance(ExtendedTemplateService::class);
-        $this->ts = GeneralUtility::makeInstance(TypoScriptTemplateModuleController::class);
         $this->constantObj = GeneralUtility::makeInstance(TypoScriptTemplateConstantEditorModuleFunctionController::class);
     }
 
@@ -122,8 +113,6 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         //GET CONSTANTs
         $this->constantObj->init($this->pObj);
         $this->constants = $this->constantObj->main();
-        $this->ts->init();
-        $this->actions = $this->ts->main();
     }
 
     /**
@@ -185,7 +174,6 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     {
         $this->view->assign('action', 'faqBasicSettings');
         $this->view->assign('constant', $this->constants);
-        $this->view->assign('constantAttrib', $this->actions);
     }
 
     /**

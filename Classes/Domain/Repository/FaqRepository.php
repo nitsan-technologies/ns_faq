@@ -3,7 +3,6 @@ namespace NITSAN\NsFaq\Domain\Repository;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /***
  *
@@ -91,5 +90,5 @@ class FaqRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
         // Execute Query and Return the Query-Fetch
         $query = $queryBuilder->execute();
         return $query->fetch();
-    }  
+    }
 }

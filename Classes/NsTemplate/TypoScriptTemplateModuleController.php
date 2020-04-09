@@ -20,8 +20,6 @@ use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
-use TYPO3\CMS\Core\Compatibility\PublicMethodDeprecationTrait;
-use TYPO3\CMS\Core\Compatibility\PublicPropertyDeprecationTrait;
 use TYPO3\CMS\Core\Database\Connection;
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Database\Query\QueryBuilder;
@@ -47,48 +45,6 @@ use TYPO3\CMS\Fluid\ViewHelpers\Be\InfoboxViewHelper;
  */
 class TypoScriptTemplateModuleController
 {
-    use PublicPropertyDeprecationTrait;
-    use PublicMethodDeprecationTrait;
-
-    /**
-     * @var array
-     */
-    private $deprecatedPublicProperties = [
-        'textExtensions' => 'Using TypoScriptTemplateModuleController::$textExtensions is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'pageinfo' => 'Using TypoScriptTemplateModuleController::$pageinfo is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'id' => 'Using TypoScriptTemplateModuleController::$id is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'modTSconfig' => 'Using TypoScriptTemplateModuleController::$modTSconfig is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'content' => 'Using TypoScriptTemplateModuleController::$content is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'extObj' => 'Using TypoScriptTemplateModuleController::$extObj is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'access' => 'Using TypoScriptTemplateModuleController::$access is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'perms_clause' => 'Using TypoScriptTemplateModuleController::$perms_clause is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'extClassConf' => 'Using TypoScriptTemplateModuleController::$extClassConf is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'edit' => 'Using TypoScriptTemplateModuleController::$edit is deprecated, property will be removed in TYPO3 v10.0.',
-        'modMenu_type' => 'Using TypoScriptTemplateModuleController::$modMenu_type is deprecated, property will be removed in TYPO3 v10.0.',
-        'MCONF' => 'Using TypoScriptTemplateModuleController::$MCONF is deprecated, property will be removed in TYPO3 v10.0.',
-        'CMD' => 'Using TypoScriptTemplateModuleController::$CMD is deprecated, property will be removed in TYPO3 v10.0.',
-        'sObj' => 'Using TypoScriptTemplateModuleController::$sObj is deprecated, property will be removed in TYPO3 v10.0.',
-    ];
-
-    /**
-     * @var array
-     */
-    private $deprecatedPublicMethods = [
-        'getExternalItemConfig' => 'Using TypoScriptTemplateModuleController::getExternalItemConfig() is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'init' => 'Using TypoScriptTemplateModuleController::init() is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'clearCache' => 'Using TypoScriptTemplateModuleController::clearCache() is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'main' => 'Using TypoScriptTemplateModuleController::main() is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'setInPageArray' => 'Using TypoScriptTemplateModuleController::setInPageArray() is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'menuConfig' => 'Using TypoScriptTemplateModuleController::menuConfig() is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'mergeExternalItems' => 'Using TypoScriptTemplateModuleController::mergeExternalItems() is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'handleExternalFunctionValue' => 'Using TypoScriptTemplateModuleController::handleExternalFunctionValue() is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'checkExtObj' => 'Using TypoScriptTemplateModuleController::checkExtObj() is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'extObjContent' => 'Using TypoScriptTemplateModuleController::extObjContent() is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'getExtObjContent' => 'Using TypoScriptTemplateModuleController::getExtObjContent() is deprecated and will not be possible anymore in TYPO3 v10.0.',
-        'checkSubExtObj' => 'Using TypoScriptTemplateModuleController::checkSubExtObj() is deprecated, method will be removed in TYPO3 v10.0.',
-        'extObjHeader' => 'Using TypoScriptTemplateModuleController::extObjHeader() is deprecated, method will be removed in TYPO3 v10.0.',
-    ];
-
     /**
      * @var string
      */

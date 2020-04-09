@@ -1,6 +1,7 @@
 <?php
 namespace NITSAN\NsFaq\Utility;
 
+use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
@@ -81,8 +82,7 @@ class BackendUtility extends AbstractUtility
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
         }
-
-        return BackendUtilityCore::getModuleUrl('record_edit', $uriParameters);
+        return self::getModuleUrl('record_edit', $uriParameters);
     }
 
     /**
@@ -109,8 +109,7 @@ class BackendUtility extends AbstractUtility
         if ($addReturnUrl) {
             $uriParameters['returnUrl'] = self::getReturnUrl();
         }
-
-        return BackendUtilityCore::getModuleUrl('record_edit', $uriParameters);
+        return self::getModuleUrl('record_edit', $uriParameters);
     }
 
     /**
@@ -120,17 +119,23 @@ class BackendUtility extends AbstractUtility
      */
     protected static function getReturnUrl()
     {
-        return self::getModuleUrl('/nitsan/NsFaqFaqbackend/', self::getCurrentParameters());
+        return GeneralUtility::getIndpEnv('REQUEST_URI');
     }
 
     /**
-     * Get module name
-     *
-     * @return string
+     * Returns the URL to a given module mainly used for visibility settings or deleting a record via AJAX
+     * @param string $moduleName Name of the module
+     * @param array $urlParameters URL parameters that should be added as key value pairs
+     * @return string Calculated URL
      */
-    protected static function getModuleName()
+    public static function getModuleUrl($moduleName, $urlParameters = [])
     {
-        return (string) GeneralUtility::_GET('M');
+        if (version_compare(TYPO3_branch, '10', '>=')) {
+            $uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
+            return $uriBuilder->buildUriFromRoute($moduleName, $urlParameters);
+        } else {
+            return BackendUtilityCore::getModuleUrl($moduleName, $urlParameters);
+        }
     }
 
     /**
@@ -159,12 +164,7 @@ class BackendUtility extends AbstractUtility
     }
 
     /**
-     * Read pid from returnUrl
-     *        URL example:
-     *        returnUrl=%2Ftypo3%2Fsysext%2Fcms%2Flayout%2Fdb_layout.php%3Fid%3D17%23
-     *        element-tt_content-14&edit[tt_content][14]=edit
-     *
-     * @param string $returnUrl normally used for testing
+     * @param string $returnUrl
      * @return int
      */
     public static function getPidFromBackendPage($returnUrl = '')
@@ -175,33 +175,5 @@ class BackendUtility extends AbstractUtility
         $urlParts = parse_url($returnUrl);
         parse_str($urlParts['query'], $queryParts);
         return (int) $queryParts['id'];
-    }
-
-    /**
-     * Returns the URL to a given module
-     *      mainly used for visibility settings or deleting
-     *      a record via AJAX
-     *
-     * @param string $moduleName Name of the module
-     * @param array $urlParameters URL parameters that should be added as key value pairs
-     * @return string Calculated URL
-     */
-    public static function getModuleUrl($moduleName, $urlParameters = [])
-    {
-        return BackendUtilityCore::getModuleUrl($moduleName, $urlParameters);
-    }
-
-    /**
-     * Returns the Page TSconfig for page with id, $id
-     *
-     * @param int $pid
-     * @param array $rootLine
-     * @param bool $returnPartArray
-     * @return array Page TSconfig
-     * @see \TYPO3\CMS\Core\TypoScript\Parser\TypoScriptParser
-     */
-    public static function getPagesTSconfig($pid, $rootLine = null, $returnPartArray = false)
-    {
-        return BackendUtilityCore::getPagesTSconfig($pid, $rootLine, $returnPartArray);
     }
 }

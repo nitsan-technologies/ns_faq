@@ -52,12 +52,11 @@ class FaqController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $contentData = $this->configurationManager->getContentObject();
         $data = $contentData->data;
 
-        
         //Fetch all FAQs
         $faqs = $this->faqRepository->findAll();
 
         //Add Custom CSS
-        $pageRender = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);     
+        $pageRender = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
 
         if ($settings['usercss']) {
             $pageRender->addCssFile($settings['usercss'], 'stylesheet', '', '', true);

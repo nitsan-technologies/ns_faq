@@ -1,26 +1,11 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<f:be.container pageTitle="{f:translate(key: 'pagetitle')}" includeCssFiles="{
-			0: '{f:uri.resource(path:\'Vendor/bootstrap4.3.1.min.css\')}',
-			1: '{f:uri.resource(path:\'Css/global.css\')}',
-			2: '{f:uri.resource(path:\'Css/main.css\')}'
-		}" includeRequireJsModules="{0:'TYPO3/CMS/NsFaq/Main'}">
+<f:be.container pageTitle="{f:translate(key: 'pagetitle')}" includeRequireJsModules="{0:'TYPO3/CMS/NsFaq/Main'}">
+
+    <link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Vendor/bootstrap4.3.1.min.css', extensionName: 'ns_faq')}" media="all">
+    <link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/global.css', extensionName: 'ns_faq')}" media="all">
+    <link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/main.css', extensionName: 'ns_faq')}" media="all">
+
 	<div class="typo3-fullDoc">
-		<div class="loader">
-			<div class="container">
-				<div class="dot dot-1"></div>
-				<div class="dot dot-2"></div>
-				<div class="dot dot-3"></div>
-			</div>
-			
-			<svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-				<defs>
-					<filter id="goo">
-						<feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-						<feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 21 -7"/>
-					</filter>
-				</defs>
-			</svg>
-		</div>
 		<div id="typo3-docheader">
 			<div class="typo3-docheader-functions">
 				<f:be.buttons.csh />
@@ -96,7 +81,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="modal fade" id="{f:if(condition: '{action}==\'faqList\'',then: 'nsDeleteSelectedFaq')}" tabindex="-1" role="dialog" aria-labelledby="{f:if(condition: '{action}==\'faqList\'',then: 'nsDeleteSelectedFaq')}" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
