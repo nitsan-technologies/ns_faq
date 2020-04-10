@@ -15,14 +15,6 @@ call_user_func(
                         'labels' => 'LLL:EXT:ns_faq/Resources/Private/Language/BackendModule.xlf',
                         'name' => 'nitsan'
                     ];
-                } else {
-                    $GLOBALS['TBE_MODULES']['_configuration']['nitsan'] = [
-                        'iconIdentifier' => 'module-nsfaq',
-                        'labels' => [
-                            'll_ref' => 'LLL:EXT:ns_faq/Resources/Private/Language/BackendModule.xlf'
-                        ],
-                        'name' => 'nitsan'
-                    ];
                 }
             }
             \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(

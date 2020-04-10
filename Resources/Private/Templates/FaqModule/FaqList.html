@@ -49,7 +49,9 @@
 							</f:for>
 						</tbody>
 					</table>
-					<a href="javasctipt:void(0);" class="btn btn-danger btn-delete-record deleteSelectedBtn" data-checkbox="faqcheck" data-btnclass="confirmFaqDelete" data-toggle="modal" data-target="#nsDeleteSelectedFaq" data-href="{f:uri.action(action: 'delete')}"><em class="fa fa-trash-o" aria-hidden="true"></em><f:translate key="faq.delete_selected" /></a>
+					<f:if condition="{faqs}">
+						<a href="javasctipt:void(0);" class="btn btn-danger btn-delete-record deleteSelectedBtn" data-checkbox="faqcheck" data-btnclass="confirmFaqDelete" data-toggle="modal" data-target="#nsDeleteSelectedFaq" data-href="{f:uri.action(action: 'delete')}"><em class="fa fa-trash-o" aria-hidden="true"></em><f:translate key="faq.delete_selected" /></a>
+					</f:if>
 				</div>
 			</div>
 		</div>

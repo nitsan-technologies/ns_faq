@@ -172,8 +172,11 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
      */
     public function faqBasicSettingsAction()
     {
-        $this->view->assign('action', 'faqBasicSettings');
-        $this->view->assign('constant', $this->constants);
+        $assign = [
+            'action' => 'faqBasicSettings',
+            'constant' => $this->constants
+        ];
+        $this->view->assignMultiple($assign);
     }
 
     /**
@@ -193,8 +196,11 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
      */
     public function premiumExtensionAction()
     {
-        $this->view->assign('action', 'premiumExtension');
-        $this->view->assign('premiumExdata', $this->premiumExtensionData);
+         $assign = [
+            'action' => 'premiumExtension',
+            'premiumExdata' => $this->premiumExtensionData
+        ];
+        $this->view->assignMultiple($assign);
     }
 
     /**

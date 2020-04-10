@@ -6,10 +6,10 @@ use NITSAN\NsFaq\Utility\BackendUtility;
 use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 
 /**
- * BackendEditLinkViewHelper
+ * BackendNewLinkViewHelper
  *
  */
-class BackendEditLinkViewHelper extends AbstractViewHelper
+class BackendNewLinkViewHelper extends AbstractViewHelper
 {
     public function initializeArguments()
     {
@@ -18,7 +18,7 @@ class BackendEditLinkViewHelper extends AbstractViewHelper
     }
 
     /**
-     * Create a link for backend edit
+     * Create a link for backend new
      *
      * @param string $tableName
      * @param int $identifier
@@ -26,6 +26,6 @@ class BackendEditLinkViewHelper extends AbstractViewHelper
      */
     public function render()
     {
-        return BackendUtility::createEditUri($this->arguments['tableName'], $this->arguments['identifier'], true);
+        return BackendUtility::createNewUri($this->arguments['tableName'], $this->arguments['identifier'], true);
     }
 }

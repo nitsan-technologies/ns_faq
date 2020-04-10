@@ -34,17 +34,23 @@ define([
     $(document).on('click','.deleteFaq',function(e){
         deleteSingleItem($(this));
     });
-   
+
+    $('.deleteSelectedBtn').addClass('disabled');
+    $('.deleteSelectedBtn').removeAttr('data-toggle');
     //CheckAll
     $(".ns-ext-select-all #checkAll").change(function() {
         if (this.checked) {
             $(".checkSingle").each(function() {
                 this.checked=true;
             });
+            $('.deleteSelectedBtn').removeClass('disabled');
+            $('.deleteSelectedBtn').attr('data-toggle','modal');
         } else {
             $(".checkSingle").each(function() {
                 this.checked=false;
             });
+            $('.deleteSelectedBtn').addClass('disabled');
+            $('.deleteSelectedBtn').removeAttr('data-toggle');
         }
     });
 
@@ -60,9 +66,13 @@ define([
             if (isAllChecked == 0) {
                 $(".ns-ext-select-all #checkAll").prop("checked", true);
             }
+            $('.deleteSelectedBtn').removeClass('disabled');
+            $('.deleteSelectedBtn').attr('data-toggle','modal');
         }
         else {
             $(".ns-ext-select-all #checkAll").prop("checked", false);
+            $('.deleteSelectedBtn').addClass('disabled');
+            $('.deleteSelectedBtn').removeAttr('data-toggle');
         }
     });
 
