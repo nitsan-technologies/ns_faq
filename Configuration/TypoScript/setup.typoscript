@@ -36,9 +36,6 @@ page {
         faqFontawesome = EXT:ns_faq/Resources/Public/Css/frontend/fontAwesome/font-awesome.min.css
         animate = EXT:ns_faq/Resources/Public/Css/frontend/animate/animate.min.css
     }
-    includeJS {
-            JQuery = EXT:ns_faq/Resources/Public/JavaScript/frontend/jquery-3.4.1.min.js
-        }
     includeJSFooter{
         nsfaqjs = EXT:ns_faq/Resources/Public/JavaScript/frontend/default.js
     }
@@ -58,10 +55,19 @@ ajaxData {
     }
 }
 
-[globalVar = LIT:1 = {$plugin.tx_nsfaq_faq.includejs.includeJquery}]
+[globalVar = LIT:1 = {$plugin.tx_nsfaq_faq.basicSettings.general.includeJquery}]
     page {
         includeJS {
             JQuery = EXT:ns_faq/Resources/Public/JavaScript/frontend/jquery-3.4.1.min.js
         }
     }
+[global]
+
+#Condition for the TYPO3 10 versions
+[{$plugin.tx_nsfaq_faq.basicSettings.general.includeJquery} == 1]
+page {
+    includeJS {
+        JQuery = EXT:ns_faq/Resources/Public/JavaScript/frontend/jquery-3.4.1.min.js
+    }
+}
 [global]

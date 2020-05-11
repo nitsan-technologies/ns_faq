@@ -19,6 +19,9 @@ plugin.tx_nsfaq_faq {
     }
     basicSettings{
         general {
+             # cat=Ns_Faq_BasicSettings/03_Gen/04; type=boolean; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:tx_ns_faq.includejs
+            includeJquery =
+            
             # cat=Ns_Faq_BasicSettings/03_Gen/05; type=textarea; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:customCSS
             customCSS =
 
