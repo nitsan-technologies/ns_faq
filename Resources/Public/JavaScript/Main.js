@@ -3,7 +3,6 @@ define([
     'TYPO3/CMS/Backend/Modal',
     'TYPO3/CMS/NsFaq/Main',
     'TYPO3/CMS/NsFaq/Datatables',
-    'datatables',
     'TYPO3/CMS/Backend/jquery.clearable'
 ], function ($, Model) {
     $('.ns-faq-ext-datatable').DataTable({
