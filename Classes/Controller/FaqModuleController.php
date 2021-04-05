@@ -196,7 +196,7 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
      */
     public function premiumExtensionAction()
     {
-         $assign = [
+        $assign = [
             'action' => 'premiumExtension',
             'premiumExdata' => $this->premiumExtensionData
         ];

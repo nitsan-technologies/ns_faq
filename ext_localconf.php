@@ -21,7 +21,7 @@ $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\
 $iconRegistry->registerIcon(
     'ns_faq-plugin-faq',
     \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
-    ['source' => 'EXT:ns_faq/Resources/Public/Icons/plugin_faq.svg']
+    ['source' => 'EXT:ns_faq/Resources/Public/Icons/ns_faq.svg']
 );
 $iconRegistry->registerIcon(
     'module-nsfaq',
