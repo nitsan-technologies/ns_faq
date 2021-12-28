@@ -1,16 +1,18 @@
 <?php
 defined('TYPO3_MODE') || die('Access denied.');
-
+if (version_compare(TYPO3_branch, '10.0', '>=')) {
+    $faqController = \NITSAN\NsFaq\Controller\FaqController::class;
+} else {
+    $faqController = 'Faq';
+}
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
     'NITSAN.NsFaq',
     'Faq',
     [
-        'Faq' => 'list',
+        $faqController => 'list',
     ],
     // non-cacheable actions
-    [
-        'Faq' => '',
-    ]
+    []
 );
 
 // wizards

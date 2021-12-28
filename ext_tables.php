@@ -25,13 +25,18 @@ if (TYPO3_MODE === 'BE') {
             }
         }
     }
+    if (version_compare(TYPO3_branch, '10.0', '>=')) {
+        $faqController = \NITSAN\NsFaq\Controller\FaqModuleController::class;
+    } else {
+        $faqController = 'FaqModule';
+    }
     \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
         'NITSAN.NsFaq',
         'nitsan', // Make module a submodule of 'nitsan'
         'faqbackend', // Submodule key
         '', // Position
         [
-            'FaqModule' => 'dashboard, faqList, faqBasicSettings, premiumExtension, show, new, create, edit, update, delete, saveConstant',
+            $faqController => 'dashboard, faqList, faqBasicSettings, premiumExtension, show, new, create, edit, update, delete, saveConstant',
         ],
         [
             'access' => 'user,group',

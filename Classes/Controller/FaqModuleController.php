@@ -56,6 +56,16 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     protected $pid = null;
 
     /**
+     * Inject a faqRepository
+     *
+     * @param \NITSAN\NsFaq\Domain\Repository\FaqRepository
+     */
+    public function injectFaqRepository(\NITSAN\NsFaq\Domain\Repository\FaqRepository $faqRepository)
+    {
+        $this->faqRepository = $faqRepository;
+    }
+
+    /**
      * Initializes this object
      *
      * @return void
@@ -201,26 +211,5 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
             'premiumExdata' => $this->premiumExtensionData
         ];
         $this->view->assignMultiple($assign);
-    }
-
-    /**
-     * action delete
-     *
-     * @param \NITSAN\NsFaq\Domain\Model\Faq $faq
-     * @return void
-     */
-    public function deleteAction(\NITSAN\NsFaq\Domain\Model\Faq $faq=null)
-    {
-        $heading = transalte::translate('deleteTitle', 'ns_faq');
-        $msg = transalte::translate('deleteFaqmsg', 'ns_faq');
-        $this->addFlashMessage($msg, $heading, \TYPO3\CMS\Core\Messaging\AbstractMessage::OK);
-
-        if ($faq) {
-            $this->faqRepository->remove($faq);
-        } else {
-            foreach (GeneralUtility::_GP('uids') as $uid) {
-                $this->faqRepository->remove($this->faqRepository->findByUid($uid));
-            }
-        }
     }
 }

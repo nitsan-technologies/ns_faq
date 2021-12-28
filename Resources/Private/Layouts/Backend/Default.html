@@ -6,27 +6,8 @@
     <link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/main.css', extensionName: 'ns_faq')}" media="all">
 
 	<div class="typo3-fullDoc">
-		<div id="typo3-docheader">
-			<div class="typo3-docheader-functions">
-				<f:be.buttons.csh />
-				<div class="ns-ext-button-bar">
-					<a class="btn btn-primary btn-backup-wizard-modal text-white" href="javascript:;" type="button">
-						<em class="fa fa-cogs" aria-hidden="true"></em><f:translate key="globalsettings" />
-					</a>
-					<div class="button-group float-sm-right">
-						<a href="javascript:;" class="btn btn-success text-white btn-sm"><em class="fa fa-file-o"
-								aria-hidden="true"></em><f:translate key="documentaiton" /></a>
-						<a href="javascript:;" class="btn btn-info text-white btn-sm"><em class="fa fa-question"
-								aria-hidden="true"></em><f:translate key="helpsupport" /></a>
-						<a href="javascript:;" class="btn btn-warning text-white btn-sm"><em class="fa fa-dollar"
-								aria-hidden="true"></em><f:translate key="donate" /></a>
-					</div>
-				</div>
-			</div>
-		</div>
-
 		<div id="typo3-docbody">
-			<div id="typo3-inner-docbody">
+			<div id="typo3-inner-docbody" style="padding: 24px;margin-top: 0;transition: border .2s ease;">
 				<div class="ns-ext-navigation">
 					<nav class="navbar navbar-expand-lg">
 						<a class="navbar-brand" href="javascript:;"><f:translate key="extensionName" /></a>
@@ -62,46 +43,6 @@
 				<f:render section="content" />
 			</div>
 		</div>
-		<div class="modal fade" id="{f:if(condition: '{action}==\'faqList\'',then: 'nsDeleteFaq')}" tabindex="-1" role="dialog" aria-labelledby="{f:if(condition: '{action}==\'faqList\'',then: 'nsDeleteFaq')}" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">{f:if(condition: '{action}==\'faqList\'',then: '{f:translate(key: \'deleteFaq\')}')}</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<p>{f:if(condition: '{action}==\'faqList\'',then: '{f:translate(key: \'deleteFaqConfirmation\')}')}</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal"><em class="fa fa-close" aria-hidden="true"></em><f:translate key="cancel" /></button>
-						<button type="button" class="btn btn-danger {f:if(condition: '{action}==\'faqList\'',then: 'confirmFaqDelete')}"><em class="fa fa-trash-o" aria-hidden="true"></em><f:translate key="delete" /></button>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="modal fade" id="{f:if(condition: '{action}==\'faqList\'',then: 'nsDeleteSelectedFaq')}" tabindex="-1" role="dialog" aria-labelledby="{f:if(condition: '{action}==\'faqList\'',then: 'nsDeleteSelectedFaq')}" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title">{f:if(condition: '{action}==\'faqList\'',then: '{f:translate(key: \'deleteFaq\')}')}</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<p>{f:if(condition: '{action}==\'faqList\'',then: '{f:translate(key: \'deleteFaqConfirmation\')}')}</p>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal"><em class="fa fa-close" aria-hidden="true"></em><f:translate key="cancel" /></button>
-						<button type="button" class="btn btn-danger {f:if(condition: '{action}==\'faqList\'',then: 'confirmFaqDelete',else: 'confirmCatDelete')}"><em class="fa fa-trash-o" aria-hidden="true"></em><f:translate key="delete" /></button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 </f:be.container>
 
 </html>

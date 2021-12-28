@@ -29,6 +29,16 @@ class FaqController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     protected $faqRepository = null;
 
     /**
+     * Inject a faqRepository
+     *
+     * @param \NITSAN\NsFaq\Domain\Repository\FaqRepository
+     */
+    public function injectFaqRepository(\NITSAN\NsFaq\Domain\Repository\FaqRepository $faqRepository)
+    {
+        $this->faqRepository = $faqRepository;
+    }
+
+    /**
      * Initialize Action
      *
      * @return void

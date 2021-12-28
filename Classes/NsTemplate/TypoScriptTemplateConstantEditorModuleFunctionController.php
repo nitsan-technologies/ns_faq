@@ -79,8 +79,14 @@ class TypoScriptTemplateConstantEditorModuleFunctionController
     protected function initialize_editor($pageId, $template_uid = 0)
     {
         $this->templateService = GeneralUtility::makeInstance(ExtendedTemplateService::class);
-
+        $rootlineUtility = GeneralUtility::makeInstance(RootlineUtility::class, $pageId)->get();
         // Get the row of the first VISIBLE template of the page. whereclause like the frontend.
+        $this->templateRow = $this->templateService->ext_getFirstTemplate($pageId, $template_uid);
+        if (!is_array($this->templateRow)) {
+            if ($rootlineUtility[0]['is_siteroot']) {
+                $pageId = $rootlineUtility[0]['uid'];
+            }
+        }
         $this->templateRow = $this->templateService->ext_getFirstTemplate($pageId, $template_uid);
         // IF there was a template...
         if (is_array($this->templateRow)) {
@@ -120,7 +126,11 @@ class TypoScriptTemplateConstantEditorModuleFunctionController
                 if ($this->templateService->changed) {
                     // Set the data to be saved
                     $recData = [];
-                    $recData['sys_template'][$saveId]['constants'] = implode($this->templateService->raw, LF);
+                    if (PHP_VERSION >= 7.4) {
+                        $recData['sys_template'][$saveId]['constants'] = implode(LF, $this->templateService->raw);
+                    } else {
+                        $recData['sys_template'][$saveId]['constants'] = implode($this->templateService->raw, LF);
+                    }
                     // Create new  tce-object
                     $tce = GeneralUtility::makeInstance(DataHandler::class);
                     $tce->start($recData, []);
@@ -132,8 +142,19 @@ class TypoScriptTemplateConstantEditorModuleFunctionController
                     $this->initialize_editor($this->id, $template_uid);
                 }
             }
-
-            $this->pObj->MOD_MENU['constant_editor_cat'] = $this->templateService->ext_getCategoryLabelArray();
+            if (version_compare(TYPO3_branch, '11', '>=')) {
+                if (empty($this->pObj)) {
+                    $iconFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconFactory::class);
+                    $pageRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
+                    $uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Backend\Routing\UriBuilder::class);
+                    $moduleTemplateFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Backend\Template\ModuleTemplateFactory::class);
+                    $this->pObj = new \TYPO3\CMS\Tstemplate\Controller\TypoScriptTemplateModuleController($iconFactory,$pageRenderer,$uriBuilder,$moduleTemplateFactory);
+                }
+            } else {
+                if (empty($this->pObj)) {
+                    $this->pObj = new \TYPO3\CMS\Tstemplate\Controller\TypoScriptTemplateModuleController;
+                }
+            }
             $this->pObj->MOD_SETTINGS = BackendUtility::getModuleData($this->pObj->MOD_MENU, GeneralUtility::_GP('SET'), 'web_ts');
             // Resetting the menu (stop)
             if (!empty($this->pObj->MOD_MENU['constant_editor_cat'])) {
@@ -141,6 +162,7 @@ class TypoScriptTemplateConstantEditorModuleFunctionController
             }
 
             $category = strtolower(GeneralUtility::_GP('cat'));
+
             // Category and constant editor config:
             $printFields = trim($this->templateService->ext_printFields($this->constants, $category));
             foreach ($this->templateService->getInlineJavaScript() as $name => $inlineJavaScript) {
@@ -164,7 +186,7 @@ class TypoScriptTemplateConstantEditorModuleFunctionController
                 $view->assign('link', $aHref);
             }
             $view->setTemplatePathAndFilename(GeneralUtility::getFileAbsFileName(
-                'EXT:ns_faq/Resources/Private/Backend/NoConstant.html'
+                'EXT:ns_faq/Resources/Private/Backend/Templates/NoConstant.html'
             ));
             $theOutput = $view->render();
         }
