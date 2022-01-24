@@ -22,7 +22,7 @@
         }
     },
     "replace": {
-        "nitsan/ns-faq": "self.version"
+        "typo3-ter/ns-faq": "self.version"
     },
     "config": {
         "vendor-dir": ".Build/vendor/",
