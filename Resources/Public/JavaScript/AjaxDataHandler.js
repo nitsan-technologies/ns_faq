@@ -103,6 +103,7 @@ define([
             }) : u.find(".icon-overlay").remove(), e.fadeTo("fast", .4, () => {
                 e.fadeTo("fast", 1)
             }), "pages" === a && h.refreshPageTree()
+            location.reload(true);
         }
 
         deleteRecord(e) {

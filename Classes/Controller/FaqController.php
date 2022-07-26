@@ -67,7 +67,7 @@ class FaqController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
         //Add Custom CSS
         $pageRender = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
-
+        $settings['usercss'] = isset($settings['usercss']) ? $settings['usercss'] : '';
         if ($settings['usercss']) {
             $pageRender->addCssFile($settings['usercss'], 'stylesheet', '', '', true);
         } elseif ($settings['basicSettings']['general']['customCSS']) {
