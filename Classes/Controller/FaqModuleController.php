@@ -138,13 +138,18 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         $faqcount = count($faqs);
         //Assign variables values
         $this->view->assign('menulist', 'a,b');
+        $bootstrapVariable = 'data';
+        if (version_compare(TYPO3_branch, '11.0', '>')) {
+            $bootstrapVariable = 'data-bs';
+        }
         $assign = [
           'faqs' => $faqs,
           'action' => 'dashboard',
           'faqscount' => $faqcount,
           'pid' => $this->pid,
           'rightSide' => $this->sidebarData,
-          'dashboardSupport' => $this->dashboardSupportData
+          'dashboardSupport' => $this->dashboardSupportData,
+          'bootstrapVariable' => $bootstrapVariable
         ];
         $this->view->assignMultiple($assign);
     }
@@ -164,13 +169,17 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
         //Fetch Plugin Settings
         $settings = $this->settings;
-
+        $bootstrapVariable = 'data';
+        if (version_compare(TYPO3_branch, '11.0', '>')) {
+            $bootstrapVariable = 'data-bs';
+        }
         //Assign variables values
         $assign = [
           'faqs' => $faqs,
           'data' => $contentData,
           'action' => 'faqList',
-          'pid' => $this->pid
+          'pid' => $this->pid,
+          'bootstrapVariable' => $bootstrapVariable
         ];
         $this->view->assignMultiple($assign);
     }
@@ -182,9 +191,14 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
      */
     public function faqBasicSettingsAction()
     {
+        $bootstrapVariable = 'data';
+        if (version_compare(TYPO3_branch, '11.0', '>')) {
+            $bootstrapVariable = 'data-bs';
+        }
         $assign = [
             'action' => 'faqBasicSettings',
-            'constant' => $this->constants
+            'constant' => $this->constants,
+            'bootstrapVariable' => $bootstrapVariable
         ];
         $this->view->assignMultiple($assign);
     }
