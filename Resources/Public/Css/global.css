@@ -1135,3 +1135,6 @@ select.form-control[size="1"]:not(.form-select-no-siblings) {
         padding-top: 15px;
     }
 }
+.ns-ext-table-accordian-wrap .collapse:not(.show) {
+	display: block;
+}
