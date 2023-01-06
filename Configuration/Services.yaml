@@ -1,11 +1,4 @@
 services:
-  NITSAN\NsFaq\Setup:
-    tags:
-      - name: event.listener
-        identifier: 'ns-faq'
-        method: 'executeOnSignal'
-        event: TYPO3\CMS\Core\Package\Event\AfterPackageActivationEvent
-
   NITSAN\NsFaq\RecordList\DatabaseRecordList:
     shared: false
     public: true
