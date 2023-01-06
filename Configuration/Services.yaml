@@ -1,0 +1,16 @@
+services:
+  NITSAN\NsFaq\Setup:
+    tags:
+      - name: event.listener
+        identifier: 'ns-faq'
+        method: 'executeOnSignal'
+        event: TYPO3\CMS\Core\Package\Event\AfterPackageActivationEvent
+
+  NITSAN\NsFaq\RecordList\DatabaseRecordList:
+    shared: false
+    public: true
+    arguments:
+      - '@TYPO3\CMS\Core\Imaging\IconFactory'
+      - '@TYPO3\CMS\Backend\Routing\UriBuilder'
+      - '@TYPO3\CMS\Backend\Configuration\TranslationConfigurationProvider'
+      - '@Psr\EventDispatcher\EventDispatcherInterface'
