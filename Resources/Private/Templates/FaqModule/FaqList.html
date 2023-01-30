@@ -3,15 +3,17 @@
 
 <f:layout name="Backend/Default" />
 <f:section name="content">
-	<ns:be.tableList
-			tableName="tx_nsfaq_domain_model_faq"
-			recordsPerPage="10"
-			sortField="name"
-			enableClickMenu="true"
-			readOnly="false"
-			enableControlPanels="true"
-			clickTitleMode="edit"
-	/>
+	<div class="ns-ext-table-accordian-wrap">
+		<ns:be.tableList
+				tableName="tx_nsfaq_domain_model_faq"
+				recordsPerPage="10"
+				sortField="name"
+				enableClickMenu="true"
+				readOnly="false"
+				enableControlPanels="true"
+				clickTitleMode="edit"
+		/>
+	</div>
 </f:section>
 
 </html>

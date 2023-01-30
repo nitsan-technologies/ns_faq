@@ -21,12 +21,10 @@ use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Type\Bitmask\Permission;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\HttpUtility;
-use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
-use TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility as translate;
+use NITSAN\NsFaq\RecordList\DatabaseRecordList;
+use NITSAN\NsFaq\RecordList\DatabaseRecordListOld;
 
 /**
  * ViewHelper which renders a record list as known from the TYPO3 list module.
@@ -153,9 +151,15 @@ class TableListViewHelper extends AbstractBackendViewHelper
         if (version_compare(TYPO3_branch, '9.5', '>=')) {
             $this->getLanguageService()->includeLLFile('EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf');
         }
+        if (version_compare(TYPO3_branch, '11.0', '>=')) {
+            $dblist = GeneralUtility::makeInstance(DatabaseRecordList::class);
+        } else {
+            $dblist = GeneralUtility::makeInstance(DatabaseRecordListOld::class);
+        }
         $pageinfo = BackendUtility::readPageAccess(GeneralUtility::_GP('id'), $GLOBALS['BE_USER']->getPagePermsClause(Permission::PAGE_SHOW)) ?: [];
-        $dblist = GeneralUtility::makeInstance(DatabaseRecordList::class);
+        
         $dblist->pageRow = $pageinfo;
+
         if ($readOnly) {
             $dblist->setIsEditable(false);
         } else {
