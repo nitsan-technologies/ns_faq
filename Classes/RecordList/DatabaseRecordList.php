@@ -1,7 +1,7 @@
 <?php
 namespace NITSAN\NsFaq\RecordList;
 
-class DatabaseRecordList extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList
+class DatabaseRecordList extends \TYPO3\CMS\Backend\RecordList\DatabaseRecordList
 {
     /**
      * Creates a page browser for tables with many records

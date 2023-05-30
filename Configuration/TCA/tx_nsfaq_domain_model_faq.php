@@ -1,9 +1,5 @@
 <?php
-if (version_compare(TYPO3_branch, '9.0', '<')) {
-    $langfile = 'LLL:EXT:lang/locallang_general.xlf:';
-} else {
-    $langfile = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:';
-}
+$langfile = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:';
 
 return [
     'ctrl' => [
@@ -138,7 +134,7 @@ return [
                 ],
                 'cols' => 40,
                 'rows' => 15,
-                'eval' => 'trim,required',
+                'eval' => 'trim',
             ],
 
         ],
