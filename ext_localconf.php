@@ -11,11 +11,6 @@ defined('TYPO3') || die('Access denied.');
     []
 );
 
-// wizards
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
-    '@import "EXT:ns_faq/Configuration/TSconfig/ContentElementWizard.tsconfig"'
-    );
-
 $iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
 
 $iconRegistry->registerIcon(

@@ -15,7 +15,7 @@ use NITSAN\NsFaq\NsTemplate\TypoScriptTemplateModuleController;
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
  *
- *  (c) 2020
+ *  (c) 2023
  *
  ***/
 
@@ -75,51 +75,6 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     public function initializeObject()
     {
         $this->contentObject = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
-    }
-
-    /**
-     * Initialize Action
-     *
-     * @return void
-     */
-    public function initializeAction()
-    {
-        parent::initializeAction();
-        //Links for the All Dashboard VIEW from API...
-        $sidebarUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=ns_faq&blockName=DashboardRightSidebar';
-        $dashboardSupportUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=ns_faq&blockName=DashboardSupport';
-        $generalFooterUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=ns_faq&blockName=GeneralFooter';
-        $premiumExtensionUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=ns_faq&blockName=PremiumExtension';
-
-        $this->faqRepository->deleteOldApiData();
-        $checkApiData = $this->faqRepository->checkApiData();
-        if (!$checkApiData) {
-            $this->sidebarData = $this->faqRepository->curlInitCall($sidebarUrl);
-            $this->dashboardSupportData = $this->faqRepository->curlInitCall($dashboardSupportUrl);
-            $this->generalFooterData = $this->faqRepository->curlInitCall($generalFooterUrl);
-            $this->premiumExtensionData = $this->faqRepository->curlInitCall($premiumExtensionUrl);
-
-            $data = [
-                'right_sidebar_html' => $this->sidebarData,
-                'support_html'=> $this->dashboardSupportData,
-                'footer_html' => $this->generalFooterData,
-                'premuim_extension_html' => $this->premiumExtensionData,
-                'extension_key' => 'ns_faq',
-                'last_update' => date('Y-m-d')
-            ];
-            $this->faqRepository->insertNewData($data);
-        } else {
-            $this->sidebarData = $checkApiData['right_sidebar_html'];
-            $this->dashboardSupportData = $checkApiData['support_html'];
-            $this->premiumExtensionData = $checkApiData['premuim_extension_html'];
-        }
-
-        //GET and SET pid for the
-        $pageId = $this->request->getQueryParams();
-        $this->pid = ($pageId['id'] ? $pageId['id'] : '0');
-        $querySettings = $this->faqRepository->createQuery()->getQuerySettings();
-        $querySettings->setStoragePageIds([$this->pid]);
-        $this->faqRepository->setDefaultQuerySettings($querySettings);
     }
 
     /**

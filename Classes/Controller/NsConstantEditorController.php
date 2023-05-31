@@ -275,7 +275,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
 
     private function updateTemplateConstants(ServerRequestInterface $request, array $constantDefinitions, string $rawTemplateConstants): ?array
     {
-        $rawTemplateConstantsArray = explode(LF, $rawTemplateConstants);
+        $rawTemplateConstantsArray = GeneralUtility::trimExplode(LF, $rawTemplateConstants);
         $constantPositions = $this->calculateConstantPositions($rawTemplateConstantsArray);
 
         $parsedBody = $request->getParsedBody();
@@ -416,7 +416,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         $theValue = ' ' . trim($value);
         if (isset($constantPositions[$constantKey])) {
             $lineNum = $constantPositions[$constantKey];
-            $parts = explode('=', $templateConstantsArray[$lineNum], 2);
+            $parts = GeneralUtility::trimExplode('=', $templateConstantsArray[$lineNum], 2);
             if (count($parts) === 2) {
                 $parts[1] = $theValue;
             }
