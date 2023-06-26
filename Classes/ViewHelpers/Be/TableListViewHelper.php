@@ -20,7 +20,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Type\Bitmask\Permission;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use NITSAN\NsFaq\RecordList\DatabaseRecordList;
+use TYPO3\CMS\Backend\RecordList\DatabaseRecordList;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
@@ -66,14 +66,15 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
  * List of "Website user" records with a text property of ``foo`` stored on PID ``1`` and two levels down.
  * Clicking on a username will open the TYPO3 info popup for the respective record
  */
-class TableListViewHelper extends AbstractBackendViewHelper{
+class TableListViewHelper extends AbstractBackendViewHelper
+{
 
 	protected ServerRequestInterface $request;
 
-	public function setRequest(ServerRequestInterface $request)
-    {
-        $this->request = $request;
-    }
+	public function setRequest(ServerRequestInterface $request): void
+	{
+		$this->request = $request;
+	}
 
 	/**
 	 * As this ViewHelper renders HTML, the output must not be escaped.
@@ -90,7 +91,8 @@ class TableListViewHelper extends AbstractBackendViewHelper{
 	/**
 	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
 	 */
-	public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager) {
+	public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager): void
+	{
 		$this->configurationManager = $configurationManager;
 	}
 
@@ -99,7 +101,8 @@ class TableListViewHelper extends AbstractBackendViewHelper{
 	 *
 	 * @throws \TYPO3Fluid\Fluid\Core\ViewHelper\Exception
 	 */
-	public function initializeArguments() {
+	public function initializeArguments(): void
+	{
 		parent::initializeArguments();
 		$this->registerArgument('tableName', 'string', 'name of the database table', true);
 		$this->registerArgument('fieldList', 'array', 'list of fields to be displayed. If empty, only the title column (configured in $TCA[$tableName][\'ctrl\'][\'title\']) is shown', false, []);
@@ -123,52 +126,53 @@ class TableListViewHelper extends AbstractBackendViewHelper{
 	 * @throws \TYPO3\CMS\Core\Type\Exception\InvalidEnumerationValueException
 	 * @see \TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList
 	 */
-	public function render() {
-        $tableName = $this->arguments['tableName'];
-        $fieldList = $this->arguments['fieldList'];
-        $storagePid = $this->arguments['storagePid'];
-        $levels = $this->arguments['levels'];
-        $filter = $this->arguments['filter'];
-        $recordsPerPage = $this->arguments['recordsPerPage'];
-        $sortField = $this->arguments['sortField'];
-        $sortDescending = $this->arguments['sortDescending'];
-        $readOnly = $this->arguments['readOnly'];
-        $enableClickMenu = $this->arguments['enableClickMenu'];
-        $clickTitleMode = $this->arguments['clickTitleMode'];
-        $enableControlPanels = $this->arguments['enableControlPanels'];
+	public function render()
+	{
+		$tableName = $this->arguments['tableName'];
+		$fieldList = $this->arguments['fieldList'];
+		$storagePid = $this->arguments['storagePid'];
+		$levels = $this->arguments['levels'];
+		$filter = $this->arguments['filter'];
+		$recordsPerPage = $this->arguments['recordsPerPage'];
+		$sortField = $this->arguments['sortField'];
+		$sortDescending = $this->arguments['sortDescending'];
+		$readOnly = $this->arguments['readOnly'];
+		$enableClickMenu = $this->arguments['enableClickMenu'];
+		$clickTitleMode = $this->arguments['clickTitleMode'];
+		$enableControlPanels = $this->arguments['enableControlPanels'];
 
-        $this->getLanguageService()->includeLLFile('EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf');
-        $backendUser = $this->getBackendUser();
+		$this->getLanguageService()->includeLLFile('EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf');
+		$backendUser = $this->getBackendUser();
 
-        $renderingContext = $this->renderingContext;
-        $request = $renderingContext->getRequest();
-        if (!$request instanceof ServerRequestInterface) {
-            // All views in backend have at least ServerRequestInterface, no matter if created by
-            // old StandaloneView via BackendViewFactory. Should be fine to assume having a request
-            // here, the early return is just sanitation.
-            return '';
-        }
+		$renderingContext = $this->renderingContext;
+		$request = $renderingContext->getRequest();
+		if (!$request instanceof ServerRequestInterface) {
+			// All views in backend have at least ServerRequestInterface, no matter if created by
+			// old StandaloneView via BackendViewFactory. Should be fine to assume having a request
+			// here, the early return is just sanitation.
+			return '';
+		}
 
-        $this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/recordlist.js');
-        $this->getPageRenderer()->loadJavaScriptModule('@nitsan/ns-faq/ajax-data-handler.js');
-        $this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/record-download-button.js');
-        $this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/action-dispatcher.js');
-        if ($enableControlPanels === true) {
-            $this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/multi-record-selection.js');
-//            $this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/context-menu.js');
-        }
+		$this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/recordlist.js');
+		$this->getPageRenderer()->loadJavaScriptModule('@nitsan/ns-faq/ajax-data-handler.js');
+		$this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/record-download-button.js');
+		$this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/action-dispatcher.js');
+		if ($enableControlPanels === true) {
+			$this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/multi-record-selection.js');
+			//            $this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/context-menu.js');
+		}
 
-        $pageId = (int)($request->getParsedBody()['id'] ?? $request->getQueryParams()['id'] ?? 0);
-        $pointer = (int)($request->getParsedBody()['pointer'] ?? $request->getQueryParams()['pointer'] ?? 0);
-        $pageInfo = BackendUtility::readPageAccess($pageId, $backendUser->getPagePermsClause(Permission::PAGE_SHOW)) ?: [];
-        $dbList = GeneralUtility::makeInstance(DatabaseRecordList::class);
-        $dbList->setRequest($request);
-        $dbList->pageRow = $pageInfo;
-        if ($readOnly) {
-            $dbList->setIsEditable(false);
-        } else {
-            $dbList->calcPerms = new Permission($backendUser->calcPerms($pageInfo));
-        }
+		$pageId = (int)($request->getParsedBody()['id'] ?? $request->getQueryParams()['id'] ?? 0);
+		$pointer = (int)($request->getParsedBody()['pointer'] ?? $request->getQueryParams()['pointer'] ?? 0);
+		$pageInfo = BackendUtility::readPageAccess($pageId, $backendUser->getPagePermsClause(Permission::PAGE_SHOW)) ?: [];
+		$dbList = GeneralUtility::makeInstance(DatabaseRecordList::class);
+		$dbList->setRequest($request);
+		$dbList->pageRow = $pageInfo;
+		if ($readOnly) {
+			$dbList->setIsEditable(false);
+		} else {
+			$dbList->calcPerms = new Permission($backendUser->calcPerms($pageInfo));
+		}
 		$dbList->disableSingleTableView = true;
 		$dbList->clickTitleMode = $clickTitleMode;
 		$dbList->clickMenuEnabled = $enableClickMenu;
@@ -176,7 +180,7 @@ class TableListViewHelper extends AbstractBackendViewHelper{
 			$frameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
 			$storagePid = $frameworkConfiguration['persistence']['storagePid'];
 		}
-        $dbList->start($storagePid, $tableName, $pointer, $filter, $levels, $recordsPerPage);
+		$dbList->start($storagePid, $tableName, $pointer, $filter, $levels, $recordsPerPage);
 		$dbList->displayColumnSelector = false;
 		$dbList->setFields = [$tableName => $fieldList];
 		$dbList->noControlPanels = !$enableControlPanels;
@@ -184,7 +188,7 @@ class TableListViewHelper extends AbstractBackendViewHelper{
 		$dbList->sortRev = $sortDescending;
 		$html = $dbList->generateList();
 
-		if (is_null($html) || empty($html)) {
+		if (empty($html)) {
 			$html = '
 				<div class="alert alert-warning" role="alert">
 				  <h4 class="alert-heading">Opps!</h4>
@@ -196,7 +200,8 @@ class TableListViewHelper extends AbstractBackendViewHelper{
 		return $html;
 	}
 
-	protected function getLanguageService(): LanguageService {
+	protected function getLanguageService(): LanguageService
+	{
 		return $GLOBALS['LANG'];
 	}
 
@@ -205,7 +210,8 @@ class TableListViewHelper extends AbstractBackendViewHelper{
 	 *
 	 * @param string $table table name
 	 */
-	private function redirectToCreateNewRecord($table) {
+	private function redirectToCreateNewRecord($table): string
+	{
 		$pid = (int) \TYPO3\CMS\Core\Utility\GeneralUtility::_GET('id');
 		$returnUrl = GeneralUtility::getIndpEnv('REQUEST_URI');
 		$url = $this->getModuleUrl('record_edit', [
@@ -221,10 +227,11 @@ class TableListViewHelper extends AbstractBackendViewHelper{
 	 * @param bool $tokenOnly Set it to TRUE to get only the token, otherwise including the &moduleToken= as prefix
 	 * @return string
 	 */
-	protected function getToken(bool $tokenOnly = false): string {
+	protected function getToken(bool $tokenOnly = false): string
+	{
 
-        $tokenParameterName = 'token';
-        $token = FormProtectionFactory::get('backend')->generateToken('route', 'nitsan_NsFaqFaqbackend');
+		$tokenParameterName = 'token';
+		$token = FormProtectionFactory::get('backend')->generateToken('route', 'nitsan_NsFaqFaqbackend');
 		if ($tokenOnly) {
 			return $token;
 		}
@@ -237,14 +244,14 @@ class TableListViewHelper extends AbstractBackendViewHelper{
 	 * @param array $urlParameters URL parameters that should be added as key value pairs
 	 * @return string Calculated URL
 	 */
-	public static function getModuleUrl($moduleName, $urlParameters = []) {
-
+	public static function getModuleUrl($moduleName, $urlParameters = [])
+	{
 		$uriBuilder = GeneralUtility::makeInstance(UriBuilder::class);
-		return $uriBuilder->buildUriFromRoute($moduleName, $urlParameters);		
+		return $uriBuilder->buildUriFromRoute($moduleName, $urlParameters);
 	}
 
-    protected function getBackendUser(): BackendUserAuthentication
-    {
-        return $GLOBALS['BE_USER'];
-    }
+	protected function getBackendUser(): BackendUserAuthentication
+	{
+		return $GLOBALS['BE_USER'];
+	}
 }

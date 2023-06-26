@@ -32,37 +32,40 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     
     /**
      * faqRepository
-     *
+     *@var mixed
      */
-    protected $faqRepository = null;
-
-    protected $constantObj;
-
     protected $sidebarData;
-
+    
+    /**
+     * faqRepository
+     *@var mixed
+     */
     protected $dashboardSupportData;
 
-    protected $generalFooterData;
-
-    protected $premiumExtensionData;
-
-    protected $constants;
-
     /**
-    * @var TypoScriptTemplateModuleController
-    */
-    protected $pObj;
-
+     * faqRepository
+     *@var mixed
+     */
     protected $contentObject = null;
 
+    /**
+     * faqRepository
+     *@var mixed
+     */    
     protected $pid = null;
+    
+    /**
+     * faqRepository
+     *@var mixed
+     */
+    protected $faqRepository = null;
 
     /**
      * Inject a faqRepository
      *
-     * @param \NITSAN\NsFaq\Domain\Repository\FaqRepository
+     * @param \NITSAN\NsFaq\Domain\Repository\FaqRepository $faqRepository
      */
-    public function injectFaqRepository(\NITSAN\NsFaq\Domain\Repository\FaqRepository $faqRepository)
+    public function injectFaqRepository(\NITSAN\NsFaq\Domain\Repository\FaqRepository $faqRepository): void
     {
         $this->faqRepository = $faqRepository;
     }
@@ -79,8 +82,6 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
     /**
      * action dashboard
-     *
-     * @return void
      */
     public function dashboardAction(): ResponseInterface
     {
@@ -108,8 +109,7 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     /**
      * action faqList
      *
-     * @return void
-     */
+         */
     public function faqListAction(): ResponseInterface
     {
         $view = $this->initializeModuleTemplate($this->request);
