@@ -11,7 +11,7 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
  */
 class BackendEditLinkViewHelper extends AbstractViewHelper
 {
-    public function initializeArguments(): void
+    public function initializeArguments()
     {
         $this->registerArgument('tableName', 'string', '', true);
         $this->registerArgument('identifier', 'integer', '', true);
@@ -20,6 +20,8 @@ class BackendEditLinkViewHelper extends AbstractViewHelper
     /**
      * Create a link for backend edit
      *
+     * @param string $tableName
+     * @param int $identifier
      * @return string
      */
     public function render()

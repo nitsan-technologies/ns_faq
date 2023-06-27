@@ -14,5 +14,4 @@ mod {
         }
         show = *
     }
-    web_layout.tt_content.preview.list.nsfaq_faq = EXT:ns_faq/Resources/Private/Backend/NsFaq.html      
 }

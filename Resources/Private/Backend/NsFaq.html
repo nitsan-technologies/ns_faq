@@ -1,19 +1,20 @@
 <table class='table table-striped table-hover typo3-extension-list no-footer'>
 	<thead>
-		<tr>
-			<th colspan='2'>
-				<f:translate
-					key="LLL:EXT:ns_faq/Resources/Private/Language/locallang_db.xlf:tx_nsfaq_domain_model_faq" /><br />
-				<f:translate key="listview" extensionName="ns_faq" />
-			</th>
-		</tr>
-	</thead>
 	<tr>
-		<th>
-			<f:translate key="layout" extensionName="ns_faq" />
+		<th colspan='2'>
+			<f:translate key="LLL:EXT:ns_faq/Resources/Private/Language/locallang_db.xlf:tx_nsfaq_domain_model_faq" /><br />
+			<f:if condition="{flexformData.switchableControllerActions}=='Faq->list'">
+				<f:then>
+					<f:translate key="listview" extensionName="ns_faq" />
+				</f:then>
+			</f:if>
 		</th>
-		<td>
-			<f:translate key="layout{pi_flexform_transformed.settings.layout}" extensionName="ns_faq" />
-		</td>
 	</tr>
+	</thead>
+	<f:if condition="{flexformData.switchableControllerActions}=='Faq->list'">
+		<tr>
+			<th><f:translate key="layout" extensionName="ns_faq" /></th>
+			<td><f:translate key="layout{flexformData.settings.layout}" extensionName="ns_faq" /></td>
+		</tr>
+	</f:if>
 </table>

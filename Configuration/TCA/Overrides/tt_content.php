@@ -1,7 +1,7 @@
 <?php
-defined('TYPO3') || die('Access denied');
+defined('TYPO3_MODE') || die('Access denied');
 \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerPlugin(
-    'NsFaq',
+    'NITSAN.NsFaq',
     'Faq',
     'FAQs'
 );

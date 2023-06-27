@@ -20,29 +20,20 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 class FaqRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 {
 
+    /**
+     * @var array
+     */
     protected $defaultOrderings = ['sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING];
 
-    /**
-     * Returns the query
-     *
-     * @return string 
-     */
     public function checkApiData()
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_nsfaq_domain_model_apidata');
         $queryBuilder
             ->select('*')
             ->from('tx_nsfaq_domain_model_apidata');
-        $query = $queryBuilder->executeQuery();
+        $query = $queryBuilder->execute();
         return $query->fetch();
     }
-
-    /**
-     * Returns the query
-     *
-     * @return mixed 
-     * @param mixed $data
-     */
     public function insertNewData($data)
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_nsfaq_domain_model_apidata');
@@ -50,16 +41,9 @@ class FaqRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             ->insert('tx_nsfaq_domain_model_apidata')
             ->values($data);
 
-        $query = $queryBuilder->executeQuery();
+        $query = $queryBuilder->execute();
         return $query;
     }
-
-    /**
-     * Returns the query
-     *
-     * @return mixed 
-     * @param mixed $url
-     */
     public function curlInitCall($url)
     {
         $curlSession = curl_init();
@@ -71,12 +55,6 @@ class FaqRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
 
         return $data;
     }
-
-    /**
-     * Returns the query
-     *
-     * @return mixed 
-     */
     public function deleteOldApiData()
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_nsfaq_domain_model_apidata');
@@ -85,14 +63,13 @@ class FaqRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             ->where(
                 $queryBuilder->expr()->comparison('last_update', '<', 'DATE_SUB(NOW() , INTERVAL 1 DAY)')
             )
-            ->executeQuery();
+            ->execute();
     }
 
     /**
      * Find Constants via sys_template Database Table
      *
-     * @param int $pid
-     * @return mixed
+     * @return array|NULL  Result is array('constants' => queryResult) or NULL
      */
     public function fetchConstants($pid)
     {   //
@@ -111,7 +88,7 @@ class FaqRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
             );
 
         // Execute Query and Return the Query-Fetch
-        $query = $queryBuilder->executeQuery();
+        $query = $queryBuilder->execute();
         return $query->fetch();
     }
 }

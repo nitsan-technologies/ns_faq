@@ -60,6 +60,7 @@ abstract class AbstractUtility
     }
 
     /**
+     * @return DatabaseConnection
      * @SuppressWarnings(PHPMD.Superglobals)
      */
     protected static function getDatabaseConnection()
