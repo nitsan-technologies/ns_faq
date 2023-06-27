@@ -1,46 +1,120 @@
 <html xmlns:f="https://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
-<f:be.container pageTitle="{f:translate(key: 'pagetitle')}" includeRequireJsModules="{0:'TYPO3/CMS/NsFaq/Main'}">
 
-    <link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Vendor/bootstrap4.3.1.min.css', extensionName: 'ns_faq')}" media="all">
-    <link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/global.css', extensionName: 'ns_faq')}" media="all">
-    <link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/main.css', extensionName: 'ns_faq')}" media="all">
-
-	<div class="typo3-fullDoc">
-		<div id="typo3-docbody">
-			<div id="typo3-inner-docbody" style="padding: 24px;margin-top: 0;transition: border .2s ease;">
-				<div class="ns-ext-navigation-wrap">
-					<a class="navbar-brand ns-ext-name ns-ext-name-desktop" href="javascript:;"><f:translate key="extensionName" extensionName="ns_faq" /></a>
+<link rel="stylesheet" type="text/css"
+	href="{f:uri.resource(path:'Vendor/bootstrap4.3.1.min.css', extensionName: 'ns_faq')}" media="all">
+<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/global.css', extensionName: 'ns_faq')}"
+	media="all">
+<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/main.css', extensionName: 'ns_faq')}"
+	media="all">
+<link rel="stylesheet" type="text/css" href="{f:uri.resource(path:'Css/font-awesome.css', extensionName: 'ns_faq')}"
+	media="all">
+<div class="typo3-fullDoc">
+	<div id="typo3-docbody">
+		<div id="typo3-inner-docbody" style="padding: 24px;margin-top: 0;transition: border .2s ease;">
+			<div class="ns-ext-navigation-wrap">
+				<a class="navbar-brand ns-ext-name ns-ext-name-desktop" href="javascript:;">
+					<f:translate key="extensionName" extensionName="ns_faq" />
+				</a>
 				<div class="ns-ext-navigation">
 					<nav class="navbar navbar-expand-lg">
-						<a class="navbar-brand ns-ext-name" href="javascript:;"><f:translate key="extensionName" extensionName="ns_faq" /></a>
-						<button class="navbar-toggler" type="button" {bootstrapVariable}-toggle="collapse" {bootstrapVariable}-target="#nsextNavbar"
-							aria-controls="nsextNavbar" aria-expanded="false" aria-label="Toggle navigation">
-							<span class="navbar-toggler-icon"></span>
+						<a class="navbar-brand ns-ext-name" href="javascript:;">
+							<f:translate key="extensionName" extensionName="ns_faq" />
+						</a>
+						<button class="navbar-toggler" type="button" {bootstrapVariable}-toggle="collapse"
+							{bootstrapVariable}-target="#nsextNavbar" aria-controls="nsextNavbar" aria-expanded="false"
+							aria-label="Toggle navigation">
+							<span class="navbar-toggler__line"></span>
+							<span class="navbar-toggler__line"></span>
+							<span class="navbar-toggler__line"></span>
 						</button>
 						<div class="collapse navbar-collapse" id="nsextNavbar">
 							<ul class="navbar-nav">
 								<li class="nav-item {f:if(condition: '{action}==dashboard', then: 'active')}">
 									<f:link.action action="dashboard" class="nav-link">
-										<em class="fa fa-dashboard" aria-hidden="true"></em><f:translate key="Dashboard" /></f:link.action>
+										<em class="fa fa-dashboard" aria-hidden="true"></em>
+										<f:translate key="Dashboard" />
+									</f:link.action>
 								</li>
 								<li class="nav-item {f:if(condition: '{action}==faqList', then: 'active')}">
 									<f:link.action action="faqList" class="nav-link">
-										<em class="fa fa-comments" aria-hidden="true"></em><f:translate key="faq.heading" />
-									</f:link.action>
-								</li>
-								<li class="nav-item {f:if(condition: '{action}==faqBasicSettings', then: 'active')}">
-									<f:link.action action="faqBasicSettings" additionalParams="{cat:'Ns_Faq_BasicSettings'}" class="nav-link">
-										<em class="fa fas fa-cog" aria-hidden="true"></em><f:translate key="basicSettings" />
+										<em class="fa fa-comments" aria-hidden="true"></em>
+										<f:translate key="faq.heading" />
 									</f:link.action>
 								</li>
 							</ul>
 						</div>
 					</nav>
 				</div>
+			</div>
+			<f:render section="content" />
+		</div>
+		<div class="modal fade"
+			id="{f:if(condition: '{action}==\'faqList\'',then: 'nsDeleteFaq',else: 'nsDeleteCategory')}" tabindex="-1"
+			role="dialog"
+			aria-labelledby="{f:if(condition: '{action}==\'faqList\'',then: 'nsDeleteFaq',else: 'nsDeleteCategory')}"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">{f:if(condition: '{action}==\'faqList\'',then: '{f:translate(key:
+							\'deleteFaq\')}',else: '{f:translate(key: \'deleteCategory\')}')}</h5>
+						<button type="button" class="close" {modalAttr}dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>{f:if(condition: '{action}==\'faqList\'',then: '{f:translate(key:
+							\'deleteFaqConfirmation\')}',else: '{f:translate(key: \'deleteCategoryConfirmation\')}')}
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" {modalAttr}dismiss="modal"><em
+								class="fa fa-close" aria-hidden="true"></em>
+							<f:translate key="cancel" />
+						</button>
+						<button type="button"
+							class="btn btn-danger {f:if(condition: '{action}==\'faqList\'',then: 'confirmFaqDelete',else: 'confirmCatDelete')}"><em
+								class="fa fa-trash-o" aria-hidden="true"></em>
+							<f:translate key="delete" />
+						</button>
+					</div>
 				</div>
-				<f:render section="content" />
 			</div>
 		</div>
-</f:be.container>
+
+		<div class="modal fade"
+			id="{f:if(condition: '{action}==\'faqList\'',then: 'nsDeleteSelectedFaq',else: 'nsDeleteSelectedCategory')}"
+			tabindex="-1" role="dialog"
+			aria-labelledby="{f:if(condition: '{action}==\'faqList\'',then: 'nsDeleteSelectedFaq',else: 'nsDeleteSelectedCategory')}"
+			aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">{f:if(condition: '{action}==\'faqList\'',then: '{f:translate(key:
+							\'deleteFaq\')}',else: '{f:translate(key: \'deleteCategory\')}')}</h5>
+						<button type="button" class="close" {modalAttr}dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>{f:if(condition: '{action}==\'faqList\'',then: '{f:translate(key:
+							\'deleteFaqConfirmation\')}',else: '{f:translate(key: \'deleteCategoryConfirmation\')}')}
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" {modalAttr}dismiss="modal"><em
+								class="fa fa-close" aria-hidden="true"></em>
+							<f:translate key="cancel" />
+						</button>
+						<button type="button"
+							class="btn btn-danger {f:if(condition: '{action}==\'faqList\'',then: 'confirmFaqDelete',else: 'confirmCatDelete')}"><em
+								class="fa fa-trash-o" aria-hidden="true"></em>
+							<f:translate key="delete" />
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 
 </html>

@@ -1,8 +1,8 @@
 <?php
 namespace NITSAN\NsFaq\Controller;
 
+use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Annotation\Inject as inject;
 
 /***
  *
@@ -22,18 +22,16 @@ class FaqController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 
     /**
      * faqRepository
-     *
-     * @var \NITSAN\NsFaq\Domain\Repository\FaqRepository
-     * @inject
+     *@var mixed
      */
     protected $faqRepository = null;
 
     /**
      * Inject a faqRepository
      *
-     * @param \NITSAN\NsFaq\Domain\Repository\FaqRepository
+     * @param \NITSAN\NsFaq\Domain\Repository\FaqRepository $faqRepository
      */
-    public function injectFaqRepository(\NITSAN\NsFaq\Domain\Repository\FaqRepository $faqRepository)
+    public function injectFaqRepository(\NITSAN\NsFaq\Domain\Repository\FaqRepository $faqRepository): void
     {
         $this->faqRepository = $faqRepository;
     }
@@ -46,14 +44,12 @@ class FaqController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     public function initializeAction()
     {
         parent::initializeAction();
-        $this->pageUid = $GLOBALS['TSFE']->id;
     }
     /**
      * action list
      *
-     * @return void
      */
-    public function listAction()
+    public function listAction(): ResponseInterface
     {
         //Fetch Plugin Settings
         $settings = $this->settings;
@@ -80,5 +76,7 @@ class FaqController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             'data' => $data,
         ];
         $this->view->assignMultiple($assign);
+
+        return $this->htmlResponse();
     }
 }
