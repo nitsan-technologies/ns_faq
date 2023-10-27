@@ -195,7 +195,7 @@ class TableListViewHelper extends AbstractBackendViewHelper
         if (is_null($html) || empty($html)) {
             $html = '
 <div class="alert alert-warning" role="alert">
-  <h4 class="alert-heading">Opps!</h4>
+  <h4 class="alert-heading">Oops!</h4>
   <p>There are no any records are found!</p>
   <hr>
   <p class="mb-0">To create a new record please click <a class="alert-link" href="'.$this->redirectToCreateNewRecord('tx_nsfaq_domain_model_faq').'">Add new</a></p>

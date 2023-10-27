@@ -19,7 +19,7 @@ use TYPO3\CMS\Extbase\Annotation\Inject as inject;
  */
 class FaqController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
 {
-
+    protected $pageUid;
     /**
      * faqRepository
      *
