@@ -2,30 +2,30 @@
 
 namespace NITSAN\NsFaq\Controller;
 
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use TYPO3\CMS\Backend\Template\ModuleTemplate;
-use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\DataHandling\DataHandler;
-use TYPO3\CMS\Core\Http\RedirectResponse;
 use TYPO3\CMS\Core\Imaging\Icon;
-use TYPO3\CMS\Core\TypoScript\AST\AstBuilderInterface;
+use Psr\Http\Message\ResponseInterface;
+use TYPO3\CMS\Core\Utility\MathUtility;
+use TYPO3\CMS\Core\Http\RedirectResponse;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Utility\RootlineUtility;
+use Psr\Http\Message\ServerRequestInterface;
+use TYPO3\CMS\Core\DataHandling\DataHandler;
+use TYPO3\CMS\Backend\Utility\BackendUtility;
+use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Core\TypoScript\AST\Node\RootNode;
+use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
+use TYPO3\CMS\Core\TypoScript\AST\AstBuilderInterface;
 use TYPO3\CMS\Core\TypoScript\AST\Traverser\AstTraverser;
-use TYPO3\CMS\Core\TypoScript\AST\Visitor\AstConstantCommentVisitor;
+use TYPO3\CMS\Core\TypoScript\Tokenizer\LosslessTokenizer;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\SysTemplateRepository;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\SysTemplateTreeBuilder;
+use TYPO3\CMS\Core\TypoScript\AST\Visitor\AstConstantCommentVisitor;
+use TYPO3\CMS\Tstemplate\Controller\AbstractTemplateModuleController;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\Traverser\IncludeTreeTraverser;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\Visitor\IncludeTreeCommentAwareAstBuilderVisitor;
-use TYPO3\CMS\Core\TypoScript\Tokenizer\LosslessTokenizer;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Core\Utility\MathUtility;
-use TYPO3\CMS\Core\Utility\RootlineUtility;
-use TYPO3\CMS\Tstemplate\Controller\AbstractTemplateModuleController;
 
 class NsConstantEditorController extends AbstractTemplateModuleController 
-{  
+{
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
         private readonly SysTemplateRepository $sysTemplateRepository,
@@ -38,7 +38,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
     }
 
     public function handleRequest(ServerRequestInterface $request): ResponseInterface
-    {  
+    {
         $queryParams = $request->getQueryParams();
         $parsedBody = $request->getParsedBody();
 
@@ -63,15 +63,14 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         if (empty($allTemplatesOnPage)) {
             return $this->noTemplateAction($request);
         }
-        
+
         return $this->showAction($request);
     }
 
     private function showAction(ServerRequestInterface $request): ResponseInterface
-    {   
+    {
         $queryParams = $request->getQueryParams();
         $parsedBody = $request->getParsedBody();
-
         $languageService = $this->getLanguageService();
         $backendUser = $this->getBackendUser();
 
@@ -112,35 +111,30 @@ class NsConstantEditorController extends AbstractTemplateModuleController
                 $templateTitle = $templateRow['title'];
                 $currentTemplateConstants = $templateRow['constants'] ?? '';
             }
-        }        
-        
+        }
+
+
         // Build the constant include tree
         $rootLine = GeneralUtility::makeInstance(RootlineUtility::class, $pageUid)->get();
         $sysTemplateRows = $this->sysTemplateRepository->getSysTemplateRowsByRootlineWithUidOverride($rootLine, $request, $selectedTemplateUid);
         $site = $request->getAttribute('site');
         $constantIncludeTree = $this->treeBuilder->getTreeBySysTemplateRowsAndSite('constants', $sysTemplateRows, $this->losslessTokenizer, $site);
         $constantAstBuilderVisitor = GeneralUtility::makeInstance(IncludeTreeCommentAwareAstBuilderVisitor::class);
-        $this->treeTraverser->resetVisitors();
-        $this->treeTraverser->addVisitor($constantAstBuilderVisitor);
-        $this->treeTraverser->traverse($constantIncludeTree);
+        $this->treeTraverser->traverse($constantIncludeTree, [$constantAstBuilderVisitor]);
         $constantAst = $constantAstBuilderVisitor->getAst();
         $astConstantCommentVisitor = GeneralUtility::makeInstance(AstConstantCommentVisitor::class);
         $currentTemplateFlatConstants = $this->astBuilder->build($this->losslessTokenizer->tokenize($currentTemplateConstants), new RootNode())->flatten();
         $astConstantCommentVisitor->setCurrentTemplateFlatConstants($currentTemplateFlatConstants);
-        $this->astTraverser->resetVisitors();
-        $this->astTraverser->addVisitor($astConstantCommentVisitor);
-        $this->astTraverser->traverse($constantAst);
-        
+        $this->astTraverser->traverse($constantAst,[$astConstantCommentVisitor]);
+
         $constants = $astConstantCommentVisitor->getConstants();
         $categories = $astConstantCommentVisitor->getCategories();
-
         $relevantCategories = [];
         foreach ($categories as $categoryKey => $aCategory) {
             if ($aCategory['usageCount'] > 0) {
                 $relevantCategories[$categoryKey] = $aCategory;
             }
         }
-
         $selectedCategory = array_key_first($relevantCategories) ?? '';
         $selectedCategoryFromModuleData = (string)$moduleData->get('selectedCategory');
 
@@ -154,7 +148,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
             $moduleData->set('selectedCategory', $selectedCategory);
             $backendUser->pushModuleData($currentModuleIdentifier, $moduleData->toArray());
         }
-        
+
         $displayConstants = [];
         foreach ($constants as $constant) {
             if ($constant['cat'] === $selectedCategory) {
@@ -166,7 +160,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         foreach ($displayConstants as &$constant) {
             ksort($constant['items']);
         }
-        
+
         $view = $this->moduleTemplateFactory->create($request);
         $view->setTitle($languageService->sL($currentModule->getTitle()), $pageRecord['title']);
         $view->getDocHeaderComponent()->setMetaInformation($pageRecord);
@@ -220,14 +214,10 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         $sysTemplateRows = $this->sysTemplateRepository->getSysTemplateRowsByRootlineWithUidOverride($rootLine, $request, $selectedTemplateUid);
         $constantIncludeTree = $this->treeBuilder->getTreeBySysTemplateRowsAndSite('constants', $sysTemplateRows, $this->losslessTokenizer, $site);
         $constantAstBuilderVisitor = GeneralUtility::makeInstance(IncludeTreeCommentAwareAstBuilderVisitor::class);
-        $this->treeTraverser->resetVisitors();
-        $this->treeTraverser->addVisitor($constantAstBuilderVisitor);
-        $this->treeTraverser->traverse($constantIncludeTree);
+        $this->treeTraverser->traverse($constantIncludeTree,[$constantAstBuilderVisitor]);
         $constantAst = $constantAstBuilderVisitor->getAst();
         $astConstantCommentVisitor = GeneralUtility::makeInstance(AstConstantCommentVisitor::class);
-        $this->astTraverser->resetVisitors();
-        $this->astTraverser->addVisitor($astConstantCommentVisitor);
-        $this->astTraverser->traverse($constantAst);
+        $this->astTraverser->traverse($constantAst,[$astConstantCommentVisitor]);
 
         $constants = $astConstantCommentVisitor->getConstants();
         $updatedTemplateConstantsArray = $this->updateTemplateConstants($request, $constants, $templateRow['constants'] ?? '');
@@ -471,5 +461,3 @@ class NsConstantEditorController extends AbstractTemplateModuleController
     }
 
 }
-
-?>
