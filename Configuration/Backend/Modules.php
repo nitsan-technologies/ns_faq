@@ -4,7 +4,7 @@ $module = [
     'nitsan_nsfaqnitsan_configuration' => [
         'parent' => 'nitsan_module',
         'position' => ['before' => 'top'],
-        'access' => 'admin,user,group',
+        'access' => 'user',
         'path' => '/module/nitsan/NsFaqConfiguration',
         'iconIdentifier'   => 'nsfaq_icon',
         'labels' => 'LLL:EXT:ns_faq/Resources/Private/Language/locallang_faqconstants.xlf',
@@ -23,7 +23,7 @@ $module = [
     'nitsan_nsfaqnitsan_constants' => [
         'parent' => 'nitsan_module',
         'position' => ['before' => 'top'],
-        'access' => 'user,group',
+        'access' => 'user',
         'path' => '/module/nitsan/NsFaqNitsan',
         'iconIdentifier' => 'nsfaq_icon',
         'labels' => 'LLL:EXT:ns_faq/Resources/Private/Language/locallang_faq.xlf',
