@@ -6,7 +6,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use NITSAN\NsFaq\NsTemplate\TypoScriptTemplateModuleController;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use NITSAN\NsFaq\Domain\Repository\FaqRepository;
+
 
 /***
  *
@@ -22,13 +24,10 @@ use NITSAN\NsFaq\NsTemplate\TypoScriptTemplateModuleController;
 /**
  * FaqModuleController
  */
-class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class FaqModuleController extends ActionController
 {
 
-    public function __construct(
-        protected readonly ModuleTemplateFactory $moduleTemplateFactory
-    ) {
-    }
+   
     
     /**
      * faqRepository
@@ -58,24 +57,26 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
      * faqRepository
      *@var mixed
      */
-    protected $faqRepository = null;
+    protected mixed $faqRepository = null;
 
     /**
      * Inject a faqRepository
      *
-     * @param \NITSAN\NsFaq\Domain\Repository\FaqRepository $faqRepository
+     * @param FaqRepository $faqRepository
      */
-    public function injectFaqRepository(\NITSAN\NsFaq\Domain\Repository\FaqRepository $faqRepository): void
-    {
+   
+    public function __construct(
+        protected readonly ModuleTemplateFactory $moduleTemplateFactory,
+        FaqRepository $faqRepository
+    ) { 
         $this->faqRepository = $faqRepository;
     }
-
     /**
      * Initializes this object
      *
      * @return void
      */
-    public function initializeObject()
+    public function initializeObject() : void
     {
         $this->contentObject = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
     }

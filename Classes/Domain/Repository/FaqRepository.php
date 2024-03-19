@@ -3,7 +3,8 @@ namespace NITSAN\NsFaq\Domain\Repository;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+use TYPO3\CMS\Extbase\Persistence\Repository;
 /***
  *
  * This file is part of the "NS FAQs" Extension for TYPO3 CMS.
@@ -17,15 +18,15 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * The repository for Faqs
  */
-class FaqRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class FaqRepository extends Repository
 {
 
-    protected $defaultOrderings = ['sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING];
+    protected $defaultOrderings = ['sorting' => QueryInterface::ORDER_ASCENDING];
 
     /**
      * Returns the query
      *
-     * @return string 
+     * @return string
      */
     public function checkApiData()
     {
@@ -40,24 +41,23 @@ class FaqRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     /**
      * Returns the query
      *
-     * @return mixed 
+     * @return mixed
      * @param mixed $data
      */
     public function insertNewData($data)
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_nsfaq_domain_model_apidata');
-        $row = $queryBuilder
+        return $queryBuilder
             ->insert('tx_nsfaq_domain_model_apidata')
-            ->values($data);
-
-        $query = $queryBuilder->executeQuery();
-        return $query;
+            ->values($data)
+            ->executeQuery();
+       
     }
 
     /**
      * Returns the query
      *
-     * @return mixed 
+     * @return mixed
      * @param mixed $url
      */
     public function curlInitCall($url)
@@ -75,7 +75,7 @@ class FaqRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
     /**
      * Returns the query
      *
-     * @return mixed 
+     * @return mixed
      */
     public function deleteOldApiData()
     {

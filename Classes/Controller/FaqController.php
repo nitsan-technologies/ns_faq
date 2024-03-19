@@ -3,6 +3,9 @@ namespace NITSAN\NsFaq\Controller;
 
 use Psr\Http\Message\ResponseInterface;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use NITSAN\NsFaq\Domain\Repository\FaqRepository;
+use TYPO3\CMS\Core\Page\PageRenderer;
 
 /***
  *
@@ -17,31 +20,31 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * FaqController
  */
-class FaqController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class FaqController extends ActionController
 {
 
     /**
      * faqRepository
      *@var mixed
      */
-    protected $faqRepository = null;
+    protected mixed $faqRepository = null;
 
     /**
-     * Inject a faqRepository
-     *
-     * @param \NITSAN\NsFaq\Domain\Repository\FaqRepository $faqRepository
+     
+     
+     * @param FaqRepository $faqRepository
      */
-    public function injectFaqRepository(\NITSAN\NsFaq\Domain\Repository\FaqRepository $faqRepository): void
+    public function __construct(FaqRepository $faqRepository)
     {
         $this->faqRepository = $faqRepository;
     }
-
+    
     /**
      * Initialize Action
      *
      * @return void
      */
-    public function initializeAction()
+    public function initializeAction() : void
     {
         parent::initializeAction();
     }
@@ -62,7 +65,7 @@ class FaqController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $faqs = $this->faqRepository->findAll();
 
         //Add Custom CSS
-        $pageRender = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
+        $pageRender = GeneralUtility::makeInstance(PageRenderer::class);
         $settings['usercss'] = isset($settings['usercss']) ? $settings['usercss'] : '';
         if ($settings['usercss']) {
             $pageRender->addCssFile($settings['usercss'], 'stylesheet', '', '', true);

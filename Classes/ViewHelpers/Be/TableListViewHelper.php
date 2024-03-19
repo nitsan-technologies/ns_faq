@@ -47,7 +47,7 @@ use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
  *
  * Context menu is active.
  *
- * 
+ *
  * Full::
  *
  *    <f:be.tableList tableName="fe_users" fieldList="{0: 'name', 1: 'email'}"
@@ -126,7 +126,7 @@ class TableListViewHelper extends AbstractBackendViewHelper
 	 * @throws \TYPO3\CMS\Core\Type\Exception\InvalidEnumerationValueException
 	 * @see \TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList
 	 */
-	public function render()
+	public function render(): string
 	{
 		$tableName = $this->arguments['tableName'];
 		$fieldList = $this->arguments['fieldList'];
@@ -159,7 +159,7 @@ class TableListViewHelper extends AbstractBackendViewHelper
 		$this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/action-dispatcher.js');
 		if ($enableControlPanels === true) {
 			$this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/multi-record-selection.js');
-			//            $this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/context-menu.js');
+			$this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/context-menu.js');
 		}
 
 		$pageId = (int)($request->getParsedBody()['id'] ?? $request->getQueryParams()['id'] ?? 0);
@@ -214,11 +214,11 @@ class TableListViewHelper extends AbstractBackendViewHelper
 	{
 		$pid = (int) \TYPO3\CMS\Core\Utility\GeneralUtility::_GET('id');
 		$returnUrl = GeneralUtility::getIndpEnv('REQUEST_URI');
-		$url = $this->getModuleUrl('record_edit', [
+		return $this->getModuleUrl('record_edit', [
 			'edit[' . $table . '][' . $pid . ']' => 'new',
 			'returnUrl' => $returnUrl,
 		]);
-		return $url;
+
 	}
 
 	/**

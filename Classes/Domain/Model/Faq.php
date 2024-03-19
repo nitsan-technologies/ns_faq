@@ -1,5 +1,7 @@
 <?php
 namespace NITSAN\NsFaq\Domain\Model;
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+
 
 /***
  *
@@ -14,7 +16,7 @@ namespace NITSAN\NsFaq\Domain\Model;
 /**
  * Faq
  */
-class Faq extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Faq extends AbstractEntity
 {
 
     /**
@@ -23,7 +25,7 @@ class Faq extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
-    protected $faqTitle = '';
+    protected  string $faqTitle = '';
 
     /**
      * faqContent
@@ -31,14 +33,14 @@ class Faq extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @var string
      * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
-    protected $faqContent = '';
+    protected string $faqContent = '';
 
     /**
      * Returns the faqTitle
      *
      * @return string $faqTitle
      */
-    public function getFaqTitle()
+    public function getFaqTitle() : string
     {
         return $this->faqTitle;
     }
@@ -70,7 +72,7 @@ class Faq extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param string $faqContent
      * @return void
      */
-    public function setFaqContent($faqContent)
+    public function setFaqContent($faqContent) :void
     {
         $this->faqContent = $faqContent;
     }

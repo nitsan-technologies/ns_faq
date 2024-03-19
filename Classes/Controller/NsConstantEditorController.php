@@ -24,7 +24,7 @@ use TYPO3\CMS\Tstemplate\Controller\AbstractTemplateModuleController;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\Traverser\IncludeTreeTraverser;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\Visitor\IncludeTreeCommentAwareAstBuilderVisitor;
 
-class NsConstantEditorController extends AbstractTemplateModuleController 
+class NsConstantEditorController extends AbstractTemplateModuleController
 {
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
@@ -131,7 +131,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         $categories = $astConstantCommentVisitor->getCategories();
         $relevantCategories = [];
         foreach ($categories as $categoryKey => $aCategory) {
-            if ($aCategory['usageCount'] > 0) {
+            if ($aCategory['usageCount'] > 0 && str_starts_with($categoryKey, 'ns_')) {
                 $relevantCategories[$categoryKey] = $aCategory;
             }
         }
