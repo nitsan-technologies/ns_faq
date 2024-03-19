@@ -1,8 +1,13 @@
 <?php
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
+use NITSAN\NsFaq\Controller\FaqModuleController;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 defined('TYPO3_MODE') || die('Access denied.');
 $_EXTKEY = 'ns_faq';
 if (TYPO3_MODE === 'BE') {
-    $isVersion9Up = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000;
+    $isVersion9Up = VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000;
     if (!array_key_exists('nitsan', $GLOBALS['TBE_MODULES']) || $GLOBALS['TBE_MODULES']['nitsan'] =='') {
         if (version_compare(TYPO3_branch, '8.0', '>=')) {
             if (!isset($GLOBALS['TBE_MODULES']['nitsan'])) {
@@ -26,11 +31,11 @@ if (TYPO3_MODE === 'BE') {
         }
     }
     if (version_compare(TYPO3_branch, '10.0', '>=')) {
-        $faqController = \NITSAN\NsFaq\Controller\FaqModuleController::class;
+        $faqController = FaqModuleController::class;
     } else {
         $faqController = 'FaqModule';
     }
-    \TYPO3\CMS\Extbase\Utility\ExtensionUtility::registerModule(
+    ExtensionUtility::registerModule(
         'NITSAN.NsFaq',
         'nitsan', // Make module a submodule of 'nitsan'
         'faqbackend', // Submodule key
@@ -48,5 +53,5 @@ if (TYPO3_MODE === 'BE') {
     );
 }
 //plugin
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addLLrefForTCAdescr('tx_nsfaq_domain_model_faq', 'EXT:ns_faq/Resources/Private/Language/locallang_csh_tx_nsfaq_domain_model_faq.xlf');
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::allowTableOnStandardPages('tx_nsfaq_domain_model_faq');
+ExtensionManagementUtility::addLLrefForTCAdescr('tx_nsfaq_domain_model_faq', 'EXT:ns_faq/Resources/Private/Language/locallang_csh_tx_nsfaq_domain_model_faq.xlf');
+ExtensionManagementUtility::allowTableOnStandardPages('tx_nsfaq_domain_model_faq');

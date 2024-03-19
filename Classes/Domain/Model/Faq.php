@@ -1,5 +1,6 @@
 <?php
-namespace NITSAN\NsFaq\Domain\Model;
+namespace NITSAN\NsFaq\Domain\Model; 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 
 /***
  *
@@ -14,7 +15,7 @@ namespace NITSAN\NsFaq\Domain\Model;
 /**
  * Faq
  */
-class Faq extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Faq extends AbstractEntity
 {
 
     /**

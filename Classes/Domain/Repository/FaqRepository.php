@@ -3,7 +3,8 @@ namespace NITSAN\NsFaq\Domain\Repository;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-
+use TYPO3\CMS\Extbase\Persistence\Repository;
+use TYPO3\CMS\Extbase\Persistence\QueryInterface;
 /***
  *
  * This file is part of the "NS FAQs" Extension for TYPO3 CMS.
@@ -17,13 +18,13 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * The repository for Faqs
  */
-class FaqRepository extends \TYPO3\CMS\Extbase\Persistence\Repository
+class FaqRepository extends Repository
 {
 
     /**
      * @var array
      */
-    protected $defaultOrderings = ['sorting' => \TYPO3\CMS\Extbase\Persistence\QueryInterface::ORDER_ASCENDING];
+    protected $defaultOrderings = ['sorting' => QueryInterface::ORDER_ASCENDING];
 
     public function checkApiData()
     {

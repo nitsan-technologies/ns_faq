@@ -3,7 +3,9 @@ namespace NITSAN\NsFaq\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\Inject as inject;
-
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use NITSAN\NsFaq\Domain\Repository\FaqRepository;
+use TYPO3\CMS\Core\Page\PageRenderer;
 /***
  *
  * This file is part of the "NS FAQs" Extension for TYPO3 CMS.
@@ -17,13 +19,13 @@ use TYPO3\CMS\Extbase\Annotation\Inject as inject;
 /**
  * FaqController
  */
-class FaqController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class FaqController extends  ActionController
 {
     protected $pageUid;
     /**
      * faqRepository
      *
-     * @var \NITSAN\NsFaq\Domain\Repository\FaqRepository
+     * @var FaqRepository
      * @inject
      */
     protected $faqRepository = null;
@@ -31,9 +33,9 @@ class FaqController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
     /**
      * Inject a faqRepository
      *
-     * @param \NITSAN\NsFaq\Domain\Repository\FaqRepository
+     * @param FaqRepository
      */
-    public function injectFaqRepository(\NITSAN\NsFaq\Domain\Repository\FaqRepository $faqRepository)
+    public function injectFaqRepository(FaqRepository $faqRepository)
     {
         $this->faqRepository = $faqRepository;
     }
@@ -66,7 +68,7 @@ class FaqController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         $faqs = $this->faqRepository->findAll();
 
         //Add Custom CSS
-        $pageRender = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
+        $pageRender = GeneralUtility::makeInstance(PageRenderer::class);
         $settings['usercss'] = isset($settings['usercss']) ? $settings['usercss'] : '';
         if ($settings['usercss']) {
             $pageRender->addCssFile($settings['usercss'], 'stylesheet', '', '', true);

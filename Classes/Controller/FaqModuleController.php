@@ -6,8 +6,8 @@ use NITSAN\NsFaq\NsTemplate\TypoScriptTemplateConstantEditorModuleFunctionContro
 use NITSAN\NsFaq\NsTemplate\TypoScriptTemplateModuleController;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\Inject as inject;
-use TYPO3\CMS\Extbase\Utility\LocalizationUtility as transalte;
-
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use NITSAN\NsFaq\Domain\Repository\FaqRepository;
 /***
  *
  * This file is part of the "[NITSAN] FAQ" Extension for TYPO3 CMS.
@@ -22,15 +22,15 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility as transalte;
 /**
  * FaqModuleController
  */
-class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class FaqModuleController extends ActionController
 {
     /**
      * faqRepository
      *
-     * @var \NITSAN\NsFaq\Domain\Repository\FaqRepository
+     * @var FaqRepository
      * @inject
      */
-    protected $faqRepository = null;
+    protected FaqRepository $faqRepository;
 
     protected $templateService;
 
@@ -60,7 +60,7 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
      *
      * @param \NITSAN\NsFaq\Domain\Repository\FaqRepository
      */
-    public function injectFaqRepository(\NITSAN\NsFaq\Domain\Repository\FaqRepository $faqRepository)
+    public function injectFaqRepository(FaqRepository $faqRepository)
     {
         $this->faqRepository = $faqRepository;
     }
@@ -146,10 +146,7 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
           'faqs' => $faqs,
           'action' => 'dashboard',
           'faqscount' => $faqcount,
-          'pid' => $this->pid,
-          'rightSide' => $this->sidebarData,
-          'dashboardSupport' => $this->dashboardSupportData,
-          'bootstrapVariable' => $bootstrapVariable
+          'pid' => $this->pid
         ];
         $this->view->assignMultiple($assign);
     }
@@ -213,17 +210,5 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         return false;
     }
 
-    /**
-     * action premiumExtension
-     *
-     * @return void
-     */
-    public function premiumExtensionAction()
-    {
-        $assign = [
-            'action' => 'premiumExtension',
-            'premiumExdata' => $this->premiumExtensionData
-        ];
-        $this->view->assignMultiple($assign);
-    }
+
 }

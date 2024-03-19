@@ -4,8 +4,9 @@ namespace NITSAN\NsFaq\RecordList;
 use TYPO3\CMS\Core\Imaging\Icon;
 use TYPO3\CMS\Core\Imaging\IconFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList;
 
-class DatabaseRecordListOld extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList {
+class DatabaseRecordListOld extends DatabaseRecordList {
 
 	/**
 	 * Creates a page browser for tables with many records
@@ -20,7 +21,7 @@ class DatabaseRecordListOld extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRec
 			return '';
 		}
 		$content = '';
-		// $listURL = $this->listURL('', $this->table, 'firstElementNumber');
+		
 		$listURL = $this->listURL('', $this->table, 'firstElementNumber') . '&tx_nsfaq_nitsan_nsfaqfaqbackend[action]=faqList&tx_nsfaq_nitsan_nsfaqfaqbackend[controller]=FaqModule';
 		// 1 = first page
 		// 0 = first element

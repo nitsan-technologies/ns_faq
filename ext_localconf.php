@@ -1,11 +1,18 @@
 <?php
+use NITSAN\NsFaq\Controller\FaqController;
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+use TYPO3\CMS\Core\Imaging\IconRegistry;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
+
 defined('TYPO3_MODE') || die('Access denied.');
 if (version_compare(TYPO3_branch, '10.0', '>=')) {
-    $faqController = \NITSAN\NsFaq\Controller\FaqController::class;
+    $faqController = FaqController::class;
 } else {
     $faqController = 'Faq';
 }
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'NITSAN.NsFaq',
     'Faq',
     [
@@ -16,18 +23,16 @@ if (version_compare(TYPO3_branch, '10.0', '>=')) {
 );
 
 // wizards
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:ns_faq/Configuration/TSconfig/ContentElementWizard.tsconfig">');
+ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:ns_faq/Configuration/TSconfig/ContentElementWizard.tsconfig">');
 
-$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+$iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);
 
 $iconRegistry->registerIcon(
-    'ns_faq-plugin-faq',
-    \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+    'ns_faq-plugin-faq',SvgIconProvider::class,
     ['source' => 'EXT:ns_faq/Resources/Public/Icons/ns_faq.svg']
 );
 $iconRegistry->registerIcon(
-    'module-nsfaq',
-    \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+    'module-nsfaq',SvgIconProvider::class,
     ['source' => 'EXT:ns_faq/Resources/Public/Icons/module-nitsan.svg']
 );
 

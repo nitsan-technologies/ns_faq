@@ -3,6 +3,7 @@ namespace NITSAN\NsFaq\Hooks;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Fluid\View\StandaloneView;
+use TYPO3\CMS\Core\Service\FlexFormService;
 
 class PageLayoutView implements \TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHookInterface
 {
@@ -12,20 +13,19 @@ class PageLayoutView implements \TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHo
         if ($row['CType'] == 'list' && $row['list_type'] == 'nsfaq_faq') {
             $drawItem = false;
             $headerContent = '';
-            // template
+            
             $view = $this->getFluidTemplate($extKey, 'NsFaq');
             if (!empty($row['pi_flexform'])) {
                 /** @var FlexFormService $flexFormService */
                 if (version_compare(TYPO3_branch, '9.0', '>')) {
-                    $flexFormService = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Service\FlexFormService::class);
+                    $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
                 } else {
-                    $flexFormService = GeneralUtility::makeInstance(\TYPO3\CMS\Extbase\Service\FlexFormService::class);
+                    $flexFormService = GeneralUtility::makeInstance(FlexFormService::class);
                 }
             }
 
             // assign all to view
             $view->assignMultiple([
-                //'data' => $row,
                 'flexformData' => $flexFormService->convertFlexFormContentToArray($row['pi_flexform']),
             ]);
 

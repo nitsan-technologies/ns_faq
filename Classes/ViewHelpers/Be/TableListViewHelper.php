@@ -24,7 +24,10 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 use NITSAN\NsFaq\RecordList\DatabaseRecordList;
-use NITSAN\NsFaq\RecordList\DatabaseRecordListOld;
+use NITSAN\NsFaq\RecordList\DatabaseRecordListOld; 
+use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
+use TYPO3\CMS\Core\Type\Exception\InvalidEnumerationValueException;
+
 
 /**
  * ViewHelper which renders a record list as known from the TYPO3 list module.
@@ -74,12 +77,12 @@ class TableListViewHelper extends AbstractBackendViewHelper
     protected $escapeOutput = false;
 
     /**
-     * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+     * @var ConfigurationManagerInterface
      */
     protected $configurationManager;
 
     /**
-     * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
+     * @param ConfigurationManagerInterface $configurationManager
      */
     public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager)
     {
@@ -89,7 +92,7 @@ class TableListViewHelper extends AbstractBackendViewHelper
     /**
      * Initialize arguments.
      *
-     * @throws \TYPO3Fluid\Fluid\Core\ViewHelper\Exception
+     * @throws Exception
      */
     public function initializeArguments()
     {
@@ -113,7 +116,7 @@ class TableListViewHelper extends AbstractBackendViewHelper
      * Note: This feature is experimental!
      *
      * @return string the rendered record list
-     * @throws \TYPO3\CMS\Core\Type\Exception\InvalidEnumerationValueException
+     * @throws InvalidEnumerationValueException
      * @see \TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList
      */
     public function render()
