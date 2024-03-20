@@ -16,7 +16,8 @@ class DatabaseRecordListOld extends DatabaseRecordList
     /**
      * Creates a page browser for tables with many records
      *
-     * @param string $renderPart Distinguish between 'top' and 'bottom' part of the navigation (above or below the records)
+     * @param string $renderPart Distinguish between 'top' and 'bottom'
+     * part of the navigation (above or below the records)
      * @return string Navigation HTML
      */
     protected function renderListNavigation($renderPart = 'top')
@@ -41,7 +42,8 @@ class DatabaseRecordListOld extends DatabaseRecordList
             $labelPrevious = htmlspecialchars($this->getLanguageService()->sL(
                 'LLL:EXT:core/Resources/Private/Language/locallang_common.xlf:previous'
             ));
-            $first = '<li><a href="' . $listURL . '&pointer=' . $this->getPointerForPage(1) . '" title="' . $labelFirst . '">'
+            $first = '<li><a href="' . $listURL . '&pointer=' . $this->getPointerForPage(1) . '
+            " title="' . $labelFirst . '">'
             . $this->iconFactory->getIcon('actions-view-paging-first', Icon::SIZE_SMALL)->render() . '</a></li>';
             $previous = '<li><a href="' . $listURL . '&pointer=' . $this->getPointerForPage($currentPage - 1) . '"
 			title="' . $labelPrevious . '">'
@@ -112,7 +114,9 @@ class DatabaseRecordListOld extends DatabaseRecordList
             . '+calculatePointer(this.value); document.dblistForm.submit(); } return true;" />
 			';
         $pageIndicatorText = sprintf(
-            $this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:pageIndicator'),
+            $this->getLanguageService()->sL(
+                'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:pageIndicator'
+            ),
             $pageNumberInput,
             $totalPages
         );
@@ -123,7 +127,9 @@ class DatabaseRecordListOld extends DatabaseRecordList
             $lastElementNumber = $this->totalItems;
         }
         $rangeIndicator = '<li><span>' . sprintf(
-            $this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:rangeIndicator'),
+            $this->getLanguageService()->sL(
+                'LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf:rangeIndicator'
+            ),
             $this->firstElementNumber + 1,
             $lastElementNumber
         ) . '</span></li>';

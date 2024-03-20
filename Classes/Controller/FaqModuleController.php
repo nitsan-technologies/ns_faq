@@ -74,7 +74,9 @@ class FaqModuleController extends ActionController
      */
     public function initializeObject()
     {
-        $this->contentObject = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
+        $this->contentObject = GeneralUtility::makeInstance(
+            'TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer'
+        );
         $this->templateService = GeneralUtility::makeInstance(ExtendedTemplateService::class);
         $this->constantObj = GeneralUtility::makeInstance(
             TypoScriptTemplateConstantEditorModuleFunctionController::class
@@ -166,7 +168,6 @@ class FaqModuleController extends ActionController
         $faqs = $this->faqRepository->findAll();
 
         //Fetch Plugin Settings
-
         $bootstrapVariable = 'data';
         if (version_compare(TYPO3_branch, '11.0', '>')) {
             $bootstrapVariable = 'data-bs';

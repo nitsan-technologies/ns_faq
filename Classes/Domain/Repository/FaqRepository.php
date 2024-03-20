@@ -78,7 +78,7 @@ class FaqRepository extends Repository
      * @return array|NULL  Result is array('constants' => queryResult) or NULL
      */
     public function fetchConstants($pid)
-    {   //
+    {
         // Query Builder for Table: sys_template
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('sys_template');
 
