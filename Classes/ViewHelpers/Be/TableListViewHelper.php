@@ -24,10 +24,9 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 use NITSAN\NsFaq\RecordList\DatabaseRecordList;
-use NITSAN\NsFaq\RecordList\DatabaseRecordListOld; 
+use NITSAN\NsFaq\RecordList\DatabaseRecordListOld;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
 use TYPO3\CMS\Core\Type\Exception\InvalidEnumerationValueException;
-
 
 /**
  * ViewHelper which renders a record list as known from the TYPO3 list module.
@@ -98,14 +97,33 @@ class TableListViewHelper extends AbstractBackendViewHelper
     {
         parent::initializeArguments();
         $this->registerArgument('tableName', 'string', 'name of the database table', true);
-        $this->registerArgument('fieldList', 'array', 'list of fields to be displayed. If empty, only the title column (configured in $TCA[$tableName][\'ctrl\'][\'title\']) is shown', false, []);
-        $this->registerArgument('storagePid', 'int', 'by default, records are fetched from the storage PID configured in persistence.storagePid. With this argument, the storage PID can be overwritten');
-        $this->registerArgument('levels', 'int', 'corresponds to the level selector of the TYPO3 list module. By default only records from the current storagePid are fetched', false, 0);
-        $this->registerArgument('filter', 'string', 'corresponds to the "Search String" textbox of the TYPO3 list module. If not empty, only records matching the string will be fetched', false, '');
-        $this->registerArgument('recordsPerPage', 'int', 'amount of records to be displayed at once. Defaults to $TCA[$tableName][\'interface\'][\'maxSingleDBListItems\'] or (if that\'s not set) to 100', false, 0);
+        $this->registerArgument('fieldList', 'array', 'list of fields to be displayed. If empty,
+        only the title column (configured in $TCA[$tableName][\'ctrl\'][\'title\']) is shown', false, []);
+        $this->registerArgument('storagePid', 'int', 'by default, records are fetched from the
+        storage PID configured in persistence.storagePid. With this argument, the storage PID can be overwritten');
+        $this->registerArgument('levels', 'int', 'corresponds to the level selector of the TYPO3
+        list module. By default only records from the current storagePid are fetched', false, 0);
+        $this->registerArgument('filter', 'string', 'corresponds to the "Search String" textbox of
+        the TYPO3 list module. If not empty, only records matching the string will be fetched', false, '');
+        $this->registerArgument(
+            'recordsPerPage',
+            'int',
+            'amount of records to be displayed at
+        once. Defaults to $TCA[$tableName][\'interface\'][\'maxSingleDBListItems\'] or (if that\'s not set) to 100',
+            false,
+            0
+        );
         $this->registerArgument('sortField', 'string', 'table field to sort the results by', false, '');
-        $this->registerArgument('sortDescending', 'bool', 'if TRUE records will be sorted in descending order', false, false);
-        $this->registerArgument('readOnly', 'bool', 'if TRUE, the edit icons won\'t be shown. Otherwise edit icons will be shown, if the current BE user has edit rights for the specified table!', false, false);
+        $this->registerArgument('sortDescending', 'bool', 'if TRUE records will be sorted in
+        descending order', false, false);
+        $this->registerArgument(
+            'readOnly',
+            'bool',
+            'if TRUE, the edit icons won\'t be shown.
+        Otherwise edit icons will be shown, if the current BE user has edit rights for the specified table!',
+            false,
+            false
+        );
         $this->registerArgument('enableClickMenu', 'bool', 'enables context menu', false, true);
         $this->registerArgument('enableControlPanels', 'bool', 'enables control panels', false, false);
         $this->registerArgument('clickTitleMode', 'string', 'one of "edit", "show" (only pages, tt_content), "info');
@@ -142,7 +160,7 @@ class TableListViewHelper extends AbstractBackendViewHelper
             if ($enableControlPanels === true) {
                 $this->getPageRenderer()->loadRequireJsModule('TYPO3/CMS/Backend/MultiRecordSelection');
                 $this->getPageRenderer()->loadRequireJsModule('TYPO3/CMS/Backend/ContextMenu');
-            }   
+            }
         }
         if (version_compare(TYPO3_branch, '10.4', '>=') && version_compare(TYPO3_branch, '10.5', '<=')) {
             $this->getPageRenderer()->loadRequireJsModule('TYPO3/CMS/NsFaq/AjaxDataHandler10');
@@ -152,15 +170,20 @@ class TableListViewHelper extends AbstractBackendViewHelper
         }
         // We need to include the language file, since DatabaseRecordList is heavily using ->getLL
         if (version_compare(TYPO3_branch, '9.5', '>=')) {
-            $this->getLanguageService()->includeLLFile('EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf');
+            $this->getLanguageService()->includeLLFile(
+                'EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf'
+            );
         }
         if (version_compare(TYPO3_branch, '11.0', '>=')) {
             $dblist = GeneralUtility::makeInstance(DatabaseRecordList::class);
         } else {
             $dblist = GeneralUtility::makeInstance(DatabaseRecordListOld::class);
         }
-        $pageinfo = BackendUtility::readPageAccess(GeneralUtility::_GP('id'), $GLOBALS['BE_USER']->getPagePermsClause(Permission::PAGE_SHOW)) ?: [];
-        
+        $pageinfo = BackendUtility::readPageAccess(
+            GeneralUtility::_GP('id'),
+            $GLOBALS['BE_USER']->getPagePermsClause(Permission::PAGE_SHOW)
+        ) ?: [];
+
         $dblist->pageRow = $pageinfo;
 
         if ($readOnly) {
@@ -171,14 +194,19 @@ class TableListViewHelper extends AbstractBackendViewHelper
                 $this->getPageRenderer()->loadRequireJsModule('TYPO3/CMS/NsFaq/AjaxDataHandlerv8');
             }
             if (version_compare(TYPO3_branch, '10.4', '<=')) {
-                $dblist->calcPerms = $GLOBALS['BE_USER']->calcPerms(BackendUtility::getRecord('pages', GeneralUtility::_GP('id')));
+                $dblist->calcPerms = $GLOBALS['BE_USER']->calcPerms(BackendUtility::getRecord(
+                    'pages',
+                    GeneralUtility::_GP('id')
+                ));
             }
         }
         $dblist->disableSingleTableView = true;
         $dblist->clickTitleMode = $clickTitleMode;
         $dblist->clickMenuEnabled = $enableClickMenu;
         if ($storagePid === null) {
-            $frameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+            $frameworkConfiguration = $this->configurationManager->getConfiguration(
+                ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK
+            );
             $storagePid = $frameworkConfiguration['persistence']['storagePid'];
         }
         $dblist->start($storagePid, $tableName, (int)GeneralUtility::_GP('pointer'), $filter, $levels, $recordsPerPage);
@@ -190,7 +218,9 @@ class TableListViewHelper extends AbstractBackendViewHelper
         $dblist->sortRev = $sortDescending;
         $html = $dblist->generateList();
         if (version_compare(TYPO3_branch, '10.4', '<=')) {
-            $js = 'var T3_THIS_LOCATION = ' . GeneralUtility::quoteJSvalue(rawurlencode(GeneralUtility::getIndpEnv('REQUEST_URI')));
+            $js = 'var T3_THIS_LOCATION = ' . GeneralUtility::quoteJSvalue(rawurlencode(
+                GeneralUtility::getIndpEnv('REQUEST_URI')
+            ));
             if ($dblist->HTMLcode) {
                 $html = GeneralUtility::wrapJS($js) . $dblist->HTMLcode;
             }
@@ -201,7 +231,9 @@ class TableListViewHelper extends AbstractBackendViewHelper
   <h4 class="alert-heading">Oops!</h4>
   <p>There are no any records are found!</p>
   <hr>
-  <p class="mb-0">To create a new record please click <a class="alert-link" href="'.$this->redirectToCreateNewRecord('tx_nsfaq_domain_model_faq').'">Add new</a></p>
+  <p class="mb-0">To create a new record please click <a class="alert-link" href="'.$this->redirectToCreateNewRecord(
+                'tx_nsfaq_domain_model_faq'
+            ).'">Add new</a></p>
 </div>
 ';
         }
@@ -223,11 +255,11 @@ class TableListViewHelper extends AbstractBackendViewHelper
     {
         $pid = (int)\TYPO3\CMS\Core\Utility\GeneralUtility::_GET('id');
         $returnUrl = GeneralUtility::getIndpEnv('REQUEST_URI');
-        $url = $this->getModuleUrl('record_edit', [
+        return $this->getModuleUrl('record_edit', [
             'edit[' . $table . '][' . $pid . ']' => 'new',
             'returnUrl' => $returnUrl
         ]);
-        return $url;
+
     }
 
 

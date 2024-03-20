@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsFaq\Hooks;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -7,13 +8,18 @@ use TYPO3\CMS\Core\Service\FlexFormService;
 
 class PageLayoutView implements \TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHookInterface
 {
-    public function preProcess(\TYPO3\CMS\Backend\View\PageLayoutView &$parentObject, &$drawItem, &$headerContent, &$itemContent, array &$row)
-    {
+    public function preProcess(
+        \TYPO3\CMS\Backend\View\PageLayoutView &$parentObject,
+        &$drawItem,
+        &$headerContent,
+        &$itemContent,
+        array &$row
+    ) {
         $extKey = 'ns_faq';
         if ($row['CType'] == 'list' && $row['list_type'] == 'nsfaq_faq') {
             $drawItem = false;
             $headerContent = '';
-            
+
             $view = $this->getFluidTemplate($extKey, 'NsFaq');
             if (!empty($row['pi_flexform'])) {
                 /** @var FlexFormService $flexFormService */
@@ -37,12 +43,13 @@ class PageLayoutView implements \TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHo
     /**
      * @param string $extKey
      * @param string $templateName
-     * @return string the fluid template
+     * @return object the fluid template
      */
     protected function getFluidTemplate($extKey, $templateName)
     {
         // prepare own template
-        $fluidTemplateFile = GeneralUtility::getFileAbsFileName('EXT:' . $extKey . '/Resources/Private/Backend/' . $templateName . '.html');
+        $fluidTemplateFile = GeneralUtility::getFileAbsFileName('EXT:' . $extKey . '/Resources/Private/Backend/'
+            . $templateName . '.html');
         $view = GeneralUtility::makeInstance(StandaloneView::class);
         $view->setTemplatePathAndFilename($fluidTemplateFile);
         return $view;

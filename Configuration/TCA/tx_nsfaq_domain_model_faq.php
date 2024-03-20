@@ -1,4 +1,5 @@
 <?php
+
 if (version_compare(TYPO3_branch, '9.0', '<')) {
     $langfile = 'LLL:EXT:lang/locallang_general.xlf:';
 } else {
@@ -30,7 +31,8 @@ return [
         'showRecordFieldList' => 'sys_language_uid, l10n_parent, l10n_diffsource, hidden, faq_title, faq_content',
     ],
     'types' => [
-        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, faq_title, faq_content, --div--;LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden, starttime, endtime'],
+        '1' => ['showitem' => 'sys_language_uid, l10n_parent, l10n_diffsource, faq_title, faq_content, --div--;
+        LLL:EXT:frontend/Resources/Private/Language/locallang_ttc.xlf:tabs.access, hidden, starttime, endtime'],
     ],
     'columns' => [
         'sys_language_uid' => [
@@ -62,7 +64,8 @@ return [
                     ['', 0],
                 ],
                 'foreign_table' => 'tx_nsfaq_domain_model_faq',
-                'foreign_table_where' => 'AND {#tx_nsfaq_domain_model_faq}.{#pid}=###CURRENT_PID### AND {#tx_nsfaq_domain_model_faq}.{#sys_language_uid} IN (-1,0)',
+                'foreign_table_where' => 'AND {#tx_nsfaq_domain_model_faq}.{#pid}=###CURRENT_PID### AND
+                {#tx_nsfaq_domain_model_faq}.{#sys_language_uid} IN (-1,0)',
             ],
         ],
         'l10n_diffsource' => [

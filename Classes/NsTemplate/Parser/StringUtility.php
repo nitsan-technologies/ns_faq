@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsFaq\NsTemplate\Parser;
 
 /*

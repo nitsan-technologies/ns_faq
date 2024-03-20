@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsFaq\Utility;
 
 use TYPO3\CMS\Backend\Routing\UriBuilder;
@@ -34,7 +35,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  */
 class BackendUtility extends AbstractUtility
 {
-
     /**
      * Check if backend user is admin
      *

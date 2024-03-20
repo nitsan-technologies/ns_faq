@@ -1,10 +1,12 @@
 <?php
+
 namespace NITSAN\NsFaq\Domain\Repository;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+
 /***
  *
  * This file is part of the "NS FAQs" Extension for TYPO3 CMS.
@@ -20,7 +22,6 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
  */
 class FaqRepository extends Repository
 {
-
     /**
      * @var array
      */
@@ -28,7 +29,9 @@ class FaqRepository extends Repository
 
     public function checkApiData()
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_nsfaq_domain_model_apidata');
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(
+            'tx_nsfaq_domain_model_apidata'
+        );
         $queryBuilder
             ->select('*')
             ->from('tx_nsfaq_domain_model_apidata');
@@ -37,13 +40,13 @@ class FaqRepository extends Repository
     }
     public function insertNewData($data)
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_nsfaq_domain_model_apidata');
-        $row = $queryBuilder
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(
+            'tx_nsfaq_domain_model_apidata'
+        );
+        return $queryBuilder
             ->insert('tx_nsfaq_domain_model_apidata')
-            ->values($data);
-
-        $query = $queryBuilder->execute();
-        return $query;
+            ->values($data)
+            ->execute();
     }
     public function curlInitCall($url)
     {
@@ -58,7 +61,9 @@ class FaqRepository extends Repository
     }
     public function deleteOldApiData()
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_nsfaq_domain_model_apidata');
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable(
+            'tx_nsfaq_domain_model_apidata'
+        );
         $queryBuilder
             ->delete('tx_nsfaq_domain_model_apidata')
             ->where(
@@ -78,7 +83,7 @@ class FaqRepository extends Repository
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('sys_template');
 
         // Get Constants of Row, where RM Registration is included
-        $query = $queryBuilder
+        return $queryBuilder
             ->select('constants')
             ->from('sys_template')
             ->where(
@@ -86,10 +91,9 @@ class FaqRepository extends Repository
                     'pid',
                     $queryBuilder->createNamedParameter($pid)
                 )
-            );
+            )
+            ->execute()
+            ->fetch();
 
-        // Execute Query and Return the Query-Fetch
-        $query = $queryBuilder->execute();
-        return $query->fetch();
     }
 }

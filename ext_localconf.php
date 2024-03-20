@@ -1,4 +1,5 @@
 <?php
+
 use NITSAN\NsFaq\Controller\FaqController;
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
@@ -23,17 +24,23 @@ ExtensionUtility::configurePlugin(
 );
 
 // wizards
-ExtensionManagementUtility::addPageTSConfig('<INCLUDE_TYPOSCRIPT: source="FILE:EXT:ns_faq/Configuration/TSconfig/ContentElementWizard.tsconfig">');
+ExtensionManagementUtility::addPageTSConfig(
+    '<INCLUDE_TYPOSCRIPT:
+source="FILE:EXT:ns_faq/Configuration/TSconfig/ContentElementWizard.tsconfig">'
+);
 
 $iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);
 
 $iconRegistry->registerIcon(
-    'ns_faq-plugin-faq',SvgIconProvider::class,
+    'ns_faq-plugin-faq',
+    SvgIconProvider::class,
     ['source' => 'EXT:ns_faq/Resources/Public/Icons/ns_faq.svg']
 );
 $iconRegistry->registerIcon(
-    'module-nsfaq',SvgIconProvider::class,
+    'module-nsfaq',
+    SvgIconProvider::class,
     ['source' => 'EXT:ns_faq/Resources/Public/Icons/module-nitsan.svg']
 );
 
-$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['tt_content_drawItem']['ns_faq'] = 'NITSAN\\NsFaq\\Hooks\\PageLayoutView';
+$GLOBALS['TYPO3_CONF_VARS']['SC_OPTIONS']['cms/layout/class.tx_cms_layout.php']['tt_content_drawItem']['ns_faq'] =
+    'NITSAN\\NsFaq\\Hooks\\PageLayoutView';

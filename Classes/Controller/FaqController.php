@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsFaq\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -6,6 +7,7 @@ use TYPO3\CMS\Extbase\Annotation\Inject as inject;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use NITSAN\NsFaq\Domain\Repository\FaqRepository;
 use TYPO3\CMS\Core\Page\PageRenderer;
+
 /***
  *
  * This file is part of the "NS FAQs" Extension for TYPO3 CMS.
@@ -19,7 +21,7 @@ use TYPO3\CMS\Core\Page\PageRenderer;
 /**
  * FaqController
  */
-class FaqController extends  ActionController
+class FaqController extends ActionController
 {
     protected $pageUid;
     /**

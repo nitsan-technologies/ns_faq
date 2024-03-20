@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsFaq\NsTemplate;
 
 /*
@@ -119,9 +120,9 @@ class TypoScriptTemplateConstantEditorModuleFunctionController
         $template_uid = isset($template_uid) ? $template_uid : '';
         $existTemplate = $this->initialize_editor($this->id, $template_uid);
         if ($existTemplate) {
-            if(isset($this->templateRow['_ORIG_uid'])){
+            if(isset($this->templateRow['_ORIG_uid'])) {
                 $saveId = $this->templateRow['_ORIG_uid'];
-            }else {
+            } else {
                 $saveId = $this->templateRow['uid'];
             }
             // Update template ?
@@ -153,11 +154,11 @@ class TypoScriptTemplateConstantEditorModuleFunctionController
                     $pageRenderer = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
                     $uriBuilder = GeneralUtility::makeInstance(\TYPO3\CMS\Backend\Routing\UriBuilder::class);
                     $moduleTemplateFactory = GeneralUtility::makeInstance(\TYPO3\CMS\Backend\Template\ModuleTemplateFactory::class);
-                    $this->pObj = new \TYPO3\CMS\Tstemplate\Controller\TypoScriptTemplateModuleController($iconFactory,$pageRenderer,$uriBuilder,$moduleTemplateFactory);
+                    $this->pObj = new \TYPO3\CMS\Tstemplate\Controller\TypoScriptTemplateModuleController($iconFactory, $pageRenderer, $uriBuilder, $moduleTemplateFactory);
                 }
             } else {
                 if (empty($this->pObj)) {
-                    $this->pObj = new \TYPO3\CMS\Tstemplate\Controller\TypoScriptTemplateModuleController;
+                    $this->pObj = new \TYPO3\CMS\Tstemplate\Controller\TypoScriptTemplateModuleController();
                 }
             }
             $this->pObj->MOD_SETTINGS = BackendUtility::getModuleData($this->pObj->MOD_MENU, GeneralUtility::_GP('SET'), 'web_ts');

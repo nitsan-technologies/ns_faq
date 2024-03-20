@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsFaq\Controller;
 
 use NITSAN\NsFaq\NsTemplate\ExtendedTemplateService;
@@ -8,6 +9,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\Inject as inject;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use NITSAN\NsFaq\Domain\Repository\FaqRepository;
+
 /***
  *
  * This file is part of the "[NITSAN] FAQ" Extension for TYPO3 CMS.
@@ -58,7 +60,7 @@ class FaqModuleController extends ActionController
     /**
      * Inject a faqRepository
      *
-     * @param \NITSAN\NsFaq\Domain\Repository\FaqRepository
+     * @param FaqRepository
      */
     public function injectFaqRepository(FaqRepository $faqRepository)
     {
@@ -74,7 +76,9 @@ class FaqModuleController extends ActionController
     {
         $this->contentObject = GeneralUtility::makeInstance('TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer');
         $this->templateService = GeneralUtility::makeInstance(ExtendedTemplateService::class);
-        $this->constantObj = GeneralUtility::makeInstance(TypoScriptTemplateConstantEditorModuleFunctionController::class);
+        $this->constantObj = GeneralUtility::makeInstance(
+            TypoScriptTemplateConstantEditorModuleFunctionController::class
+        );
     }
 
     /**
@@ -101,7 +105,7 @@ class FaqModuleController extends ActionController
 
             $data = [
                 'right_sidebar_html' => $this->sidebarData,
-                'support_html'=> $this->dashboardSupportData,
+                'support_html' => $this->dashboardSupportData,
                 'footer_html' => $this->generalFooterData,
                 'premuim_extension_html' => $this->premiumExtensionData,
                 'extension_key' => 'ns_faq',
@@ -138,10 +142,7 @@ class FaqModuleController extends ActionController
         $faqcount = count($faqs);
         //Assign variables values
         $this->view->assign('menulist', 'a,b');
-        $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>')) {
-            $bootstrapVariable = 'data-bs';
-        }
+
         $assign = [
           'faqs' => $faqs,
           'action' => 'dashboard',
@@ -165,7 +166,7 @@ class FaqModuleController extends ActionController
         $faqs = $this->faqRepository->findAll();
 
         //Fetch Plugin Settings
-        $settings = $this->settings;
+
         $bootstrapVariable = 'data';
         if (version_compare(TYPO3_branch, '11.0', '>')) {
             $bootstrapVariable = 'data-bs';
@@ -206,7 +207,7 @@ class FaqModuleController extends ActionController
     public function saveConstantAction()
     {
         $this->constantObj->main();
-        $returnAction = $_REQUEST['tx_nsfaq_nitsan_nsfaqfaqbackend']['__referrer']['@action']; //get action name
+        $_REQUEST['tx_nsfaq_nitsan_nsfaqfaqbackend']['__referrer']['@action']; //get action name
         return false;
     }
 
