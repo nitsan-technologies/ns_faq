@@ -30,7 +30,8 @@ class FaqRepository extends Repository
      */
     public function checkApiData()
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_nsfaq_domain_model_apidata');
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable
+        ('tx_nsfaq_domain_model_apidata');
         $queryBuilder
             ->select('*')
             ->from('tx_nsfaq_domain_model_apidata');
@@ -46,7 +47,8 @@ class FaqRepository extends Repository
      */
     public function insertNewData($data)
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_nsfaq_domain_model_apidata');
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable
+        ('tx_nsfaq_domain_model_apidata');
         return $queryBuilder
             ->insert('tx_nsfaq_domain_model_apidata')
             ->values($data)
@@ -79,7 +81,8 @@ class FaqRepository extends Repository
      */
     public function deleteOldApiData()
     {
-        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tx_nsfaq_domain_model_apidata');
+        $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable
+        ('tx_nsfaq_domain_model_apidata');
         $queryBuilder
             ->delete('tx_nsfaq_domain_model_apidata')
             ->where(
@@ -100,7 +103,7 @@ class FaqRepository extends Repository
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('sys_template');
 
         // Get Constants of Row, where RM Registration is included
-        $query = $queryBuilder
+        return $queryBuilder
             ->select('constants')
             ->from('sys_template')
             ->where(
@@ -108,10 +111,10 @@ class FaqRepository extends Repository
                     'pid',
                     $queryBuilder->createNamedParameter($pid)
                 )
-            );
+            )
+            ->executeQuery()
+            ->fetch();
 
-        // Execute Query and Return the Query-Fetch
-        $query = $queryBuilder->executeQuery();
-        return $query->fetch();
+
     }
 }

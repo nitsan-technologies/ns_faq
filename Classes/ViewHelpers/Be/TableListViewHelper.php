@@ -105,14 +105,20 @@ class TableListViewHelper extends AbstractBackendViewHelper
 	{
 		parent::initializeArguments();
 		$this->registerArgument('tableName', 'string', 'name of the database table', true);
-		$this->registerArgument('fieldList', 'array', 'list of fields to be displayed. If empty, only the title column (configured in $TCA[$tableName][\'ctrl\'][\'title\']) is shown', false, []);
-		$this->registerArgument('storagePid', 'int', 'by default, records are fetched from the storage PID configured in persistence.storagePid. With this argument, the storage PID can be overwritten');
-		$this->registerArgument('levels', 'int', 'corresponds to the level selector of the TYPO3 list module. By default only records from the current storagePid are fetched', false, 0);
-		$this->registerArgument('filter', 'string', 'corresponds to the "Search String" textbox of the TYPO3 list module. If not empty, only records matching the string will be fetched', false, '');
-		$this->registerArgument('recordsPerPage', 'int', 'amount of records to be displayed at once. Defaults to $TCA[$tableName][\'interface\'][\'maxSingleDBListItems\'] or (if that\'s not set) to 100', false, 0);
+		$this->registerArgument('fieldList', 'array', 'list of fields to be displayed. If empty, only the title column
+		(configured in $TCA[$tableName][\'ctrl\'][\'title\']) is shown', false, []);
+		$this->registerArgument('storagePid', 'int', 'by default, records are fetched from the storage PID configured in
+		persistence.storagePid. With this argument, the storage PID can be overwritten');
+		$this->registerArgument('levels', 'int', 'corresponds to the level selector of the TYPO3 list module. By default
+		only records from the current storagePid are fetched', false, 0);
+		$this->registerArgument('filter', 'string', 'corresponds to the "Search String" textbox of the TYPO3 list module
+		. If not empty, only records matching the string will be fetched', false, '');
+		$this->registerArgument('recordsPerPage', 'int', 'amount of records to be displayed at once. Defaults to
+		$TCA[$tableName][\'interface\'][\'maxSingleDBListItems\'] or (if that\'s not set) to 100', false, 0);
 		$this->registerArgument('sortField', 'string', 'table field to sort the results by', false, '');
 		$this->registerArgument('sortDescending', 'bool', 'if TRUE records will be sorted in descending order', false, false);
-		$this->registerArgument('readOnly', 'bool', 'if TRUE, the edit icons won\'t be shown. Otherwise edit icons will be shown, if the current BE user has edit rights for the specified table!', false, false);
+		$this->registerArgument('readOnly', 'bool', 'if TRUE, the edit icons won\'t be shown. Otherwise edit icons will
+		be shown, if the current BE user has edit rights for the specified table!', false, false);
 		$this->registerArgument('enableClickMenu', 'bool', 'enables context menu', false, true);
 		$this->registerArgument('enableControlPanels', 'bool', 'enables control panels', false, false);
 		$this->registerArgument('clickTitleMode', 'string', 'one of "edit", "show" (only pages, tt_content), "info');
@@ -177,7 +183,8 @@ class TableListViewHelper extends AbstractBackendViewHelper
 		$dbList->clickTitleMode = $clickTitleMode;
 		$dbList->clickMenuEnabled = $enableClickMenu;
 		if ($storagePid === null) {
-			$frameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
+			$frameworkConfiguration = $this->configurationManager->getConfiguration(ConfigurationManagerInterface::
+            CONFIGURATION_TYPE_FRAMEWORK);
 			$storagePid = $frameworkConfiguration['persistence']['storagePid'];
 		}
 		$dbList->start($storagePid, $tableName, $pointer, $filter, $levels, $recordsPerPage);
@@ -194,7 +201,8 @@ class TableListViewHelper extends AbstractBackendViewHelper
 				  <h4 class="alert-heading">Opps!</h4>
 				  <p>There are no any records are found!</p>
 				  <hr>
-				  <p class="mb-0">To create a new record please click <a class="alert-link" href="' . $this->redirectToCreateNewRecord('tx_nsfaq_domain_model_faq') . '">Add new</a></p>
+				  <p class="mb-0">To create a new record please click <a class="alert-link" href="' .
+                $this->redirectToCreateNewRecord('tx_nsfaq_domain_model_faq') . '">Add new</a></p>
 				</div>';
 		}
 		return $html;

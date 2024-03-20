@@ -50,7 +50,7 @@ class FaqModuleController extends ActionController
     /**
      * faqRepository
      *@var mixed
-     */    
+     */
     protected $pid = null;
     
     /**
@@ -68,7 +68,7 @@ class FaqModuleController extends ActionController
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
         FaqRepository $faqRepository
-    ) { 
+    ) {
         $this->faqRepository = $faqRepository;
     }
     /**
@@ -121,7 +121,7 @@ class FaqModuleController extends ActionController
         $faqs = $this->faqRepository->findAll();
 
         //Fetch Plugin Settings
-        $settings = $this->settings;
+
         $bootstrapVariable = 'data-bs';
         //Assign variables values
         $assign = [
