@@ -20,8 +20,6 @@ class BackendEditLinkViewHelper extends AbstractViewHelper
     /**
      * Create a link for backend edit
      *
-     * @param string $tableName
-     * @param int $identifier
      * @return string
      */
     public function render()
