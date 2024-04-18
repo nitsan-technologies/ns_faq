@@ -1,5 +1,7 @@
 <?php
-namespace NITSAN\NsFaq\Domain\Model; 
+
+namespace NITSAN\NsFaq\Domain\Model;
+
 use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
 use TYPO3\CMS\Extbase\Annotation\Validate;
 
@@ -18,7 +20,6 @@ use TYPO3\CMS\Extbase\Annotation\Validate;
  */
 class Faq extends AbstractEntity
 {
-
     /**
      * faqTitle
      *

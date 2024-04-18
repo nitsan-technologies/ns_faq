@@ -1,9 +1,11 @@
 <?php
+
 namespace NITSAN\NsFaq\Utility;
 
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Http\RequestHandler;
+
 /***************************************************************
  *  Copyright notice
  *
@@ -33,7 +35,6 @@ use TYPO3\CMS\Core\Http\RequestHandler;
  */
 class BackendUtility extends AbstractUtility
 {
-
     /**
      * Check if backend user is admin
      *
@@ -138,21 +139,21 @@ class BackendUtility extends AbstractUtility
      * @return int
      */
     public static function getPidFromBackendPage($returnUrl = '')
-{
-    $queryParts = [];
-    
-    if (empty($returnUrl)) {
-        $request = GeneralUtility::makeInstance(RequestHandler::class)->getRequest();
-        $queryParams = $request->getQueryParams();
-        $returnUrl = $queryParams['returnUrl'] ?? '';
-    }
+    {
+        $queryParts = [];
 
-    if (!empty($returnUrl)) {
-        $urlParts = parse_url($returnUrl);
-        parse_str($urlParts['query'] ?? '', $queryParts);
-    }
+        if (empty($returnUrl)) {
+            $request = GeneralUtility::makeInstance(RequestHandler::class)->getRequest();
+            $queryParams = $request->getQueryParams();
+            $returnUrl = $queryParams['returnUrl'] ?? '';
+        }
 
-    return (int) ($queryParts['id'] ?? 0);
-}
+        if (!empty($returnUrl)) {
+            $urlParts = parse_url($returnUrl);
+            parse_str($urlParts['query'] ?? '', $queryParts);
+        }
+
+        return (int) ($queryParts['id'] ?? 0);
+    }
 
 }

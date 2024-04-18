@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 
 use NITSAN\NsFaq\Controller\NsConstantEditorController;
 use NITSAN\NsFaq\Controller\FaqModuleController;

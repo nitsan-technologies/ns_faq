@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsFaq\ViewHelpers\Misc;
 
 use NITSAN\NsFaq\Utility\BackendUtility;
@@ -11,10 +12,10 @@ use TYPO3Fluid\Fluid\Core\ViewHelper\AbstractViewHelper;
 class BackendNewLinkViewHelper extends AbstractViewHelper
 {
     /**
-	 *initializeArguments
-	 *
-	 * @return mixed
-	 */
+     *initializeArguments
+     *
+     * @return mixed
+     */
     public function initializeArguments()
     {
         $this->registerArgument('tableName', 'string', '', true);

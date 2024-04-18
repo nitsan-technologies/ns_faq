@@ -1,10 +1,12 @@
 <?php
+
 namespace NITSAN\NsFaq\Domain\Repository;
 
 use TYPO3\CMS\Core\Database\ConnectionPool;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Persistence\Repository;
 use TYPO3\CMS\Extbase\Persistence\QueryInterface;
+
 /***
  *
  * This file is part of the "NS FAQs" Extension for TYPO3 CMS.
@@ -20,16 +22,15 @@ use TYPO3\CMS\Extbase\Persistence\QueryInterface;
  */
 class FaqRepository extends Repository
 {
-
     protected $defaultOrderings = ['sorting' => QueryInterface::ORDER_ASCENDING];
 
 
-   /**
-     * Find Constants via sys_template Database Table
-     *
-     * @param int $pid
-     * @return mixed
-     */
+    /**
+      * Find Constants via sys_template Database Table
+      *
+      * @param int $pid
+      * @return mixed
+      */
     public function fetchConstants($pid)
     {   //
         // Query Builder for Table: sys_template

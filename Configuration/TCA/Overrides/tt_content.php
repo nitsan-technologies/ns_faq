@@ -1,4 +1,5 @@
-<?php 
+<?php
+
 
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;

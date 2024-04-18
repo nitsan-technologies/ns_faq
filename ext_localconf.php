@@ -5,6 +5,7 @@ use NITSAN\NsFaq\Controller\FaqController;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Imaging\IconRegistry;
 use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
+
 defined('TYPO3') || die('Access denied.');
 
 ExtensionUtility::configurePlugin(

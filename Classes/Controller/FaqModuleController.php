@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsFaq\Controller;
 
 use Psr\Http\Message\ResponseInterface;
@@ -8,7 +9,6 @@ use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use NITSAN\NsFaq\Domain\Repository\FaqRepository;
-
 
 /***
  *
@@ -26,18 +26,17 @@ use NITSAN\NsFaq\Domain\Repository\FaqRepository;
  */
 class FaqModuleController extends ActionController
 {
-
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory
     ) {
     }
-    
+
     /**
      * faqRepository
      *@var mixed
      */
     protected $sidebarData;
-    
+
     /**
      * faqRepository
      *@var mixed
@@ -53,9 +52,9 @@ class FaqModuleController extends ActionController
     /**
      * faqRepository
      *@var mixed
-     */    
+     */
     protected $pid = null;
-    
+
     /**
      * faqRepository
      *@var mixed
@@ -120,7 +119,7 @@ class FaqModuleController extends ActionController
         //Fetch all FAQs
         $faqs = $this->faqRepository->findAll();
 
-        
+
         $bootstrapVariable = 'data-bs';
         //Assign variables values
         $assign = [

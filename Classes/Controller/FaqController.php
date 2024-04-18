@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsFaq\Controller;
 
 use Psr\Http\Message\ResponseInterface;
@@ -23,7 +24,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 class FaqController extends ActionController
 {
-
     /**
      * faqRepository
      *@var mixed

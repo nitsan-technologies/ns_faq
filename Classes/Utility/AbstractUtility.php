@@ -1,8 +1,8 @@
 <?php
+
 namespace NITSAN\NsFaq\Utility;
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
-use TYPO3\CMS\Core\Database\DatabaseConnection;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManager;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
@@ -40,7 +40,6 @@ use TYPO3\CMS\Frontend\Controller\TypoScriptFrontendController;
  */
 abstract class AbstractUtility
 {
-
     /**
      * @return BackendUserAuthentication
      * @SuppressWarnings(PHPMD.Superglobals)
@@ -116,7 +115,7 @@ abstract class AbstractUtility
      * @return ObjectManager
      */
     protected static function getObjectManager()
-    { 
+    {
         //  @extensionScannerIgnoreLine
         return GeneralUtility::makeInstance(ObjectManager::class);
     }
