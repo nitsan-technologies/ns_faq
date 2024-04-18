@@ -1,5 +1,7 @@
 <?php
-namespace NITSAN\NsFaq\Domain\Model;
+namespace NITSAN\NsFaq\Domain\Model; 
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 
 /***
  *
@@ -14,14 +16,14 @@ namespace NITSAN\NsFaq\Domain\Model;
 /**
  * Faq
  */
-class Faq extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Faq extends AbstractEntity
 {
 
     /**
      * faqTitle
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $faqTitle = '';
 
@@ -29,7 +31,7 @@ class Faq extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * faqContent
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $faqContent = '';
 

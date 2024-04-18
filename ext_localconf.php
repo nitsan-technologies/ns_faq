@@ -1,17 +1,23 @@
 <?php
+
+use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
+use NITSAN\NsFaq\Controller\FaqController;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Core\Imaging\IconRegistry;
+use TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider;
 defined('TYPO3') || die('Access denied.');
 
-\TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+ExtensionUtility::configurePlugin(
     'NsFaq',
     'Faq',
     [
-        \NITSAN\NsFaq\Controller\FaqController::class => 'list',
+        FaqController::class => 'list',
     ],
     // non-cacheable actions
     []
 );
 
-$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+$iconRegistry = GeneralUtility::makeInstance(IconRegistry::class);
 
 $icons = [
     'ns_faq-plugin-faq' => 'ns_faq.svg',
@@ -22,7 +28,7 @@ $icons = [
 foreach ($icons as $identifier => $path) {
     $iconRegistry->registerIcon(
         $identifier,
-        \TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+        SvgIconProvider::class,
         ['source' => 'EXT:ns_faq/Resources/Public/Icons/' . $path]
     );
 }

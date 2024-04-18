@@ -4,7 +4,7 @@ namespace NITSAN\NsFaq\Utility;
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility as BackendUtilityCore;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-
+use TYPO3\CMS\Core\Http\RequestHandler;
 /***************************************************************
  *  Copyright notice
  *
@@ -135,41 +135,25 @@ class BackendUtility extends AbstractUtility
     }
 
     /**
-     * Get all GET/POST params without module name and token
-     *
-     * @param array $getParameters
-     * @return array
-     */
-    public static function getCurrentParameters($getParameters = [])
-    {
-        if (empty($getParameters)) {
-            $getParameters = GeneralUtility::_GET();
-        }
-        $parameters = [];
-        $ignoreKeys = [
-            'M',
-            'moduleToken',
-        ];
-        foreach ($getParameters as $key => $value) {
-            if (in_array($key, $ignoreKeys)) {
-                continue;
-            }
-            $parameters[$key] = $value;
-        }
-        return $parameters;
-    }
-
-    /**
      * @param string $returnUrl
      * @return int
      */
     public static function getPidFromBackendPage($returnUrl = '')
-    {
-        if (empty($returnUrl)) {
-            $returnUrl = GeneralUtility::_GP('returnUrl');
-        }
-        $urlParts = parse_url($returnUrl);
-        parse_str($urlParts['query'], $queryParts);
-        return (int) $queryParts['id'];
+{
+    $queryParts = [];
+    
+    if (empty($returnUrl)) {
+        $request = GeneralUtility::makeInstance(RequestHandler::class)->getRequest();
+        $queryParams = $request->getQueryParams();
+        $returnUrl = $queryParams['returnUrl'] ?? '';
     }
+
+    if (!empty($returnUrl)) {
+        $urlParts = parse_url($returnUrl);
+        parse_str($urlParts['query'] ?? '', $queryParts);
+    }
+
+    return (int) ($queryParts['id'] ?? 0);
+}
+
 }

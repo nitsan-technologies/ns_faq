@@ -59,13 +59,6 @@ abstract class AbstractUtility
         return $GLOBALS['TSFE'];
     }
 
-    /**
-     * @SuppressWarnings(PHPMD.Superglobals)
-     */
-    protected static function getDatabaseConnection()
-    {
-        return $GLOBALS['TYPO3_DB'];
-    }
 
     /**
      * @return array
@@ -76,16 +69,6 @@ abstract class AbstractUtility
         return (array) $_FILES;
     }
 
-    /**
-     * Get extension configuration from LocalConfiguration.php
-     *
-     * @return array
-     */
-    protected static function getExtensionConfiguration()
-    {
-        $configVariables = self::getTypo3ConfigurationVariables();
-        return unserialize($configVariables['EXT']['extConf']['bit_hrsproject']);
-    }
 
     /**
      * Get extension configuration from LocalConfiguration.php
@@ -133,7 +116,8 @@ abstract class AbstractUtility
      * @return ObjectManager
      */
     protected static function getObjectManager()
-    {
+    { 
+        //  @extensionScannerIgnoreLine
         return GeneralUtility::makeInstance(ObjectManager::class);
     }
 }

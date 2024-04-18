@@ -26,6 +26,8 @@ use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
+use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
+use TYPO3\CMS\Core\Type\Exception\InvalidEnumerationValueException;
 
 /**
  * ViewHelper which renders a record list as known from the TYPO3 list module.
@@ -84,12 +86,12 @@ class TableListViewHelper extends AbstractBackendViewHelper
 	protected $escapeOutput = false;
 
 	/**
-	 * @var \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface
+	 * @var ConfigurationManagerInterface
 	 */
 	protected $configurationManager;
 
 	/**
-	 * @param \TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface $configurationManager
+	 * @param ConfigurationManagerInterface $configurationManager
 	 */
 	public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager): void
 	{
@@ -99,7 +101,7 @@ class TableListViewHelper extends AbstractBackendViewHelper
 	/**
 	 * Initialize arguments.
 	 *
-	 * @throws \TYPO3Fluid\Fluid\Core\ViewHelper\Exception
+	 * @throws Exception
 	 */
 	public function initializeArguments(): void
 	{
@@ -123,7 +125,7 @@ class TableListViewHelper extends AbstractBackendViewHelper
 	 * Note: This feature is experimental!
 	 *
 	 * @return string the rendered record list
-	 * @throws \TYPO3\CMS\Core\Type\Exception\InvalidEnumerationValueException
+	 * @throws InvalidEnumerationValueException
 	 * @see \TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList
 	 */
 	public function render()
@@ -152,14 +154,14 @@ class TableListViewHelper extends AbstractBackendViewHelper
 			// here, the early return is just sanitation.
 			return '';
 		}
-
+//  @extensionScannerIgnoreLine
 		$this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/recordlist.js');
 		$this->getPageRenderer()->loadJavaScriptModule('@nitsan/ns-faq/ajax-data-handler.js');
 		$this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/record-download-button.js');
 		$this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/action-dispatcher.js');
 		if ($enableControlPanels === true) {
 			$this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/multi-record-selection.js');
-			//            $this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/context-menu.js');
+			
 		}
 
 		$pageId = (int)($request->getParsedBody()['id'] ?? $request->getQueryParams()['id'] ?? 0);
@@ -212,7 +214,7 @@ class TableListViewHelper extends AbstractBackendViewHelper
 	 */
 	private function redirectToCreateNewRecord($table): string
 	{
-		$pid = (int) \TYPO3\CMS\Core\Utility\GeneralUtility::_GET('id');
+		$pid = (int) GeneralUtility::_GET('id');
 		$returnUrl = GeneralUtility::getIndpEnv('REQUEST_URI');
 		$url = $this->getModuleUrl('record_edit', [
 			'edit[' . $table . '][' . $pid . ']' => 'new',
@@ -221,23 +223,7 @@ class TableListViewHelper extends AbstractBackendViewHelper
 		return $url;
 	}
 
-	/**
-	 * Get a CSRF token
-	 *
-	 * @param bool $tokenOnly Set it to TRUE to get only the token, otherwise including the &moduleToken= as prefix
-	 * @return string
-	 */
-	protected function getToken(bool $tokenOnly = false): string
-	{
 
-		$tokenParameterName = 'token';
-		$token = FormProtectionFactory::get('backend')->generateToken('route', 'nitsan_NsFaqFaqbackend');
-		if ($tokenOnly) {
-			return $token;
-		}
-
-		return '&' . $tokenParameterName . '=' . $token;
-	}
 	/**
 	 * Returns the URL to a given module mainly used for visibility settings or deleting a record via AJAX
 	 * @param string $moduleName Name of the module
