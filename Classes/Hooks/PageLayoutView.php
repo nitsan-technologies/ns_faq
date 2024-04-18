@@ -25,7 +25,7 @@ class PageLayoutView implements \TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHo
 
             // assign all to view
             $view->assignMultiple([
-                //'data' => $row,
+                
                 'flexformData' => $flexFormService->convertFlexFormContentToArray($row['pi_flexform']),
             ]);
 
