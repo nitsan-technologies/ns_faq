@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsFaq\NsTemplate;
 
 /*
@@ -1056,7 +1057,7 @@ class ExtendedTemplateService extends TemplateService
         } else {
             $m = strcspn($type, ' [');
             $retArr['type'] = strtolower(substr($type, 0, $m));
-            $types = ['int' => 1, 'options' => 1, 'file' => 1, 'boolean' => 1, 'offset' => 1, 'user' => 1, 'checkbox'=>1];
+            $types = ['int' => 1, 'options' => 1, 'file' => 1, 'boolean' => 1, 'offset' => 1, 'user' => 1, 'checkbox' => 1];
             if (isset($types[$retArr['type']])) {
                 $p = trim(substr($type, $m));
                 $reg = [];
@@ -1296,7 +1297,7 @@ class ExtendedTemplateService extends TemplateService
                                 . '<div class="col-md-5 col-lg-3 col-xl-2">'
                                         . '<div class="d-flex justify-content-between">'
                                             . $constantLabel
-                                            . ($constantDescription ? '<div class="field-info-trigger"><em class="fa fa-info-circle" aria-hidden="true"></em></div>' : '')
+                                            . ($constantDescription ? '<div class="field-info-trigger"></div>' : '')
                                         . '</div>'
                                 . '</div>'
                                 . '<div class="col-md-7 col-lg-8">'
@@ -1390,7 +1391,7 @@ class ExtendedTemplateService extends TemplateService
             if (count($parts) === 2) {
                 $parts[1] = $theValue;
             }
-            $this->raw[$lineNum] = implode('=',$parts);
+            $this->raw[$lineNum] = implode('=', $parts);
         } else {
             $this->raw[] = $key . ' =' . $theValue;
         }
@@ -1544,9 +1545,9 @@ class ExtendedTemplateService extends TemplateService
                                 }
                                 break;
                             case 'textarea':
-                                    if ($var) {
-                                        $var = str_replace("\r", '', str_replace("\n", '', $var));
-                                    }
+                                if ($var) {
+                                    $var = str_replace("\r", '', str_replace("\n", '', $var));
+                                }
                                 break;
                         }
                         if ($this->ext_printAll || (string)$theConstants[$key]['value'] !== (string)$var) {

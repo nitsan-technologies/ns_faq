@@ -139,7 +139,7 @@ class TableListViewHelper extends AbstractBackendViewHelper
             if ($enableControlPanels === true) {
                 $this->getPageRenderer()->loadRequireJsModule('TYPO3/CMS/Backend/MultiRecordSelection');
                 $this->getPageRenderer()->loadRequireJsModule('TYPO3/CMS/Backend/ContextMenu');
-            }   
+            }
         }
         if (version_compare(TYPO3_branch, '10.4', '>=') && version_compare(TYPO3_branch, '10.5', '<=')) {
             $this->getPageRenderer()->loadRequireJsModule('TYPO3/CMS/NsFaq/AjaxDataHandler10');
@@ -157,7 +157,7 @@ class TableListViewHelper extends AbstractBackendViewHelper
             $dblist = GeneralUtility::makeInstance(DatabaseRecordListOld::class);
         }
         $pageinfo = BackendUtility::readPageAccess(GeneralUtility::_GP('id'), $GLOBALS['BE_USER']->getPagePermsClause(Permission::PAGE_SHOW)) ?: [];
-        
+
         $dblist->pageRow = $pageinfo;
 
         if ($readOnly) {

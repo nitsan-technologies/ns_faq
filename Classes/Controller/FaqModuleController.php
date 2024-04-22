@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsFaq\Controller;
 
 use NITSAN\NsFaq\NsTemplate\ExtendedTemplateService;
@@ -6,7 +7,6 @@ use NITSAN\NsFaq\NsTemplate\TypoScriptTemplateConstantEditorModuleFunctionContro
 use NITSAN\NsFaq\NsTemplate\TypoScriptTemplateModuleController;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\Inject as inject;
-
 
 /***
  *
@@ -41,8 +41,6 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     protected $dashboardSupportData;
 
     protected $generalFooterData;
-
-    protected $premiumExtensionData;
 
     protected $constants;
 
@@ -89,7 +87,7 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         $sidebarUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=ns_faq&blockName=DashboardRightSidebar';
         $dashboardSupportUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=ns_faq&blockName=DashboardSupport';
         $generalFooterUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=ns_faq&blockName=GeneralFooter';
-        
+
 
         $this->faqRepository->deleteOldApiData();
         $checkApiData = $this->faqRepository->checkApiData();
@@ -97,11 +95,11 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
             $this->sidebarData = $this->faqRepository->curlInitCall($sidebarUrl);
             $this->dashboardSupportData = $this->faqRepository->curlInitCall($dashboardSupportUrl);
             $this->generalFooterData = $this->faqRepository->curlInitCall($generalFooterUrl);
-           
+
 
             $data = [
                 'right_sidebar_html' => $this->sidebarData,
-                'support_html'=> $this->dashboardSupportData,
+                'support_html' => $this->dashboardSupportData,
                 'footer_html' => $this->generalFooterData,
                 'extension_key' => 'ns_faq',
                 'last_update' => date('Y-m-d')
@@ -110,7 +108,7 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         } else {
             $this->sidebarData = $checkApiData['right_sidebar_html'];
             $this->dashboardSupportData = $checkApiData['support_html'];
-            
+
         }
 
         //GET and SET pid for the
@@ -166,7 +164,7 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         //Fetch all FAQs
         $faqs = $this->faqRepository->findAll();
 
-       
+
         $bootstrapVariable = 'data';
         if (version_compare(TYPO3_branch, '11.0', '>')) {
             $bootstrapVariable = 'data-bs';

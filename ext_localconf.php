@@ -1,4 +1,5 @@
 <?php
+
 defined('TYPO3_MODE') || die('Access denied.');
 if (version_compare(TYPO3_branch, '10.0', '>=')) {
     $faqController = \NITSAN\NsFaq\Controller\FaqController::class;

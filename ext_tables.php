@@ -1,9 +1,10 @@
 <?php
+
 defined('TYPO3_MODE') || die('Access denied.');
 $_EXTKEY = 'ns_faq';
 if (TYPO3_MODE === 'BE') {
     $isVersion9Up = \TYPO3\CMS\Core\Utility\VersionNumberUtility::convertVersionNumberToInteger(TYPO3_version) >= 9000000;
-    if (!array_key_exists('nitsan', $GLOBALS['TBE_MODULES']) || $GLOBALS['TBE_MODULES']['nitsan'] =='') {
+    if (!array_key_exists('nitsan', $GLOBALS['TBE_MODULES']) || $GLOBALS['TBE_MODULES']['nitsan'] == '') {
         if (version_compare(TYPO3_branch, '8.0', '>=')) {
             if (!isset($GLOBALS['TBE_MODULES']['nitsan'])) {
                 $temp_TBE_MODULES = [];
@@ -36,7 +37,7 @@ if (TYPO3_MODE === 'BE') {
         'faqbackend', // Submodule key
         '', // Position
         [
-            $faqController => 'dashboard, faqList, faqBasicSettings, premiumExtension, show, new, create, edit, update, delete, saveConstant',
+            $faqController => 'dashboard, faqList, faqBasicSettings, show, new, create, edit, update, delete, saveConstant',
         ],
         [
             'access' => 'user,group',

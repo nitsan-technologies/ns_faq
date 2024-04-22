@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsFaq\Hooks;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -25,7 +26,7 @@ class PageLayoutView implements \TYPO3\CMS\Backend\View\PageLayoutViewDrawItemHo
 
             // assign all to view
             $view->assignMultiple([
-                
+
                 'flexformData' => $flexFormService->convertFlexFormContentToArray($row['pi_flexform']),
             ]);
 

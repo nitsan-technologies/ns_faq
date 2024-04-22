@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsFaq\Controller;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -74,11 +75,11 @@ class FaqController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
             $pageRender->addCssInlineBlock('ns-faq-custom-css', $settings['basicSettings']['general']['customCSS']);
         }
 
+
         //Assign variables values
-        $assign = [
+        $this->view->assignMultiple([
             'faqs' => $faqs,
             'data' => $data,
-        ];
-        $this->view->assignMultiple($assign);
+        ]);
     }
 }

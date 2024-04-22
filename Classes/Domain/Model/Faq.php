@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsFaq\Domain\Model;
 
 /***
@@ -16,7 +17,6 @@ namespace NITSAN\NsFaq\Domain\Model;
  */
 class Faq extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
-
     /**
      * faqTitle
      *
