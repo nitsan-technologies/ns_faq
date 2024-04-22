@@ -11,7 +11,7 @@ class ThemeContainsViewHelper extends AbstractViewHelper
     {
         $this->registerArgument('value', 'string', '', true);
     }
-
+    
     public static function renderStatic(
         array $arguments,
         \Closure $renderChildrenClosure,

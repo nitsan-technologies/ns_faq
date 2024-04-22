@@ -37,7 +37,7 @@ class FaqRepository extends Repository
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('sys_template');
 
         // Get Constants of Row, where RM Registration is included
-        $query = $queryBuilder
+        $queryBuilder
             ->select('constants')
             ->from('sys_template')
             ->where(

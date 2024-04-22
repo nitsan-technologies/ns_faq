@@ -74,11 +74,10 @@ class FaqController extends ActionController
         }
 
         //Assign variables values
-        $assign = [
+        $this->view->assignMultiple([
             'faqs' => $faqs,
             'data' => $data,
-        ];
-        $this->view->assignMultiple($assign);
+        ]);
 
         return $this->htmlResponse();
     }
