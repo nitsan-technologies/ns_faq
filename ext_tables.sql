@@ -13,9 +13,8 @@ CREATE TABLE tx_nsfaq_domain_model_faq (
 	faqcategories int(11) unsigned DEFAULT '0' NOT NULL,
     accesstoken varchar(255) DEFAULT '' NOT NULL,
 	views int(11) unsigned DEFAULT '0',
-	likes int(11) unsigned DEFAULT '0',
-	dislikes int(11) unsigned DEFAULT '0',
-	shares int(11) unsigned DEFAULT '0',
+	
+	
 	
 
 	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
@@ -46,19 +45,4 @@ CREATE TABLE tx_nsfaq_domain_model_faq (
 	KEY t3ver_oid (t3ver_oid,t3ver_wsid),
 	KEY language (l10n_parent,sys_language_uid)
 
-);
-
-#
-# Table structure for table 'tx_nsfaq_domain_model_apidata'
-#
-CREATE TABLE tx_nsfaq_domain_model_apidata (
-   id int(11) NOT NULL auto_increment,
-   extension_key varchar(255) DEFAULT '',
-   right_sidebar_html text,
-   premuim_extension_html text,
-   support_html text,
-   footer_html text,
-   last_update date,
-
-   PRIMARY KEY (id)
 );

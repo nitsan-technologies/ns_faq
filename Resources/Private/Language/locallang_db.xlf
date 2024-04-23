@@ -28,7 +28,7 @@
 				<source>Path to template layouts (FE)</source>
 			</trans-unit>
 			<trans-unit id="tx_ns_faq.includejs">
-				<source>Include JQuery</source>
+				<source>Include JQuery : Include JQuery</source>
 			</trans-unit>
 			<trans-unit id="tx_ns_faq.globecustomcss">
 				<source>Global Custom CSS file</source>

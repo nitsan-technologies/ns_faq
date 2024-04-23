@@ -24,7 +24,7 @@ use TYPO3\CMS\Tstemplate\Controller\AbstractTemplateModuleController;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\Traverser\IncludeTreeTraverser;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\Visitor\IncludeTreeCommentAwareAstBuilderVisitor;
 
-class NsConstantEditorController extends AbstractTemplateModuleController 
+class NsConstantEditorController extends AbstractTemplateModuleController
 {
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory,
@@ -125,7 +125,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         $astConstantCommentVisitor = GeneralUtility::makeInstance(AstConstantCommentVisitor::class);
         $currentTemplateFlatConstants = $this->astBuilder->build($this->losslessTokenizer->tokenize($currentTemplateConstants), new RootNode())->flatten();
         $astConstantCommentVisitor->setCurrentTemplateFlatConstants($currentTemplateFlatConstants);
-        $this->astTraverser->traverse($constantAst,[$astConstantCommentVisitor]);
+        $this->astTraverser->traverse($constantAst, [$astConstantCommentVisitor]);
 
         $constants = $astConstantCommentVisitor->getConstants();
         $categories = $astConstantCommentVisitor->getCategories();
@@ -214,10 +214,10 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         $sysTemplateRows = $this->sysTemplateRepository->getSysTemplateRowsByRootlineWithUidOverride($rootLine, $request, $selectedTemplateUid);
         $constantIncludeTree = $this->treeBuilder->getTreeBySysTemplateRowsAndSite('constants', $sysTemplateRows, $this->losslessTokenizer, $site);
         $constantAstBuilderVisitor = GeneralUtility::makeInstance(IncludeTreeCommentAwareAstBuilderVisitor::class);
-        $this->treeTraverser->traverse($constantIncludeTree,[$constantAstBuilderVisitor]);
+        $this->treeTraverser->traverse($constantIncludeTree, [$constantAstBuilderVisitor]);
         $constantAst = $constantAstBuilderVisitor->getAst();
         $astConstantCommentVisitor = GeneralUtility::makeInstance(AstConstantCommentVisitor::class);
-        $this->astTraverser->traverse($constantAst,[$astConstantCommentVisitor]);
+        $this->astTraverser->traverse($constantAst, [$astConstantCommentVisitor]);
 
         $constants = $astConstantCommentVisitor->getConstants();
         $updatedTemplateConstantsArray = $this->updateTemplateConstants($request, $constants, $templateRow['constants'] ?? '');

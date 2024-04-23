@@ -1,5 +1,10 @@
 <?php
 
+
+use NITSAN\NsFaq\Controller\NsConstantEditorController;
+use NITSAN\NsFaq\Controller\FaqModuleController;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
+
 $module = [
     'nitsan_nsfaqnitsan_configuration' => [
         'parent' => 'nitsan_module',
@@ -12,7 +17,7 @@ $module = [
         'extensionName' => 'NsFaq',
         'routes' => [
             '_default' => [
-                'target' => \NITSAN\NsFaq\Controller\NsConstantEditorController::class . '::handleRequest',
+                'target' => NsConstantEditorController::class . '::handleRequest',
             ],
         ],
         'moduleData' => [
@@ -30,7 +35,7 @@ $module = [
         'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
         'extensionName' => 'NsFaq',
         'controllerActions' => [
-            \NITSAN\NsFaq\Controller\FaqModuleController::class => [
+            FaqModuleController::class => [
                 'dashboard',
                 'faqList'
             ],
@@ -38,7 +43,7 @@ $module = [
     ],
 ];
 
-if (!\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::isLoaded('ns_basetheme')) {
+if (!ExtensionManagementUtility::isLoaded('ns_basetheme')) {
     $module['nitsan_module'] = [
         'labels' => 'LLL:EXT:ns_faq/Resources/Private/Language/BackendModule.xlf',
         'iconIdentifier' => 'module-nsfaq',

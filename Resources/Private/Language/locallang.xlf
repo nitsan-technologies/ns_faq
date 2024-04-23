@@ -52,7 +52,7 @@
 
 			<!-- Backend Module LLL Start -->
 			<trans-unit id="extensionName">
-				<source>NS FAQ</source>
+				<source>FAQ</source>
 			</trans-unit>
 			<trans-unit id="globalsettings">
 				<source>Global Setting</source>

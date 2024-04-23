@@ -1,4 +1,5 @@
 <?php
+
 $langfile = 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:';
 
 return [

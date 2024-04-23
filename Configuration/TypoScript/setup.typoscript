@@ -42,19 +42,6 @@ page {
 }
 
 
-ajaxData = PAGE
-ajaxData {
-    typeNum = 22184356
-    config {
-        disableAllHeaderCode = 1
-        additionalHeaders = Content-type:application/html
-        xhtml_cleaning = 0
-        debug = 0
-        no_cache = 1
-        admPanel = 0
-    }
-}
-
 [globalVar = LIT:1 = {$plugin.tx_nsfaq_faq.basicSettings.general.includeJquery}]
     page {
         includeJS {

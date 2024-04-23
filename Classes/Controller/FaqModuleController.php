@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsFaq\Controller;
 
 use Psr\Http\Message\ResponseInterface;
@@ -6,7 +7,8 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use Psr\Http\Message\ServerRequestInterface;
 use TYPO3\CMS\Backend\Template\ModuleTemplate;
 use TYPO3\CMS\Backend\Template\ModuleTemplateFactory;
-use NITSAN\NsFaq\NsTemplate\TypoScriptTemplateModuleController;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use NITSAN\NsFaq\Domain\Repository\FaqRepository;
 
 /***
  *
@@ -22,20 +24,19 @@ use NITSAN\NsFaq\NsTemplate\TypoScriptTemplateModuleController;
 /**
  * FaqModuleController
  */
-class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
+class FaqModuleController extends ActionController
 {
-
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory
     ) {
     }
-    
+
     /**
      * faqRepository
      *@var mixed
      */
     protected $sidebarData;
-    
+
     /**
      * faqRepository
      *@var mixed
@@ -51,9 +52,9 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     /**
      * faqRepository
      *@var mixed
-     */    
+     */
     protected $pid = null;
-    
+
     /**
      * faqRepository
      *@var mixed
@@ -63,9 +64,9 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     /**
      * Inject a faqRepository
      *
-     * @param \NITSAN\NsFaq\Domain\Repository\FaqRepository $faqRepository
+     * @param FaqRepository $faqRepository
      */
-    public function injectFaqRepository(\NITSAN\NsFaq\Domain\Repository\FaqRepository $faqRepository): void
+    public function injectFaqRepository(FaqRepository $faqRepository): void
     {
         $this->faqRepository = $faqRepository;
     }
@@ -108,8 +109,7 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
     /**
      * action faqList
-     *
-         */
+     **/
     public function faqListAction(): ResponseInterface
     {
         $view = $this->initializeModuleTemplate($this->request);
@@ -119,8 +119,7 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         //Fetch all FAQs
         $faqs = $this->faqRepository->findAll();
 
-        //Fetch Plugin Settings
-        $settings = $this->settings;
+
         $bootstrapVariable = 'data-bs';
         //Assign variables values
         $assign = [

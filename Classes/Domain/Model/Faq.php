@@ -1,9 +1,13 @@
 <?php
+
 namespace NITSAN\NsFaq\Domain\Model;
+
+use TYPO3\CMS\Extbase\DomainObject\AbstractEntity;
+use TYPO3\CMS\Extbase\Annotation\Validate;
 
 /***
  *
- * This file is part of the "NS FAQs" Extension for TYPO3 CMS.
+ * This file is part of the "FAQs" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
@@ -14,14 +18,13 @@ namespace NITSAN\NsFaq\Domain\Model;
 /**
  * Faq
  */
-class Faq extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
+class Faq extends AbstractEntity
 {
-
     /**
      * faqTitle
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $faqTitle = '';
 
@@ -29,7 +32,7 @@ class Faq extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * faqContent
      *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
+     * @Validate("NotEmpty")
      */
     protected $faqContent = '';
 
