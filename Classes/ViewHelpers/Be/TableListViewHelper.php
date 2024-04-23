@@ -17,7 +17,6 @@ namespace NITSAN\NsFaq\ViewHelpers\Be;
 
 use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
-use TYPO3\CMS\Core\FormProtection\FormProtectionFactory;
 use TYPO3\CMS\Core\Localization\LanguageService;
 use TYPO3\CMS\Core\Type\Bitmask\Permission;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -139,7 +138,7 @@ class TableListViewHelper extends AbstractBackendViewHelper
             if ($enableControlPanels === true) {
                 $this->getPageRenderer()->loadRequireJsModule('TYPO3/CMS/Backend/MultiRecordSelection');
                 $this->getPageRenderer()->loadRequireJsModule('TYPO3/CMS/Backend/ContextMenu');
-            }   
+            }
         }
         if (version_compare(TYPO3_branch, '10.4', '>=') && version_compare(TYPO3_branch, '10.5', '<=')) {
             $this->getPageRenderer()->loadRequireJsModule('TYPO3/CMS/NsFaq/AjaxDataHandler10');
@@ -157,7 +156,7 @@ class TableListViewHelper extends AbstractBackendViewHelper
             $dblist = GeneralUtility::makeInstance(DatabaseRecordListOld::class);
         }
         $pageinfo = BackendUtility::readPageAccess(GeneralUtility::_GP('id'), $GLOBALS['BE_USER']->getPagePermsClause(Permission::PAGE_SHOW)) ?: [];
-        
+
         $dblist->pageRow = $pageinfo;
 
         if ($readOnly) {
@@ -192,6 +191,8 @@ class TableListViewHelper extends AbstractBackendViewHelper
                 $html = GeneralUtility::wrapJS($js) . $dblist->HTMLcode;
             }
         }
+        
+
         if (is_null($html) || empty($html)) {
             $html = '
 <div class="alert alert-warning" role="alert">
@@ -228,28 +229,6 @@ class TableListViewHelper extends AbstractBackendViewHelper
     }
 
 
-    /**
-     * Get a CSRF token
-     *
-     * @param bool $tokenOnly Set it to TRUE to get only the token, otherwise including the &moduleToken= as prefix
-     * @return string
-     */
-    protected function getToken(bool $tokenOnly = false): string
-    {
-        if (self::is9up()) {
-            $tokenParameterName = 'token';
-            $token = FormProtectionFactory::get('backend')->generateToken('route', 'nitsan_NsFaqFaqbackend');
-        } else {
-            $tokenParameterName = 'moduleToken';
-            $token = FormProtectionFactory::get()->generateToken('moduleCall', 'nitsan_NsFaqFaqbackend');
-        }
-
-        if ($tokenOnly) {
-            return $token;
-        }
-
-        return '&' . $tokenParameterName . '=' . $token;
-    }
     /**
      * Returns the URL to a given module mainly used for visibility settings or deleting a record via AJAX
      * @param string $moduleName Name of the module

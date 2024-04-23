@@ -1,4 +1,5 @@
 <?php
+
 namespace NITSAN\NsFaq\RecordList;
 
 class DatabaseRecordList extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRecordList
@@ -30,7 +31,7 @@ class DatabaseRecordList extends \TYPO3\CMS\Recordlist\RecordList\DatabaseRecord
                 'currentUrl' => $this->listURL('', $table, 'pointer').'&tx_nsfaq_nitsan_nsfaqfaqbackend[action]=faqList&tx_nsfaq_nitsan_nsfaqfaqbackend[controller]=FaqModule',
                 'currentPage' => $currentPage,
                 'totalPages' => $totalPages,
-                'firstElement' => ((($currentPage -1) * $itemsPerPage) + 1),
+                'firstElement' => ((($currentPage - 1) * $itemsPerPage) + 1),
                 'lastElement' => $lastElementNumber,
                 'colspan' => $paginationColumns,
             ])

@@ -8,24 +8,17 @@ CREATE TABLE tx_nsfaq_domain_model_faq (
 
 	faq_title varchar(255) DEFAULT '' NOT NULL,
 	faq_content text,
-    submittername varchar(255) DEFAULT '',
-    submitteremail varchar(255) DEFAULT '',
 	faqcategories int(11) unsigned DEFAULT '0' NOT NULL,
-    accesstoken varchar(255) DEFAULT '' NOT NULL,
-	views int(11) unsigned DEFAULT '0',
-	likes int(11) unsigned DEFAULT '0',
-	dislikes int(11) unsigned DEFAULT '0',
-	shares int(11) unsigned DEFAULT '0',
-	
-
-	tstamp int(11) unsigned DEFAULT '0' NOT NULL,
+  accesstoken varchar(255) DEFAULT '' NOT NULL,
+  sorting int(11) unsigned DEFAULT '0' NOT NULL,
+  tstamp int(11) unsigned DEFAULT '0' NOT NULL,
 	crdate int(11) unsigned DEFAULT '0' NOT NULL,
 	cruser_id int(11) unsigned DEFAULT '0' NOT NULL,
 	deleted tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	hidden tinyint(4) unsigned DEFAULT '0' NOT NULL,
 	starttime int(11) unsigned DEFAULT '0' NOT NULL,
 	endtime int(11) unsigned DEFAULT '0' NOT NULL,
-    sorting int(11) unsigned DEFAULT '0' NOT NULL,
+
 
 	t3ver_oid int(11) DEFAULT '0' NOT NULL,
 	t3ver_id int(11) DEFAULT '0' NOT NULL,
@@ -48,17 +41,3 @@ CREATE TABLE tx_nsfaq_domain_model_faq (
 
 );
 
-#
-# Table structure for table 'tx_nsfaq_domain_model_apidata'
-#
-CREATE TABLE tx_nsfaq_domain_model_apidata (
-   id int(11) NOT NULL auto_increment,
-   extension_key varchar(255) DEFAULT '',
-   right_sidebar_html text,
-   premuim_extension_html text,
-   support_html text,
-   footer_html text,
-   last_update date,
-
-   PRIMARY KEY (id)
-);

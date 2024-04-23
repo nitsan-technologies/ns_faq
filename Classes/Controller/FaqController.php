@@ -1,12 +1,12 @@
 <?php
+
 namespace NITSAN\NsFaq\Controller;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Annotation\Inject as inject;
 
 /***
  *
- * This file is part of the "NS FAQs" Extension for TYPO3 CMS.
+ * This file is part of the "FAQs" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
@@ -55,8 +55,6 @@ class FaqController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
      */
     public function listAction()
     {
-        //Fetch Plugin Settings
-        $settings = $this->settings;
 
         //Fetch page data
         $contentData = $this->configurationManager->getContentObject();
@@ -65,20 +63,10 @@ class FaqController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController
         //Fetch all FAQs
         $faqs = $this->faqRepository->findAll();
 
-        //Add Custom CSS
-        $pageRender = GeneralUtility::makeInstance(\TYPO3\CMS\Core\Page\PageRenderer::class);
-        $settings['usercss'] = isset($settings['usercss']) ? $settings['usercss'] : '';
-        if ($settings['usercss']) {
-            $pageRender->addCssFile($settings['usercss'], 'stylesheet', '', '', true);
-        } elseif ($settings['basicSettings']['general']['customCSS']) {
-            $pageRender->addCssInlineBlock('ns-faq-custom-css', $settings['basicSettings']['general']['customCSS']);
-        }
-
         //Assign variables values
-        $assign = [
+        $this->view->assignMultiple([
             'faqs' => $faqs,
             'data' => $data,
-        ];
-        $this->view->assignMultiple($assign);
+        ]);
     }
 }

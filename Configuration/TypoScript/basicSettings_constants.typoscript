@@ -10,22 +10,22 @@
 
 plugin.tx_nsfaq_faq {
     view {
-        # cat=NS FAQs/01_Template/01; type=string; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang_db.xlf:tx_ns_faq.templateRoot
+        # cat=FAQs/01_Template/01; type=string; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang_db.xlf:tx_ns_faq.templateRoot
         templateRootPath = EXT:ns_faq/Resources/Private/Templates/
-        # cat=NS FAQs/01_Template/02; type=string; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang_db.xlf:tx_ns_faq.templatePartials
+        # cat=FAQs/01_Template/02; type=string; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang_db.xlf:tx_ns_faq.templatePartials
         partialRootPath = EXT:ns_faq/Resources/Private/Partials/
-        # cat=NS FAQs/01_Template/03; type=string; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang_db.xlf:tx_ns_faq.templateLayouts
+        # cat=FAQs/01_Template/03; type=string; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang_db.xlf:tx_ns_faq.templateLayouts
         layoutRootPath = EXT:ns_faq/Resources/Private/Layouts/
     }
     basicSettings{
         general {
-             # cat=Ns_Faq_BasicSettings/03_Gen/04; type=boolean; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:tx_ns_faq.includejs
+             # cat=Faq_BasicSettings/03_Gen/04; type=boolean; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:tx_ns_faq.includejs
             includeJquery =
             
-            # cat=Ns_Faq_BasicSettings/03_Gen/05; type=textarea; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:customCSS
+            # cat=Faq_BasicSettings/03_Gen/05; type=textarea; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:customCSS
             customCSS =
 
-            # cat=Ns_Faq_BasicSettings/03_Gen/06; type=boolean; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:scrollToTop
+            # cat=Faq_BasicSettings/03_Gen/06; type=boolean; label=LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:scrollToTop
             scrollToTop =
         }
     }
