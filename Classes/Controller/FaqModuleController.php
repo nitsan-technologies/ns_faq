@@ -36,12 +36,6 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
     protected $constantObj;
 
-    protected $sidebarData;
-
-    protected $dashboardSupportData;
-
-    protected $generalFooterData;
-
     protected $constants;
 
     /**
@@ -83,33 +77,6 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     public function initializeAction()
     {
         parent::initializeAction();
-        //Links for the All Dashboard VIEW from API...
-        $sidebarUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=ns_faq&blockName=DashboardRightSidebar';
-        $dashboardSupportUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=ns_faq&blockName=DashboardSupport';
-        $generalFooterUrl = 'https://composer.t3terminal.com/API/ExtBackendModuleAPI.php?extKey=ns_faq&blockName=GeneralFooter';
-
-
-        $this->faqRepository->deleteOldApiData();
-        $checkApiData = $this->faqRepository->checkApiData();
-        if (!$checkApiData) {
-            $this->sidebarData = $this->faqRepository->curlInitCall($sidebarUrl);
-            $this->dashboardSupportData = $this->faqRepository->curlInitCall($dashboardSupportUrl);
-            $this->generalFooterData = $this->faqRepository->curlInitCall($generalFooterUrl);
-
-
-            $data = [
-                'right_sidebar_html' => $this->sidebarData,
-                'support_html' => $this->dashboardSupportData,
-                'footer_html' => $this->generalFooterData,
-                'extension_key' => 'ns_faq',
-                'last_update' => date('Y-m-d')
-            ];
-            $this->faqRepository->insertNewData($data);
-        } else {
-            $this->sidebarData = $checkApiData['right_sidebar_html'];
-            $this->dashboardSupportData = $checkApiData['support_html'];
-
-        }
 
         //GET and SET pid for the
         $this->pid = (GeneralUtility::_GP('id') ? GeneralUtility::_GP('id') : '0');
@@ -133,22 +100,19 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
         $faqs = $this->faqRepository->findAll();
 
         $faqcount = count($faqs);
-        //Assign variables values
-        $this->view->assign('menulist', 'a,b');
+
         $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>')) {
-            $bootstrapVariable = 'data-bs';
-        }
-        $assign = [
-          'faqs' => $faqs,
-          'action' => 'dashboard',
-          'faqscount' => $faqcount,
-          'pid' => $this->pid,
-          'rightSide' => $this->sidebarData,
-          'dashboardSupport' => $this->dashboardSupportData,
-          'bootstrapVariable' => $bootstrapVariable
-        ];
-        $this->view->assignMultiple($assign);
+
+        $this->view->assignMultiple([
+            'faqs' => $faqs,
+            'action' => 'dashboard',
+            'faqscount' => $faqcount,
+            'pid' => $this->pid,
+            'bootstrapVariable' => $bootstrapVariable,
+            'menulist' => 'a,b'
+        ]);
+
+
     }
 
     /**
@@ -166,18 +130,14 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
 
 
         $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>')) {
-            $bootstrapVariable = 'data-bs';
-        }
         //Assign variables values
-        $assign = [
+        $this->view->assignMultiple([
           'faqs' => $faqs,
           'data' => $contentData,
           'action' => 'faqList',
           'pid' => $this->pid,
           'bootstrapVariable' => $bootstrapVariable
-        ];
-        $this->view->assignMultiple($assign);
+        ]);
     }
 
     /**
@@ -188,15 +148,12 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     public function faqBasicSettingsAction()
     {
         $bootstrapVariable = 'data';
-        if (version_compare(TYPO3_branch, '11.0', '>')) {
-            $bootstrapVariable = 'data-bs';
-        }
-        $assign = [
+
+        $this->view->assignMultiple([
             'action' => 'faqBasicSettings',
             'constant' => $this->constants,
             'bootstrapVariable' => $bootstrapVariable
-        ];
-        $this->view->assignMultiple($assign);
+        ]);
     }
 
     /**
@@ -205,9 +162,8 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     public function saveConstantAction()
     {
         $this->constantObj->main();
-        $returnAction = $_REQUEST['tx_nsfaq_nitsan_nsfaqfaqbackend']['__referrer']['@action']; //get action name
+        $_REQUEST['tx_nsfaq_nitsan_nsfaqfaqbackend']['__referrer']['@action']; //get action name
         return false;
     }
-
 
 }

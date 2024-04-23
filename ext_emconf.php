@@ -1,7 +1,7 @@
 <?php
 
 $EM_CONF['ns_faq'] = [
-    'title' => '[NITSAN] Ultimate FAQ',
+    'title' => 'Ultimate FAQ',
     'description' => 'One of the only feature-rich TYPO3 FAQ extension-ever. Live-Demo: https://demo.t3planet.com/t3t-extensions/faq/ You can download PRO version for more-features & free-support at https://t3planet.com/ns-faq-typo3-extension',
     'category' => 'plugin',
     'author' => 'Team NITSAN',

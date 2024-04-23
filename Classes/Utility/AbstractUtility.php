@@ -2,7 +2,6 @@
 
 namespace NITSAN\NsFaq\Utility;
 
-use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
@@ -13,15 +12,6 @@ use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
  */
 abstract class AbstractUtility
 {
-    /**
-     * @return BackendUserAuthentication
-     * @SuppressWarnings(PHPMD.Superglobals)
-     */
-    protected static function getBackendUserAuthentication()
-    {
-        return $GLOBALS['BE_USER'];
-    }
-
     /**
     * @return ContentObjectRenderer
     */
