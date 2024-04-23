@@ -9,5 +9,5 @@ $_EXTKEY = 'ns_faq';
 ExtensionManagementUtility::addStaticFile(
     $_EXTKEY,
     'Configuration/TypoScript',
-    'NS FAQs'
+    'FAQs'
 );
