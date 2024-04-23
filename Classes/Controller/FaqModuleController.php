@@ -162,8 +162,7 @@ class FaqModuleController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionContro
     public function saveConstantAction()
     {
         $this->constantObj->main();
-        $_REQUEST['tx_nsfaq_nitsan_nsfaqfaqbackend']['__referrer']['@action']; //get action name
-        return false;
+       
     }
 
 }

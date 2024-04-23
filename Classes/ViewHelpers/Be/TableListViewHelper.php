@@ -191,7 +191,7 @@ class TableListViewHelper extends AbstractBackendViewHelper
                 $html = GeneralUtility::wrapJS($js) . $dblist->HTMLcode;
             }
         }
-        // \TYPO3\CMS\Extbase\Utility\DebuggerUtility::var_dump($html, __FILE__.' Line '.__LINE__);die;
+        
 
         if (is_null($html) || empty($html)) {
             $html = '
