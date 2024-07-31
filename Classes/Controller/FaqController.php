@@ -26,26 +26,31 @@ class FaqController extends ActionController
 {
     /**
      * faqRepository
-     *@var mixed
+     *
+     * @var FaqRepository
+     *
      */
     protected $faqRepository = null;
 
     /**
-     * Inject a faqRepository
-     *
      * @param FaqRepository $faqRepository
      */
-    public function injectFaqRepository(FaqRepository $faqRepository): void
-    {
+    public function __construct(
+       
+        FaqRepository $faqRepository,
+   
+        ) {
         $this->faqRepository = $faqRepository;
+        
     }
+
 
     /**
      * Initialize Action
      *
      * @return void
      */
-    public function initializeAction()
+    public function initializeAction() :void
     {
         parent::initializeAction();
     }
@@ -58,9 +63,9 @@ class FaqController extends ActionController
         //Fetch Plugin Settings
         $settings = $this->settings;
 
-        $contentObjectRenderer = GeneralUtility::makeInstance(ContentObjectRenderer::class);
-        $data = $contentObjectRenderer->data;
-
+       
+       
+       
         //Fetch all FAQs
         $faqs = $this->faqRepository->findAll();
 
@@ -75,8 +80,8 @@ class FaqController extends ActionController
 
         //Assign variables values
         $this->view->assignMultiple([
-            'faqs' => $faqs,
-            'data' => $data,
+            'faqs' => $faqs
+            
         ]);
 
         return $this->htmlResponse();
