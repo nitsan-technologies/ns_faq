@@ -104,7 +104,7 @@ class FaqModuleController extends ActionController
           'bootstrapVariable' => $bootstrapVariable
         ];
         $view->assignMultiple($assign);
-        return $view->renderResponse();
+        return $view->renderResponse("FaqModule/Dashboard");
     }
 
     /**
@@ -130,7 +130,7 @@ class FaqModuleController extends ActionController
           'bootstrapVariable' => $bootstrapVariable
         ];
         $view->assignMultiple($assign);
-        return $view->renderResponse();
+        return $view->renderResponse("FaqModule/FaqList");
     }
 
     /**
