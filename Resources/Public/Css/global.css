@@ -441,10 +441,6 @@ label {
     margin-top: 10px;
 }
 
-.ns-ext-summary-table-wrap .table-responsive>.table-bordered {
-    border-top: 1px solid #ccc;
-}
-
 .ns-ext-summary-table>thead>tr>th,
 .ns-ext-summary-table>tbody>tr>td {
     padding: 10px 15px;
@@ -1269,9 +1265,25 @@ select.form-control[size="1"]:not(.form-select-no-siblings) {
 
 /* Dark Mode  */
 
+.btn,
+.btn:hover {
+    color: light-dark(#212424, #d9d9d9);
+}
+
+a,
 a:hover,
 a:focus {
+    color: light-dark(#212424, #d9d9d9);
     text-decoration: none;
+}
+
+.ns-ext-table-accordian-wrap .dropdown-menu,
+.ns-ext-table-accordian-wrap .dropdown-menu .dropdown-item:hover {
+    background: light-dark(#d9d9d9, #212424);
+}
+
+.ns-ext-table-accordian-wrap .dropdown-menu .dropdown-item {
+    color: light-dark(#212424, #d9d9d9);
 }
 
 a.navbar-brand,
@@ -1326,11 +1338,6 @@ a.navbar-brand:hover {
 
 .modal .modal-header {
     border-radius: 0;
-}
-
-table.dataTable>thead.thead-light>tr>th,
-table.dataTable>thead.thead-light>tr>td {
-    border-color: inherit;
 }
 
 .table {
