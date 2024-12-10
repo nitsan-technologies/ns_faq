@@ -1390,3 +1390,14 @@ div.dt-container.dt-empty-footer tbody>tr:last-child>* {
 .form-control-wrap .ck.ck-toolbar {
     background-color: light-dark(#fff, #333) !important;
 }
+
+.table .col-responsive {
+    font-size: 12px;
+}
+.table>thead>tr td i,.table>thead>tr th i {
+    font-size: 12px;
+    font-weight: bold;
+}
+.col-localizationa.nowrap{
+    font-size: 12px;
+}
