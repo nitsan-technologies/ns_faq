@@ -12,7 +12,7 @@ use NITSAN\NsFaq\Domain\Repository\FaqRepository;
 
 /***
  *
- * This file is part of the "[NITSAN] FAQ" Extension for TYPO3 CMS.
+ * This file is part of the "FAQ" Extension for TYPO3 CMS.
  *
  * For the full copyright and license information, please read the
  * LICENSE.txt file that was distributed with this source code.
@@ -104,7 +104,7 @@ class FaqModuleController extends ActionController
           'bootstrapVariable' => $bootstrapVariable
         ];
         $view->assignMultiple($assign);
-        return $view->renderResponse();
+        return $view->renderResponse("FaqModule/Dashboard");
     }
 
     /**
@@ -113,8 +113,8 @@ class FaqModuleController extends ActionController
     public function faqListAction(): ResponseInterface
     {
         $view = $this->initializeModuleTemplate($this->request);
-        //Fetch page data
-        $contentData = $this->contentObject->data;
+       
+        
 
         //Fetch all FAQs
         $faqs = $this->faqRepository->findAll();
@@ -124,13 +124,13 @@ class FaqModuleController extends ActionController
         //Assign variables values
         $assign = [
           'faqs' => $faqs,
-          'data' => $contentData,
+          
           'action' => 'faqList',
           'pid' => $this->pid,
           'bootstrapVariable' => $bootstrapVariable
         ];
         $view->assignMultiple($assign);
-        return $view->renderResponse();
+        return $view->renderResponse("FaqModule/FaqList");
     }
 
     /**

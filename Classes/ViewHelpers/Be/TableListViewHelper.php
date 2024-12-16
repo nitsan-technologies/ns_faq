@@ -27,6 +27,13 @@ use TYPO3\CMS\Fluid\ViewHelpers\Be\AbstractBackendViewHelper;
 use TYPO3\CMS\Extbase\Configuration\ConfigurationManagerInterface;
 use TYPO3Fluid\Fluid\Core\ViewHelper\Exception;
 use TYPO3\CMS\Core\Type\Exception\InvalidEnumerationValueException;
+use TYPO3\CMS\Core\Page\PageRenderer;
+use Psr\Http\Message\UriInterface;
+use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
+
+
+
+
 
 /**
  * ViewHelper which renders a record list as known from the TYPO3 list module.
@@ -69,7 +76,8 @@ use TYPO3\CMS\Core\Type\Exception\InvalidEnumerationValueException;
  */
 class TableListViewHelper extends AbstractBackendViewHelper
 {
-    protected ServerRequestInterface $request;
+
+    protected ?ServerRequestInterface $request = null;
 
     public function setRequest(ServerRequestInterface $request): void
     {
@@ -91,9 +99,15 @@ class TableListViewHelper extends AbstractBackendViewHelper
     /**
      * @param ConfigurationManagerInterface $configurationManager
      */
+
+    /**
+     * @var PageRenderer
+     */
+    protected $pageRenderer;
     public function injectConfigurationManager(ConfigurationManagerInterface $configurationManager): void
     {
         $this->configurationManager = $configurationManager;
+        $this->pageRenderer = GeneralUtility::makeInstance(PageRenderer::class);
     }
 
     /**
@@ -152,18 +166,18 @@ class TableListViewHelper extends AbstractBackendViewHelper
             // here, the early return is just sanitation.
             return '';
         }
-        //  @extensionScannerIgnoreLine
-        $this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/recordlist.js');
-        $this->getPageRenderer()->loadJavaScriptModule('@nitsan/ns-faq/ajax-data-handler.js');
-        $this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/record-download-button.js');
-        $this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/action-dispatcher.js');
-        if ($enableControlPanels === true) {
-            $this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/multi-record-selection.js');
-            $this->getPageRenderer()->loadJavaScriptModule('@typo3/backend/context-menu.js');
 
+        $this->pageRenderer->loadJavaScriptModule('@typo3/backend/recordlist.js');
+        $this->pageRenderer->loadJavaScriptModule('@nitsan/ns-faq/ajax-data-handler.js');
+        $this->pageRenderer->loadJavaScriptModule('@typo3/backend/record-download-button.js');
+        $this->pageRenderer->loadJavaScriptModule('@typo3/backend/action-dispatcher.js');
+        if ($enableControlPanels === true) {
+            $this->pageRenderer->loadJavaScriptModule('@typo3/backend/multi-record-selection.js');
+            $this->pageRenderer->loadJavaScriptModule('@typo3/backend/context-menu.js');
         }
 
         $pageId = (int)($request->getParsedBody()['id'] ?? $request->getQueryParams()['id'] ?? 0);
+
         $pointer = (int)($request->getParsedBody()['pointer'] ?? $request->getQueryParams()['pointer'] ?? 0);
         $pageInfo = BackendUtility::readPageAccess($pageId, $backendUser->getPagePermsClause(Permission::PAGE_SHOW)) ?: [];
         $dbList = GeneralUtility::makeInstance(DatabaseRecordList::class);
@@ -210,18 +224,19 @@ class TableListViewHelper extends AbstractBackendViewHelper
      * Redirect to tceform creating a new record
      *
      * @param string $table table name
+     * @throws RouteNotFoundException
      */
-    private function redirectToCreateNewRecord($table): string
+    function redirectToCreateNewRecord(string $table): UriInterface
     {
-        $pid = (int) GeneralUtility::_GET('id');
+        $renderingContext = $this->renderingContext;
+        $request = $renderingContext->getRequest();
+        $pid = (int)($request->getQueryParams()['id'] ?? 0);
         $returnUrl = GeneralUtility::getIndpEnv('REQUEST_URI');
-        $url = $this->getModuleUrl('record_edit', [
+        return $this->getModuleUrl('record_edit', [
             'edit[' . $table . '][' . $pid . ']' => 'new',
             'returnUrl' => $returnUrl,
         ]);
-        return $url;
     }
-
 
     /**
      * Returns the URL to a given module mainly used for visibility settings or deleting a record via AJAX

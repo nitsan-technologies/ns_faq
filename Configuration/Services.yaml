@@ -13,6 +13,12 @@ services:
     arguments:
       $moduleTemplateFactory: '@TYPO3\CMS\Backend\Template\ModuleTemplateFactory'
 
+  NITSAN\NsFaq\Controller\FaqController:
+    public: true
+    arguments:
+      $faqRepository: '@NITSAN\NsFaq\Domain\Repository\FaqRepository'
+
+      
   NITSAN\NsFaq\Controller\NsConstantEditorController:
     public: true
     arguments:

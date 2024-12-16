@@ -8,7 +8,9 @@ defined('TYPO3') || die('Access denied');
 ExtensionUtility::registerPlugin(
     'NsFaq',
     'Faq',
-    'FAQs'
+    'FAQs',
+    '',
+    'plugins'
 );
 
 $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['nsfaq_faq'] = 'recursive,select_key';

@@ -22,7 +22,6 @@
                         </config>
                     </TCEforms>
                     <settings.layout>
-                        <TCEforms>
                             <exclude>1</exclude>
                             <label>LLL:EXT:ns_faq/Resources/Private/Language/locallang_flex.xlf:layout</label>
                             <config>
@@ -38,7 +37,7 @@
                                 <maxitems>1</maxitems>
                             </config>
                             <onChange>reload</onChange>
-                        </TCEforms>
+                       
                     </settings.layout>
                 </el>
             </ROOT>
