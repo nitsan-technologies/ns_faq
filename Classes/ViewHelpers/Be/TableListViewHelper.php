@@ -31,10 +31,6 @@ use TYPO3\CMS\Core\Page\PageRenderer;
 use Psr\Http\Message\UriInterface;
 use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
 
-
-
-
-
 /**
  * ViewHelper which renders a record list as known from the TYPO3 list module.
  *
@@ -76,7 +72,6 @@ use TYPO3\CMS\Backend\Routing\Exception\RouteNotFoundException;
  */
 class TableListViewHelper extends AbstractBackendViewHelper
 {
-
     protected ?ServerRequestInterface $request = null;
 
     public function setRequest(ServerRequestInterface $request): void
@@ -155,11 +150,19 @@ class TableListViewHelper extends AbstractBackendViewHelper
         $clickTitleMode = $this->arguments['clickTitleMode'];
         $enableControlPanels = $this->arguments['enableControlPanels'];
 
-        $this->getLanguageService()->includeLLFile('EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf');
+        $this->getLanguageService()->sL('LLL:EXT:core/Resources/Private/Language/locallang_mod_web_list.xlf');
         $backendUser = $this->getBackendUser();
 
         $renderingContext = $this->renderingContext;
-        $request = $renderingContext->getRequest();
+        if (
+            method_exists($renderingContext, 'getAttribute')
+            && method_exists($renderingContext, 'hasAttribute')
+            && $renderingContext->hasAttribute(ServerRequestInterface::class)
+        ) {
+            $request = $renderingContext->getAttribute(ServerRequestInterface::class);
+        } else {
+            $request = $renderingContext->getRequest();
+        }
         if (!$request instanceof ServerRequestInterface) {
             // All views in backend have at least ServerRequestInterface, no matter if created by
             // old StandaloneView via BackendViewFactory. Should be fine to assume having a request
@@ -176,9 +179,9 @@ class TableListViewHelper extends AbstractBackendViewHelper
             $this->pageRenderer->loadJavaScriptModule('@typo3/backend/context-menu.js');
         }
 
-        $pageId = (int)($request->getParsedBody()['id'] ?? $request->getQueryParams()['id'] ?? 0);
+        $pageId = (int) ($request->getParsedBody()['id'] ?? $request->getQueryParams()['id'] ?? 0);
 
-        $pointer = (int)($request->getParsedBody()['pointer'] ?? $request->getQueryParams()['pointer'] ?? 0);
+        $pointer = (int) ($request->getParsedBody()['pointer'] ?? $request->getQueryParams()['pointer'] ?? 0);
         $pageInfo = BackendUtility::readPageAccess($pageId, $backendUser->getPagePermsClause(Permission::PAGE_SHOW)) ?: [];
         $dbList = GeneralUtility::makeInstance(DatabaseRecordList::class);
         $dbList->setRequest($request);
@@ -226,11 +229,19 @@ class TableListViewHelper extends AbstractBackendViewHelper
      * @param string $table table name
      * @throws RouteNotFoundException
      */
-    function redirectToCreateNewRecord(string $table): UriInterface
+    public function redirectToCreateNewRecord(string $table): UriInterface
     {
         $renderingContext = $this->renderingContext;
-        $request = $renderingContext->getRequest();
-        $pid = (int)($request->getQueryParams()['id'] ?? 0);
+        if (
+            method_exists($renderingContext, 'getAttribute')
+            && method_exists($renderingContext, 'hasAttribute')
+            && $renderingContext->hasAttribute(ServerRequestInterface::class)
+        ) {
+            $request = $renderingContext->getAttribute(ServerRequestInterface::class);
+        } else {
+            $request = $renderingContext->getRequest();
+        }
+        $pid = (int) ($request->getQueryParams()['id'] ?? 0);
         $returnUrl = GeneralUtility::getIndpEnv('REQUEST_URI');
         return $this->getModuleUrl('record_edit', [
             'edit[' . $table . '][' . $pid . ']' => 'new',

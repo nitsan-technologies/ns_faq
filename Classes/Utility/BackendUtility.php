@@ -6,14 +6,12 @@ use TYPO3\CMS\Backend\Routing\UriBuilder;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Http\RequestHandler;
 
-
 /**
  * Backend utility functions
  *
  */
 class BackendUtility extends AbstractUtility
 {
-
     /**
      * Create an URI to edit any record
      *

@@ -13,7 +13,7 @@ $module = [
         'path' => '/module/nitsan/NsFaqConfiguration',
         'iconIdentifier'   => 'nsfaq_icon',
         'labels' => 'LLL:EXT:ns_faq/Resources/Private/Language/locallang_faqconstants.xlf',
-        'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
+        'navigationComponent' => '@typo3/backend/tree/page-tree-element',
         'extensionName' => 'NsFaq',
         'routes' => [
             '_default' => [
@@ -32,12 +32,12 @@ $module = [
         'path' => '/module/nitsan/NsFaqNitsan',
         'iconIdentifier' => 'nsfaq_icon',
         'labels' => 'LLL:EXT:ns_faq/Resources/Private/Language/locallang_faq.xlf',
-        'navigationComponent' => '@typo3/backend/page-tree/page-tree-element',
+        'navigationComponent' => '@typo3/backend/tree/page-tree-element',
         'extensionName' => 'NsFaq',
         'controllerActions' => [
             FaqModuleController::class => [
                 'dashboard',
-                'faqList'
+                'faqList',
             ],
         ],
     ],

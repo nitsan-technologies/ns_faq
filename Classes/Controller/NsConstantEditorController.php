@@ -22,7 +22,9 @@ use TYPO3\CMS\Core\TypoScript\AST\Visitor\AstConstantCommentVisitor;
 use TYPO3\CMS\Tstemplate\Controller\AbstractTemplateModuleController;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\Traverser\IncludeTreeTraverser;
 use TYPO3\CMS\Core\TypoScript\IncludeTree\Visitor\IncludeTreeCommentAwareAstBuilderVisitor;
-
+use TYPO3\CMS\Backend\Template\Components\ComponentFactory;
+use TYPO3\CMS\Core\Imaging\IconSize;
+use TYPO3\CMS\Core\Utility\VersionNumberUtility;
 
 class NsConstantEditorController extends AbstractTemplateModuleController
 {
@@ -34,15 +36,14 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         private readonly AstTraverser $astTraverser,
         private readonly AstBuilderInterface $astBuilder,
         private readonly LosslessTokenizer $losslessTokenizer,
-    ) {
-    }
+    ) {}
 
     public function handleRequest(ServerRequestInterface $request): ResponseInterface
     {
         $queryParams = $request->getQueryParams();
         $parsedBody = $request->getParsedBody();
 
-        $pageUid = (int)($queryParams['id'] ?? 0);
+        $pageUid = (int) ($queryParams['id'] ?? 0);
         if ($pageUid === 0) {
             // Redirect to template record overview if on page 0.
             return new RedirectResponse($this->uriBuilder->buildUriFromRoute('web_typoscript_recordsoverview'));
@@ -58,7 +59,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
             return $this->saveAction($request);
         }
 
-        $pageUid = (int)($queryParams['id'] ?? 0);
+        $pageUid = (int) ($queryParams['id'] ?? 0);
         $allTemplatesOnPage = $this->getAllTemplateRecordsOnPage($pageUid);
         if (empty($allTemplatesOnPage)) {
             return $this->noTemplateAction($request);
@@ -74,7 +75,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         $languageService = $this->getLanguageService();
         $backendUser = $this->getBackendUser();
 
-        $pageUid = (int)($queryParams['id'] ?? 0);
+        $pageUid = (int) ($queryParams['id'] ?? 0);
 
         $currentModule = $request->getAttribute('module');
         $currentModuleIdentifier = $currentModule->getIdentifier();
@@ -94,10 +95,10 @@ class NsConstantEditorController extends AbstractTemplateModuleController
 
         // Template selection handling for this page
         $allTemplatesOnPage = $this->getAllTemplateRecordsOnPage($pageUid);
-        $selectedTemplateFromModuleData = (array)$moduleData->get('selectedTemplatePerPage');
-        $selectedTemplateUid = (int)($parsedBody['selectedTemplate'] ?? $selectedTemplateFromModuleData[$pageUid] ?? 0);
+        $selectedTemplateFromModuleData = (array) $moduleData->get('selectedTemplatePerPage');
+        $selectedTemplateUid = (int) ($parsedBody['selectedTemplate'] ?? $selectedTemplateFromModuleData[$pageUid] ?? 0);
         if (!in_array($selectedTemplateUid, array_column($allTemplatesOnPage, 'uid'))) {
-            $selectedTemplateUid = (int)($allTemplatesOnPage[0]['uid'] ?? 0);
+            $selectedTemplateUid = (int) ($allTemplatesOnPage[0]['uid'] ?? 0);
         }
         if (($moduleData->get('selectedTemplatePerPage')[$pageUid] ?? 0) !== $selectedTemplateUid) {
             $selectedTemplateFromModuleData[$pageUid] = $selectedTemplateUid;
@@ -107,7 +108,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         $templateTitle = '';
         $currentTemplateConstants = '';
         foreach ($allTemplatesOnPage as $templateRow) {
-            if ((int)$templateRow['uid'] === $selectedTemplateUid) {
+            if ((int) $templateRow['uid'] === $selectedTemplateUid) {
                 $templateTitle = $templateRow['title'];
                 $currentTemplateConstants = $templateRow['constants'] ?? '';
             }
@@ -136,13 +137,13 @@ class NsConstantEditorController extends AbstractTemplateModuleController
             }
         }
         $selectedCategory = array_key_first($relevantCategories) ?? '';
-        $selectedCategoryFromModuleData = (string)$moduleData->get('selectedCategory');
+        $selectedCategoryFromModuleData = (string) $moduleData->get('selectedCategory');
 
         if (array_key_exists($selectedCategoryFromModuleData, $relevantCategories)) {
             $selectedCategory = $selectedCategoryFromModuleData;
         }
         if (($parsedBody['selectedCategory'] ?? '') && array_key_exists($parsedBody['selectedCategory'], $relevantCategories)) {
-            $selectedCategory = (string)$parsedBody['selectedCategory'];
+            $selectedCategory = (string) $parsedBody['selectedCategory'];
         }
         if ($selectedCategory && $selectedCategory !== $selectedCategoryFromModuleData) {
             $moduleData->set('selectedCategory', $selectedCategory);
@@ -163,7 +164,13 @@ class NsConstantEditorController extends AbstractTemplateModuleController
 
         $view = $this->moduleTemplateFactory->create($request);
         $view->setTitle($languageService->sL($currentModule->getTitle()), $pageRecord['title']);
-        $view->getDocHeaderComponent()->setMetaInformation($pageRecord);
+        $versionNumber =  VersionNumberUtility::convertVersionStringToArray(VersionNumberUtility::getCurrentTypo3Version());
+        if ($versionNumber['version_main'] <= '13') {
+            // @extensionScannerIgnoreLine
+            $view->getDocHeaderComponent()->setMetaInformation($pageRecord);
+        } else {
+            $view->getDocHeaderComponent()->setPageBreadcrumb($pageRecord);
+        }
         $this->addShortcutButtonToDocHeader($view, $currentModuleIdentifier, $pageRecord, $pageUid);
         if (!empty($relevantCategories)) {
             $this->addSaveButtonToDocHeader($view);
@@ -186,23 +193,23 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         $queryParams = $request->getQueryParams();
         $moduleData = $request->getAttribute('moduleData');
 
-        $pageUid = (int)($queryParams['id'] ?? 0);
+        $pageUid = (int) ($queryParams['id'] ?? 0);
         if ($pageUid === 0) {
             throw new \RuntimeException('No proper page uid given', 1661333862);
         }
 
         $allTemplatesOnPage = $this->getAllTemplateRecordsOnPage($pageUid);
-        $selectedTemplateFromModuleData = (array)$moduleData->get('selectedTemplatePerPage');
-        $selectedTemplateUid = (int)($selectedTemplateFromModuleData[$pageUid] ?? 0);
+        $selectedTemplateFromModuleData = (array) $moduleData->get('selectedTemplatePerPage');
+        $selectedTemplateUid = (int) ($selectedTemplateFromModuleData[$pageUid] ?? 0);
         $templateRow = null;
         foreach ($allTemplatesOnPage as $template) {
-            if ($selectedTemplateUid === (int)$template['uid']) {
+            if ($selectedTemplateUid === (int) $template['uid']) {
                 $templateRow = $template;
             }
         }
         if (!in_array($selectedTemplateUid, array_column($allTemplatesOnPage, 'uid'))) {
             $templateRow = $allTemplatesOnPage[0] ?? [];
-            $selectedTemplateUid = (int)($templateRow['uid'] ?? 0);
+            $selectedTemplateUid = (int) ($templateRow['uid'] ?? 0);
         }
         if ($selectedTemplateUid < 1) {
             throw new \RuntimeException('No template found on page', 1661350211);
@@ -237,7 +244,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
         $languageService = $this->getLanguageService();
         $currentModule = $request->getAttribute('module');
         $currentModuleIdentifier = $currentModule->getIdentifier();
-        $pageUid = (int)($request->getQueryParams()['id'] ?? 0);
+        $pageUid = (int) ($request->getQueryParams()['id'] ?? 0);
         if ($pageUid === 0) {
             throw new \RuntimeException('No proper page uid given', 1661365944);
         }
@@ -251,7 +258,13 @@ class NsConstantEditorController extends AbstractTemplateModuleController
 
         $view = $this->moduleTemplateFactory->create($request);
         $view->setTitle($languageService->sL($currentModule->getTitle()), $pageRecord['title']);
-        $view->getDocHeaderComponent()->setMetaInformation($pageRecord);
+        $versionNumber =  VersionNumberUtility::convertVersionStringToArray(VersionNumberUtility::getCurrentTypo3Version());
+        if ($versionNumber['version_main'] <= '13') {
+            // @extensionScannerIgnoreLine
+            $view->getDocHeaderComponent()->setMetaInformation($pageRecord);
+        } else {
+            $view->getDocHeaderComponent()->setPageBreadcrumb($pageRecord);
+        }
         $view->makeDocHeaderModuleMenu(['id' => $pageUid]);
         $view->assignMultiple([
             'pageUid' => $pageUid,
@@ -292,25 +305,25 @@ class NsConstantEditorController extends AbstractTemplateModuleController
                     case 'int':
                         $min = $constantDefinition['typeIntMin'] ?? PHP_INT_MIN;
                         $max = $constantDefinition['typeIntMax'] ?? PHP_INT_MAX;
-                        $value = (string)MathUtility::forceIntegerInRange((int)$value, (int)$min, (int)$max);
+                        $value = (string) MathUtility::forceIntegerInRange((int) $value, (int) $min, (int) $max);
                         break;
                     case 'int+':
                         $min = $constantDefinition['typeIntMin'] ?? 0;
                         $max = $constantDefinition['typeIntMax'] ?? PHP_INT_MAX;
-                        $value = (string)MathUtility::forceIntegerInRange((int)$value, (int)$min, (int)$max);
+                        $value = (string) MathUtility::forceIntegerInRange((int) $value, (int) $min, (int) $max);
                         break;
                     case 'color':
                         $col = [];
                         if ($value) {
                             $value = preg_replace('/[^A-Fa-f0-9]*/', '', $value) ?? '';
                             $useFulHex = strlen($value) > 3;
-                            $col[] = (int)hexdec($value[0]);
-                            $col[] = (int)hexdec($value[1]);
-                            $col[] = (int)hexdec($value[2]);
+                            $col[] = (int) hexdec($value[0]);
+                            $col[] = (int) hexdec($value[1]);
+                            $col[] = (int) hexdec($value[2]);
                             if ($useFulHex) {
-                                $col[] = (int)hexdec($value[3]);
-                                $col[] = (int)hexdec($value[4]);
-                                $col[] = (int)hexdec($value[5]);
+                                $col[] = (int) hexdec($value[3]);
+                                $col[] = (int) hexdec($value[4]);
+                                $col[] = (int) hexdec($value[5]);
                             }
                             $value = substr('0' . dechex($col[0]), -1) . substr('0' . dechex($col[1]), -1) . substr('0' . dechex($col[2]), -1);
                             if ($useFulHex) {
@@ -345,7 +358,7 @@ class NsConstantEditorController extends AbstractTemplateModuleController
                         }
                         break;
                 }
-                if ((string)($constantDefinition['value'] ?? '') !== (string)$value) {
+                if ((string) ($constantDefinition['value'] ?? '') !== (string) $value) {
                     // Put value in, if changed.
                     $rawTemplateConstantsArray = $this->addOrUpdateValueInConstantsArray($rawTemplateConstantsArray, $constantPositions, $key, $value);
                     $valuesHaveChanged = true;
@@ -430,31 +443,62 @@ class NsConstantEditorController extends AbstractTemplateModuleController
     private function addSaveButtonToDocHeader(ModuleTemplate $view): void
     {
         $languageService = $this->getLanguageService();
-        $buttonBar = $view->getDocHeaderComponent()->getButtonBar();
-        $saveButton = $buttonBar->makeInputButton()
-            ->setName('_savedok')
-            ->setValue('1')
-            ->setForm('TypoScriptConstantEditorController')
-            ->setTitle($languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:rm.saveDoc'))
-            ->setIcon($this->iconFactory->getIcon('actions-document-save', 'small'))
-            ->setShowLabelText(true);
+        $versionNumber =  VersionNumberUtility::convertVersionStringToArray(VersionNumberUtility::getCurrentTypo3Version());
+        if ($versionNumber['version_main'] <= '13') {
+            $buttonBar = $view->getDocHeaderComponent()->getButtonBar();
+            // @extensionScannerIgnoreLine
+            $saveButton = $buttonBar->makeInputButton()
+                ->setName('_savedok')
+                ->setValue('1')
+                ->setForm('TypoScriptConstantEditorController')
+                ->setTitle($languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:rm.saveDoc'))
+                ->setIcon($this->iconFactory->getIcon('actions-document-save', 'small'))
+                ->setShowLabelText(true);
+        } else {
+            $componentFactory = GeneralUtility::makeInstance(ComponentFactory::class);
+            $buttonBar = $view->getDocHeaderComponent()->getButtonBar();
+            $saveButton = $componentFactory->createInputButton()
+                ->setName('_savedok')
+                ->setValue('1')
+                ->setForm('TypoScriptConstantEditorController')
+                ->setTitle($languageService->sL('LLL:EXT:core/Resources/Private/Language/locallang_core.xlf:rm.saveDoc'))
+                ->setIcon($this->iconFactory->getIcon('actions-document-save', IconSize::SMALL))
+                ->setShowLabelText(true);
+        }
         $buttonBar->addButton($saveButton);
     }
 
-    private function addShortcutButtonToDocHeader(ModuleTemplate $view, string $moduleIdentifier, array $pageInfo, int $pageUid): void
+    protected function addShortcutButtonToDocHeader(ModuleTemplate $view, string $moduleIdentifier, array $pageInfo, int $pageUid, string $moduleTitle = ''): void
     {
         $languageService = $this->getLanguageService();
-        $buttonBar = $view->getDocHeaderComponent()->getButtonBar();
-        $shortcutTitle = sprintf(
-            '%s: %s [%d]',
-            $languageService->sL('LLL:EXT:tstemplate/Resources/Private/Language/locallang_ceditor.xlf:submodule.title'),
-            BackendUtility::getRecordTitle('pages', $pageInfo),
-            $pageUid
-        );
-        $shortcutButton = $buttonBar->makeShortcutButton()
-            ->setRouteIdentifier($moduleIdentifier)
-            ->setDisplayName($shortcutTitle)
-            ->setArguments(['id' => $pageUid]);
+        $versionNumber =  VersionNumberUtility::convertVersionStringToArray(VersionNumberUtility::getCurrentTypo3Version());
+        if ($versionNumber['version_main'] <= '13') {
+            $buttonBar = $view->getDocHeaderComponent()->getButtonBar();
+            $shortcutTitle = sprintf(
+                '%s: %s [%d]',
+                $languageService->sL('LLL:EXT:tstemplate/Resources/Private/Language/locallang_ceditor.xlf:submodule.title'),
+                BackendUtility::getRecordTitle('pages', $pageInfo),
+                $pageUid
+            );
+            // @extensionScannerIgnoreLine
+            $shortcutButton = $buttonBar->makeShortcutButton()
+                ->setRouteIdentifier($moduleIdentifier)
+                ->setDisplayName($shortcutTitle)
+                ->setArguments(['id' => $pageUid]);
+        } else {
+            $componentFactory = GeneralUtility::makeInstance(ComponentFactory::class);
+            $buttonBar = $view->getDocHeaderComponent()->getButtonBar();
+            $shortcutTitle = sprintf(
+                '%s: %s [%d]',
+                $languageService->sL('LLL:EXT:tstemplate/Resources/Private/Language/locallang_ceditor.xlf:submodule.title'),
+                BackendUtility::getRecordTitle('pages', $pageInfo),
+                $pageUid
+            );
+            $shortcutButton = $componentFactory->createShortcutButton()
+                ->setRouteIdentifier($moduleIdentifier)
+                ->setDisplayName($shortcutTitle)
+                ->setArguments(['id' => $pageUid]);
+        }
         $buttonBar->addButton($shortcutButton);
     }
 

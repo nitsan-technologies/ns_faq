@@ -1,11 +1,17 @@
 plugin.tx_nsfaq_faq {
     view {
-        templateRootPaths.0 = EXT:ns_faq/Resources/Private/Templates/
-        templateRootPaths.1 = {$plugin.tx_nsfaq_faq.view.templateRootPath}
-        partialRootPaths.0 = EXT:ns_faq/Resources/Private/Partials/
-        partialRootPaths.1 = {$plugin.tx_nsfaq_faq.view.partialRootPath}
-        layoutRootPaths.0 = EXT:ns_faq/Resources/Private/Layouts/
-        layoutRootPaths.1 = {$plugin.tx_nsfaq_faq.view.layoutRootPath}
+        templateRootPaths {
+            0 = EXT:ns_faq/Resources/Private/Templates/
+            1 = {$plugin.tx_nsfaq_faq.view.templateRootPath}
+        }
+        partialRootPaths {
+            0 = EXT:ns_faq/Resources/Private/Partials/
+            1 = {$plugin.tx_nsfaq_faq.view.partialRootPath}
+        }
+        layoutRootPaths {
+            0 = EXT:ns_faq/Resources/Private/Layouts/
+            1 = {$plugin.tx_nsfaq_faq.view.layoutRootPath}
+        }
     }
     mvc {
         callDefaultActionIfActionCantBeResolved = 1
@@ -22,12 +28,18 @@ plugin.tx_nsfaq_faq {
 # Module configuration
 module.tx_nsfaq_faq {
     view {
-        templateRootPaths.0 = EXT:ns_faq/Resources/Private/Backend/Templates/
-        templateRootPaths.1 = {$module.tx_nsbackup_backup.view.templateRootPath}
-        partialRootPaths.0 = EXT:ns_faq/Resources/Private/Backend/Partials/
-        partialRootPaths.1 = {$module.tx_nsbackup_backup.view.partialRootPath}
-        layoutRootPaths.0 = EXT:ns_faq/Resources/Private/Backend/Layouts/
-        layoutRootPaths.1 = {$module.tx_nsbackup_backup.view.layoutRootPath}
+        templateRootPaths {
+            0 = EXT:ns_faq/Resources/Private/Backend/Templates/
+            1 = {$module.tx_nsbackup_backup.view.templateRootPath}
+        }
+        partialRootPaths {
+            0 = EXT:ns_faq/Resources/Private/Backend/Partials/
+            1 = {$module.tx_nsbackup_backup.view.partialRootPath}
+        }
+        layoutRootPaths {
+            0 = EXT:ns_faq/Resources/Private/Backend/Layouts/
+            1 = {$module.tx_nsbackup_backup.view.layoutRootPath}
+        }
     }
 }
 page {
@@ -36,18 +48,18 @@ page {
         faqFontawesome = EXT:ns_faq/Resources/Public/Css/frontend/fontAwesome/font-awesome.min.css
         animate = EXT:ns_faq/Resources/Public/Css/frontend/animate/animate.min.css
     }
-    includeJSFooter{
+    includeJSFooter {
         nsfaqjs = EXT:ns_faq/Resources/Public/JavaScript/frontend/default.js
     }
 }
 
 
 [globalVar = LIT:1 = {$plugin.tx_nsfaq_faq.basicSettings.general.includeJquery}]
-    page {
-        includeJS {
-            JQuery = EXT:ns_faq/Resources/Public/JavaScript/frontend/jquery-3.4.1.min.js
-        }
+page {
+    includeJS {
+        JQuery = EXT:ns_faq/Resources/Public/JavaScript/frontend/jquery-3.4.1.min.js
     }
+}
 [global]
 
 #Condition for the TYPO3 10 versions

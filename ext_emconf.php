@@ -15,7 +15,7 @@ $EM_CONF['ns_faq'] = [
     'version' => '13.0.2',
     'constraints' => [
         'depends' => [
-            'typo3' => '12.0.0-13.9.99',
+            'typo3' => '12.0.0-14.0.9',
         ],
         'conflicts' => [
         ],

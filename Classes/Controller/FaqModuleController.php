@@ -28,8 +28,7 @@ class FaqModuleController extends ActionController
 {
     public function __construct(
         protected readonly ModuleTemplateFactory $moduleTemplateFactory
-    ) {
-    }
+    ) {}
 
     /**
      * faqRepository
@@ -95,13 +94,13 @@ class FaqModuleController extends ActionController
         $this->view->assign('menulist', 'a,b');
         $bootstrapVariable = 'data-bs';
         $assign = [
-          'faqs' => $faqs,
-          'action' => 'dashboard',
-          'faqscount' => $faqcount,
-          'pid' => $this->pid,
-          'rightSide' => $this->sidebarData,
-          'dashboardSupport' => $this->dashboardSupportData,
-          'bootstrapVariable' => $bootstrapVariable
+            'faqs' => $faqs,
+            'action' => 'dashboard',
+            'faqscount' => $faqcount,
+            'pid' => $this->pid,
+            'rightSide' => $this->sidebarData,
+            'dashboardSupport' => $this->dashboardSupportData,
+            'bootstrapVariable' => $bootstrapVariable,
         ];
         $view->assignMultiple($assign);
         return $view->renderResponse("FaqModule/Dashboard");
@@ -113,8 +112,8 @@ class FaqModuleController extends ActionController
     public function faqListAction(): ResponseInterface
     {
         $view = $this->initializeModuleTemplate($this->request);
-       
-        
+
+
 
         //Fetch all FAQs
         $faqs = $this->faqRepository->findAll();
@@ -123,11 +122,11 @@ class FaqModuleController extends ActionController
         $bootstrapVariable = 'data-bs';
         //Assign variables values
         $assign = [
-          'faqs' => $faqs,
-          
-          'action' => 'faqList',
-          'pid' => $this->pid,
-          'bootstrapVariable' => $bootstrapVariable
+            'faqs' => $faqs,
+
+            'action' => 'faqList',
+            'pid' => $this->pid,
+            'bootstrapVariable' => $bootstrapVariable,
         ];
         $view->assignMultiple($assign);
         return $view->renderResponse("FaqModule/FaqList");
