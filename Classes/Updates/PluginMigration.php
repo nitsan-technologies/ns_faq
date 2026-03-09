@@ -15,9 +15,8 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 #[UpgradeWizard('txNsFaqPluginMigration')]
 class PluginMigration implements UpgradeWizardInterface
 {
-    private const LEGACY_PLUGIN_LIST_TYPE = 'nsfaq_faq';
-    private const LEGACY_PLUGIN_CTYPE = 'list';
-    private const NEW_CTYPE = 'nsfaq_faq';
+    private const LIST_TYPE = 'nsfaq_faq';
+    private const CTYPE = 'nsfaq_faq';
 
     public function getTitle(): string
     {
@@ -77,11 +76,11 @@ class PluginMigration implements UpgradeWizardInterface
             ->where(
                 $queryBuilder->expr()->eq(
                     'CType',
-                    $queryBuilder->createNamedParameter(self::LEGACY_PLUGIN_CTYPE)
+                    $queryBuilder->createNamedParameter('list')
                 ),
                 $queryBuilder->expr()->eq(
                     'list_type',
-                    $queryBuilder->createNamedParameter(self::LEGACY_PLUGIN_LIST_TYPE)
+                    $queryBuilder->createNamedParameter(self::LIST_TYPE)
                 )
             )
             ->executeQuery()
@@ -96,7 +95,7 @@ class PluginMigration implements UpgradeWizardInterface
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tt_content');
         $queryBuilder->update('tt_content')
-            ->set('CType', self::NEW_CTYPE)
+            ->set('CType', self::CTYPE)
             ->set('list_type', '')
             ->where(
                 $queryBuilder->expr()->eq(
