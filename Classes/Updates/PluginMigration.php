@@ -15,8 +15,9 @@ use TYPO3\CMS\Install\Updates\UpgradeWizardInterface;
 #[UpgradeWizard('txNsFaqPluginMigration')]
 class PluginMigration implements UpgradeWizardInterface
 {
-    private const LIST_TYPE = 'nsfaq_faq';
-    private const CTYPE = 'nsfaq_faq';
+    private const LEGACY_PLUGIN_LIST_TYPE = 'nsfaq_faq';
+    private const LEGACY_PLUGIN_CTYPE = 'list';
+    private const NEW_CTYPE = 'nsfaq_faq';
 
     public function getTitle(): string
     {
@@ -66,25 +67,36 @@ class PluginMigration implements UpgradeWizardInterface
 
     protected function getMigrationRecords(): array
     {
-        $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
-        $queryBuilder = $connectionPool->getQueryBuilderForTable('tt_content');
-        $queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
+        if (!$this->hasListTypeColumn()) {
+            return [];
+        } else {
+            $connectionPool = GeneralUtility::makeInstance(ConnectionPool::class);
+            $queryBuilder = $connectionPool->getQueryBuilderForTable('tt_content');
+            $queryBuilder->getRestrictions()->removeAll()->add(GeneralUtility::makeInstance(DeletedRestriction::class));
 
-        return $queryBuilder
-            ->select('uid', 'pid', 'CType', 'list_type')
-            ->from('tt_content')
-            ->where(
-                $queryBuilder->expr()->eq(
-                    'CType',
-                    $queryBuilder->createNamedParameter('list')
-                ),
-                $queryBuilder->expr()->eq(
-                    'list_type',
-                    $queryBuilder->createNamedParameter(self::LIST_TYPE)
+            return $queryBuilder
+                ->select('uid', 'pid', 'CType', 'list_type')
+                ->from('tt_content')
+                ->where(
+                    $queryBuilder->expr()->eq(
+                        'CType',
+                        $queryBuilder->createNamedParameter(self::LEGACY_PLUGIN_CTYPE)
+                    ),
+                    $queryBuilder->expr()->eq(
+                        'list_type',
+                        $queryBuilder->createNamedParameter(self::LEGACY_PLUGIN_LIST_TYPE)
+                    )
                 )
-            )
-            ->executeQuery()
-            ->fetchAllAssociative();
+                ->executeQuery()
+                ->fetchAllAssociative();
+        }
+    }
+
+    protected function hasListTypeColumn(): bool
+    {
+        $connection = GeneralUtility::makeInstance(ConnectionPool::class)->getConnectionForTable('tt_content');
+        $columns = $connection->createSchemaManager()->listTableColumns('tt_content');
+        return isset($columns['list_type']);
     }
 
     /**
@@ -95,7 +107,7 @@ class PluginMigration implements UpgradeWizardInterface
     {
         $queryBuilder = GeneralUtility::makeInstance(ConnectionPool::class)->getQueryBuilderForTable('tt_content');
         $queryBuilder->update('tt_content')
-            ->set('CType', self::CTYPE)
+            ->set('CType', self::NEW_CTYPE)
             ->set('list_type', '')
             ->where(
                 $queryBuilder->expr()->eq(
