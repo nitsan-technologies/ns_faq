@@ -8,11 +8,6 @@ services:
     resource: '../Classes/*'
     exclude: '../Classes/Domain/Model/*'
 
-  NITSAN\NsFaq\Controller\FaqModuleController:
-    public: true
-    arguments:
-      $moduleTemplateFactory: '@TYPO3\CMS\Backend\Template\ModuleTemplateFactory'
-
   NITSAN\NsFaq\Controller\FaqController:
     public: true
     arguments:
