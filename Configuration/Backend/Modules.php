@@ -6,25 +6,6 @@ use NITSAN\NsFaq\Controller\FaqModuleController;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
 $module = [
-    'nitsan_nsfaqnitsan_configuration' => [
-        'parent' => 'nitsan_module',
-        'position' => ['before' => 'top'],
-        'access' => 'user',
-        'path' => '/module/nitsan/NsFaqConfiguration',
-        'iconIdentifier'   => 'nsfaq_icon',
-        'labels' => 'LLL:EXT:ns_faq/Resources/Private/Language/locallang_faqconstants.xlf',
-        'navigationComponent' => '@typo3/backend/tree/page-tree-element',
-        'extensionName' => 'NsFaq',
-        'routes' => [
-            '_default' => [
-                'target' => NsConstantEditorController::class . '::handleRequest',
-            ],
-        ],
-        'moduleData' => [
-            'selectedTemplatePerPage' => [],
-            'selectedCategory' => '',
-        ],
-    ],
     'nitsan_nsfaqnitsan_constants' => [
         'parent' => 'nitsan_module',
         'position' => ['before' => 'top'],

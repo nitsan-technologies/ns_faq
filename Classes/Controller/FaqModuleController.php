@@ -113,17 +113,13 @@ class FaqModuleController extends ActionController
     {
         $view = $this->initializeModuleTemplate($this->request);
 
-
-
         //Fetch all FAQs
         $faqs = $this->faqRepository->findAll();
-
 
         $bootstrapVariable = 'data-bs';
         //Assign variables values
         $assign = [
             'faqs' => $faqs,
-
             'action' => 'faqList',
             'pid' => $this->pid,
             'bootstrapVariable' => $bootstrapVariable,

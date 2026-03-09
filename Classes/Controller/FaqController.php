@@ -7,7 +7,6 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use NITSAN\NsFaq\Domain\Repository\FaqRepository;
 use TYPO3\CMS\Core\Page\PageRenderer;
-use TYPO3\CMS\Frontend\ContentObject\ContentObjectRenderer;
 
 /***
  *
@@ -35,11 +34,9 @@ class FaqController extends ActionController
     /**
      * @param FaqRepository $faqRepository
      */
-    public function __construct(
-        FaqRepository $faqRepository,
-    ) {
+    public function __construct(FaqRepository $faqRepository)
+    {
         $this->faqRepository = $faqRepository;
-
     }
 
 
@@ -60,10 +57,7 @@ class FaqController extends ActionController
     {
         //Fetch Plugin Settings
         $settings = $this->settings;
-
-
-
-
+        
         //Fetch all FAQs
         $faqs = $this->faqRepository->findAll();
 

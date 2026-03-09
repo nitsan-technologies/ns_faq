@@ -1,0 +1,44 @@
+@import 'EXT:ns_faq/Configuration/TypoScript/setup.typoscript'
+
+plugin.tx_nsfaq_faq {
+    view {
+        templateRootPaths {
+            0 = EXT:ns_faq/Resources/Private/Templates/
+            1 = {$nsFaq.templateRootPath}
+        }
+        partialRootPaths {
+            0 = EXT:ns_faq/Resources/Private/Partials/
+            1 = {$nsFaq.partialRootPath}
+        }
+        layoutRootPaths {
+            0 = EXT:ns_faq/Resources/Private/Layouts/
+            1 = {$nsFaq.layoutRootPath}
+        }
+    }
+    settings {
+        basicSettings {
+            general {
+                customCSS = {$nsFaq.customCSS}
+                scrollToTop = {$nsFaq.scrollToTop}
+            }
+        }
+    }
+}
+
+
+[globalVar = LIT:1 = {$nsFaq.includeJquery}]
+page {
+    includeJSFooterlibs {
+        nsfaqJQuery = EXT:ns_faq/Resources/Public/JavaScript/frontend/jquery-3.4.1.min.js
+    }
+}
+[global]
+
+#Condition for the TYPO3 10 versions
+[{$nsFaq.includeJquery} == 1]
+page {
+    includeJS {
+        JQuery = EXT:ns_faq/Resources/Public/JavaScript/frontend/jquery-3.4.1.min.js
+    }
+}
+[global]
