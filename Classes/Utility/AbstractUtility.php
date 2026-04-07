@@ -4,8 +4,6 @@ namespace NITSAN\NsFaq\Utility;
 
 use TYPO3\CMS\Core\Authentication\BackendUserAuthentication;
 
-
-
 /**
  * Class AbstractUtility
  *

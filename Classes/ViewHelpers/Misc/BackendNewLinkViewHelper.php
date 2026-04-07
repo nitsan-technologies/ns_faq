@@ -16,7 +16,7 @@ class BackendNewLinkViewHelper extends AbstractViewHelper
      *
      * @return mixed
      */
-    public function initializeArguments()
+    public function initializeArguments(): void
     {
         $this->registerArgument('tableName', 'string', '', true);
         $this->registerArgument('identifier', 'integer', '', true);

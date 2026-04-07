@@ -1,0 +1,58 @@
+categories:
+  NsFaq:
+    label: 'NS Faq'
+
+  NsFaq.templates:
+    label: 'Template Paths'
+    parent: NsFaq
+
+  NsFaq.settings:
+    label: 'Configuration Settings'
+    parent: NsFaq
+
+
+settings:
+
+  ##################################################
+  # Template Paths
+  ##################################################
+
+  nsFaq.templateRootPath:
+    label: 'LLL:EXT:ns_faq/Resources/Private/Language/locallang_db.xlf:tx_ns_faq.templateRoot'
+    category: NsFaq.templates
+    type: string
+    default: 'EXT:ns_faq/Resources/Private/Templates/'
+
+  nsFaq.partialRootPath:
+    label: 'LLL:EXT:ns_faq/Resources/Private/Language/locallang_db.xlf:tx_ns_faq.templatePartials'
+    category: NsFaq.templates
+    type: string
+    default: 'EXT:ns_faq/Resources/Private/Partials/'
+
+  nsFaq.layoutRootPath:
+    label: 'LLL:EXT:ns_faq/Resources/Private/Language/locallang_db.xlf:tx_ns_faq.templateLayouts'
+    category: NsFaq.templates
+    type: string
+    default: 'EXT:ns_faq/Resources/Private/Layouts/'
+
+  ##################################################
+  # Main Configuration
+  ##################################################
+
+  nsFaq.includeJquery:
+    label: 'LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:tx_ns_faq.includejs'
+    category: NsFaq.settings
+    type: bool
+    default: false
+
+  nsFaq.customCSS:
+    label: 'LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:customCSS'
+    category: NsFaq.settings
+    type: string
+    default: ''
+
+  nsFaq.scrollToTop:
+    label: 'LLL:EXT:ns_faq/Resources/Private/Language/locallang.xlf:scrollToTop'
+    category: NsFaq.settings
+    type: bool
+    default: false

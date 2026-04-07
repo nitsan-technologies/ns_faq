@@ -1,7 +1,7 @@
 {
     "name": "nitsan/ns-faq",
     "type": "typo3-cms-extension",
-    "description": "The Ultimate FAQ TYPO3 Extension helps in managing Frequently Asked Questions easy and efficient for your TYPO3 website. With its user-friendly backend module, you can effortlessly add, customize, and style the FAQs. It's fully compatible with the latest TYPO3 Version *** Live Demo: https://demo.t3planet.com/t3t-extensions/faq/ *** Premium Version, Documentation & Free Support: https://t3planet.com/ns-faq-typo3-extension",
+    "description": "FAQ Manager for TYPO3 - The Ultimate FAQ TYPO3 Extension helps in managing Frequently Asked Questions easy and efficient for your TYPO3 website. With its user-friendly backend module, you can effortlessly add, customize, and style the FAQs. It's fully compatible with the latest TYPO3 Version *** Live Demo: https://demo.t3planet.com/t3t-extensions/faq/ *** Premium Version, Documentation & Free Support: https://t3planet.com/ns-faq-typo3-extension",
     "homepage": "https://t3planet.com/typo3-faq-extension",
     "license": "GPL-2.0+",
     "keywords": [
@@ -14,7 +14,7 @@
         "issues": "https://github.com/nitsan-technologies/ns_faq/issues"
     },
     "require": {
-      "typo3/cms-core": "^12 || ^13"
+      "typo3/cms-core": "12.4.37 || ^13 || ^14"
     },
     "autoload": {
         "psr-4": {

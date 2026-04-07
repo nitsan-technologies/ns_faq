@@ -1,19 +1,28 @@
 <?php
 
+defined('TYPO3') || die('Access denied');
 
 use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 
-defined('TYPO3') || die('Access denied');
-ExtensionUtility::registerPlugin(
+$ctypeKey = ExtensionUtility::registerPlugin(
     'NsFaq',
     'Faq',
     'FAQs',
-    '',
+    'ns_faq-plugin-faq',
     'plugins'
 );
 
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['nsfaq_faq'] = 'recursive,select_key';
+ExtensionManagementUtility::addToAllTCAtypes(
+    'tt_content',
+    '--div--;Configuration,pi_flexform,pages',
+    $ctypeKey,
+    'after:subheader',
+);
 
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['nsfaq_faq'] = 'pi_flexform';
-ExtensionManagementUtility::addPiFlexFormValue('nsfaq_faq', 'FILE:EXT:ns_faq/Configuration/FlexForm/NsFaq_flexForm.xml');
+// @extensionScannerIgnoreLine
+ExtensionManagementUtility::addPiFlexFormValue(
+    '*',
+    'FILE:EXT:ns_faq/Configuration/FlexForm/NsFaq_flexForm.xml',
+    $ctypeKey,
+);
