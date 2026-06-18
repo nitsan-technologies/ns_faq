@@ -54,15 +54,6 @@ page {
 }
 
 
-[globalVar = LIT:1 = {$plugin.tx_nsfaq_faq.basicSettings.general.includeJquery}]
-page {
-    includeJS {
-        JQuery = EXT:ns_faq/Resources/Public/JavaScript/frontend/jquery-3.4.1.min.js
-    }
-}
-[global]
-
-#Condition for the TYPO3 10 versions
 [{$plugin.tx_nsfaq_faq.basicSettings.general.includeJquery} == 1]
 page {
     includeJS {
