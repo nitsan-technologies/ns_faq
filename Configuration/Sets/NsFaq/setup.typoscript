@@ -26,15 +26,6 @@ plugin.tx_nsfaq_faq {
 }
 
 
-[globalVar = LIT:1 = {$nsFaq.includeJquery}]
-page {
-    includeJSFooterlibs {
-        nsfaqJQuery = EXT:ns_faq/Resources/Public/JavaScript/frontend/jquery-3.4.1.min.js
-    }
-}
-[global]
-
-#Condition for the TYPO3 10 versions
 [{$nsFaq.includeJquery} == 1]
 page {
     includeJS {
