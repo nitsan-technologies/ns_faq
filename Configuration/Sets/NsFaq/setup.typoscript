@@ -25,7 +25,6 @@ plugin.tx_nsfaq_faq {
     }
 }
 
-
 [{$nsFaq.includeJquery} == 1]
 page {
     includeJS {
