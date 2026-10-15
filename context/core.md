@@ -36,6 +36,9 @@ Bundled frontend libraries (no package manager): jQuery 3.4.1, Font Awesome, ani
 
 - No PHPUnit, PHPStan, CS fixer or package.json in the repo.
 - CI: `.github/workflows/ter-release.yml` only (publishes tags to TER with tailor on PHP 7.4).
+- `.gitattributes` export-ignores `.github/`, `.gitignore`, `AGENTS.md`, `CLAUDE.md`, `context/`, `tasks/` and
+  itself, so they are not in the GitHub/Composer archive or the TER package (the TER release uploads the GitHub tag
+  archive).
 - No Crowdin config; English only: `locallang.xlf` (frontend, constants, preview, premium strip),
   `locallang_db.xlf` (TCA, wizard), `locallang_flex.xlf` (FlexForm), `locallang_faq.xlf`,
   `locallang_faqconstants.xlf`, `BackendModule.xlf`, `locallang_csh_*.xlf`.
