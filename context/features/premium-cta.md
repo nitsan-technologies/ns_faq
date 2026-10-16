@@ -33,7 +33,7 @@ minimum stays TYPO3 12.4.37 (see `core.md`).
   `PageRenderer`. The preview template declares the `faq` namespace inline because it is rendered standalone.
 - Edit form: `ext_localconf.php` registers `Form\Resolver\PremiumStripFlexFormNoTabsContainerResolver` for node
   `flexFormNoTabsContainer`, priority **45** (taken: ns_news_comments 40, ns_event 41, ns_gallery 42,
-  ns_helpdesk 43, ns_social_login 44, ns_open_streetmap 46; duplicates make core throw). It matches `tt_content.pi_flexform` of
+  ns_helpdesk 43, ns_social_login 44, ns_open_streetmap 46, ns_comments 47, ns_timeline 48, ns_all_sliders 49; duplicates make core throw). It matches `tt_content.pi_flexform` of
   CType `nsfaq_faq` (or legacy `list` + `list_type=nsfaq_faq`), not inline children, and returns
   `Form\Container\PremiumStripFlexFormNoTabsContainer`, which prepends the strip and adds the stylesheet.
   If the FlexForm ever gets a second sheet, core switches to `flexFormTabsContainer` and the strip disappears
@@ -41,8 +41,8 @@ minimum stays TYPO3 12.4.37 (see `core.md`).
 
 ## Strip
 
-- Labels in `locallang.xlf`: `premium.strip.headline` "You're using the free version of NS FAQ",
-  `premium.strip.description` "Unlock premium features and get more out of NS FAQ.",
+- Labels in `locallang.xlf`: `premium.strip.headline` "You're using the free version of FAQ",
+  `premium.strip.description` "Unlock premium features and get more out of FAQ.",
   `premium.strip.trial` "Start Free Trial".
 - `Resources/Public/Css/backend-premium-strip.css`: `.ns-faq-premium-strip` — team-wide design (light-blue
   card `#e7f2fc`, border `#8eb6e8`, 4px `#2b6cb0` left accent, 6px radius, padding 14px 18px, `light-dark()`
